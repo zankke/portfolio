@@ -1,0 +1,31 @@
+{
+  "name": "my-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@devicon/react": "^0.0.3",
+    "framer-motion": "^12.23.24",
+    "next": "^16.0.5",
+    "next-seo": "^7.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-intersection-observer": "^10.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.22",
+    "baseline-browser-mapping": "^2.8.32",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.13"
+  }
+}
