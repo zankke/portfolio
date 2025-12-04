@@ -1,0 +1,113 @@
+
+> my-portfolio@1.0.0 dev
+> next dev
+
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.0.105:3000
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Ready in 378ms
+ GET / 200 in 1817ms (compile: 1783ms, render: 34ms)
+ GET / 200 in 89ms (compile: 7ms, render: 82ms)
+ GET / 200 in 96ms (compile: 30ms, render: 66ms)
+ ⚠ Cross origin request detected from 192.168.0.105 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+
+> my-portfolio@1.0.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 24812
+40848, using available port 3001 instead.
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3001
+   - Network:       http://192.168.0.105:3001
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ⨯ Unable to acquire lock at /Users/itsme/Documents/work/ai_portfolio/my-portfolio/.next/dev/lock, is another instance of next dev running?
+   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[?25h
+ GET / 200 in 89ms (compile: 25ms, render: 64ms)
+ GET / 200 in 168ms (compile: 84ms, render: 84ms)
+ GET / 200 in 99ms (compile: 26ms, render: 73ms)
+ GET / 200 in 153ms (compile: 64ms, render: 89ms)
+
+> my-portfolio@1.0.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 24812
+47659, using available port 3001 instead.
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3001
+   - Network:       http://192.168.0.105:3001
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ⨯ Unable to acquire lock at /Users/itsme/Documents/work/ai_portfolio/my-portfolio/.next/dev/lock, is another instance of next dev running?
+   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[?25h
+
+> my-portfolio@1.0.0 dev
+> next dev
+
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.0.105:3000
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Ready in 416ms
+
+> my-portfolio@1.0.0 dev
+> next dev
+
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.0.100:3000
+
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Ready in 789.4s
+ ○ Compiling / ...
+ GET / 200 in 89ms (compile: 14ms, render: 75ms)
+ ✓ Compiled in 153ms
+ ✓ Compiled in 51ms
+ ✓ Compiled in 63ms
+ ✓ Compiled in 58ms
+ ✓ Compiled in 80ms
+ ✓ Compiled in 64ms
+ ✓ Compiled in 58ms
+ ✓ Compiled in 248ms
+ ✓ Compiled in 116ms
+ ✓ Compiled in 218ms
+ ✓ Compiled in 825ms
+ GET / 200 in 1630ms (compile: 1574ms, render: 56ms)
+ GET / 200 in 156ms (compile: 96ms, render: 59ms)
+ GET / 200 in 118ms (compile: 54ms, render: 64ms)
+ GET / 200 in 87ms (compile: 7ms, render: 80ms)
+ GET /.well-known/security.txt 404 in 489ms (compile: 484ms, render: 5ms)
+ GET / 200 in 326ms (compile: 188ms, render: 137ms)
+ GET / 200 in 112ms (compile: 50ms, render: 62ms)
+ ⚠ Cross origin request detected from 192.168.0.100 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 111ms (compile: 52ms, render: 59ms)
+ GET / 200 in 82ms (compile: 16ms, render: 67ms)
+ GET / 200 in 83ms (compile: 9ms, render: 73ms)
+ GET / 200 in 83ms (compile: 6ms, render: 77ms)
+ ⚠ Cross origin request detected from 221.151.133.70 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 88ms (compile: 6ms, render: 82ms)
+ GET / 200 in 87ms (compile: 9ms, render: 79ms)
+ GET / 200 in 95ms (compile: 14ms, render: 81ms)
+ GET / 200 in 85ms (compile: 6ms, render: 79ms)
+ GET / 200 in 87ms (compile: 7ms, render: 81ms)
+ GET / 200 in 100ms (compile: 23ms, render: 76ms)
+ GET / 200 in 96ms (compile: 19ms, render: 77ms)
+ GET / 200 in 86ms (compile: 7ms, render: 80ms)
