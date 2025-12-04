@@ -40,14 +40,14 @@ export default function Certification() {
             onClick={() => setShowOriginal(true)}
             title="클릭 시 원본 보기"
           >
-            <Image
+            {/* <Image
               src="/images/Certification_LEE_SANGHOON.JPEG"
               alt="정보처리기사 (한국산업인력공단)"
               width={170}
               height={120}
               className="object-contain transition-transform duration-200 group-hover:scale-105"
               style={{ objectFit: 'contain' }}
-            />
+            /> */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-80 bg-black/60 transition-opacity duration-200 text-white font-semibold text-sm pointer-events-none select-none">
               원본 이미지 보기
             </div>
