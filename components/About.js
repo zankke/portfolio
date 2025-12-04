@@ -164,6 +164,8 @@ export default function About() {
           {/* Future Goals Section */}
           <h3 className="text-2xl font-semibold text-white mb-4 mt-12 text-center">향후 목표</h3>
           <ul className="list-disc list-inside text-md text-gray-400 leading-relaxed pl-4">
+            <li>[Media Studio] Video Generation for Commerial Ads 완전 자동화 시스템 개발(Demo 가능)</li>
+            <li>Marketing Ageny를 위한 컨텐츠 생성 자동화 시스템 개발(진행 중)</li>
             <li>LLM 기반 데이터 분석 & 시각화 자동화 역량 확장</li>
             <li>B2B SaaS 시스템의 고도화 및 AI Ops 통합 추진</li>
             <li>산업별 맞춤형 AI 플랫폼 컨설팅 및 고도화 지원</li>
