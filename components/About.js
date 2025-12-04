@@ -27,7 +27,7 @@ export default function About() {
     {
       year: "2015~2018",
       title: "CJ E&M – 글로벌 디지털 스폰서십 및 미디어 솔루션",
-      description: "글로벌 시장을 위한 디지털 스폰서십 전략 수립 및 미디어 솔루션 개발.",
+      description: "Music Festival 및 IP(KCON, MAMA, MCountdown, tvN)기반, 디지털 스폰서십 패키지 기획/Global Sales(APAC), 미디어 솔루션 개발.",
     },
     {
       year: "2009~2015",
