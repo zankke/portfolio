@@ -2,7 +2,7 @@ const allProjects = [
     {
       title: "AI Video Generation Framework",
       tech: "Python, Node.js, REST API, JSON Pipeline",
-      desc: "AI 영상 자동 생성 플랫폼 기획 및 설계. 콘텐츠 제작 효율 60% ↑",
+      desc: "8단계 AI 영상 자동 생성 Framework 기획/설계/개발. 콘텐츠 제작 효율 60% ↑",
       image: "/images/prjAI_Video_Framework.png",
       longDesc: `
         **핵심 역할:** AI 영상 자동 생성 플랫폼 기획 및 설계
