@@ -70,7 +70,7 @@ export default function Contact() {
 
         {/* Email Copy Section */}
         <div className="flex items-center justify-center mb-12">
-          <p className="text-xl">Email: <a href="mailto:itsme@sfai.im" className="text-blue-400 hover:underline mr-2">itsme@sfai.im</a></p>
+          <p className="text-xl">Email: <a href="mailto:itsme.kevin@icloud.com" className="text-blue-400 hover:underline mr-2">itsme.kevin@icloud.com</a></p>
           <button
             onClick={handleCopyEmail}
             className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200 text-sm"
