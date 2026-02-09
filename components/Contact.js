@@ -23,7 +23,7 @@ export default function Contact() {
 
   const handleCopyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('itsme@sfai.im');
+      await navigator.clipboard.writeText('itsme.kevin@icloud.com');
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
