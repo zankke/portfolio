@@ -23,7 +23,7 @@ const allProjects = [
       `,
       category: 'AI',
     },
-    {
+/*     {
       title: "[MyouV] Kpop + AI Platform",
       tech: "RockyLinux, Nginx, React+Bite, FastAPI Backend, MySQL, Google Veo3 API, Docker, github, Google Cloud Run CI/CD,",
       desc: "Kpop Music 활용, Longform Video 생성 & Fandom Community 공유 플랫폼",
@@ -33,7 +33,7 @@ const allProjects = [
         **주요 성과:** SeriesA 투자 유치 성공
       `,
       category: 'Web, PWA'
-    },
+    }, */
     {
       title: "Edge&Next 의료정보 통합 플랫폼",
       tech: "CentOS, Apache2, Nginx, PHP 7.4, EMR 연동, React",
