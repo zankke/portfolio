@@ -75,11 +75,11 @@ export default function About() {
               Google API, n8n, JSON Workflow 등으로 <span className="font-bold text-green-400">마케팅 업무 및 SNS 자동화 파이프라인</span> 구축, 
               <span className="font-bold text-green-400">팀 업무시간 70% 단축</span>.
             </li>
-            <li>
-              <span className="font-semibold text-blue-300">엔터테인먼트 & 음악+AI 플랫폼:</span>
+            {/* <li>
+              <span className="font-semibold text-blue-300">Media Studio:</span>
               Kpop+AI 플랫폼(<span className="font-bold">MyouV</span>) 개발 리딩 및 
               <span className="font-bold text-green-400">Startup SeriesA 투자유치 성공</span>.
-            </li>
+            </li> */}
             <li>
               <span className="font-semibold text-blue-300">전사 IT 시스템 고도화:</span> 
               대기업/공공기관 ERP, LMS, 고객 플랫폼, 광고 플랫폼 등 다수의
