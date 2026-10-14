@@ -3,38 +3,32 @@ import About from "../components/About";
 import Projects from "../components/Projects";
 import Skills from "../components/Skills";
 import Contact from "../components/Contact";
-import ThemeToggle from "../components/ThemeToggle";
 import Navbar from "../components/Navbar";
+import Reel from "../components/Reel";
 import { generateNextSeo } from 'next-seo/pages';
 import Head from 'next/head';
-import ScrollToTopButton from "../components/ScrollToTopButton"; // Import ScrollToTopButton
-import Certification from "../components/Certification";
+
+// Vercel exposes the production domain to Next.js builds; local builds fall back to relative URLs.
+const SITE = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+  : '';
+const TITLE = '이상훈 | Full Stack AI Developer, AI Platform Director';
+const DESCRIPTION = 'AI 서비스를 기획하고 만들고, GPU 서버에서 직접 운영합니다. ai.marketlink.co.kr에서 21개 서비스를 운영 중입니다.';
 
 export default function Home() {
   const seoTags = generateNextSeo({
-    title: "SANG HOON, LEE - Full Stack AI Developer | AI Platform Director",
-    description: "AI 기술로 비즈니스 자동화를 설계하고, 데이터 기반 서비스를 구현합니다. Data와 AI기술을 잘 쓰고 싶은 회사들에 컨설팅을 합니다. Commerce와 Marketing에 적용되는 여러 AI 서비스룰 만들고 있습니다. 기술과 비즈니스의 교차점에서 가치를 창출하는 데 열정적입니다..",
-    canonical: "https://github.com/zankke", // Replace with your actual website URL
+    title: TITLE,
+    description: DESCRIPTION,
+    ...(SITE && { canonical: `${SITE}/` }),
     openGraph: {
-      url: 'https://github.com/zankke', // Replace with your actual website URL
-      title: 'SANG HOON, LEE - Full Stack AI Developer | AI Platform Director',
-      description: 'AI 기술로 비즈니스 자동화를 설계하고, 데이터 기반 서비스를 구현합니다. Data와 AI기술을 잘 쓰고 싶은 회사들에 컨설팅을 합니다. Commerce와 Marketing에 적용되는 여러 AI 서비스룰 만들고 있습니다. 기술과 비즈니스의 교차점에서 가치를 창출하는 데 열정적입니다.',
-      images: [
-        {
-          url: 'https://v1.myouv.com/assets/images/Simg_250714_05:39:31.png', // Using a placeholder image from picsum.photos
-          width: 800,
-          height: 600,
-          alt: '이상훈 Profile Picture',
-          type: 'image/jpeg',
-        },
-      ],
-      site_name: '이상훈 Portfolio',
+      ...(SITE && { url: `${SITE}/` }),
+      title: TITLE,
+      description: DESCRIPTION,
+      images: [{ url: `${SITE}/og.png`, width: 1200, height: 630, alt: '이상훈과 ai.marketlink.co.kr 서비스 노선도', type: 'image/png' }],
+      site_name: '이상훈 포트폴리오',
+      locale: 'ko_KR',
     },
-    twitter: {
-      handle: '@yourtwitterhandle', // Replace with your Twitter handle
-      site: '@yourtwitterhandle', // Replace with your Twitter site
-      cardType: 'summary_large_image',
-    },
+    twitter: { cardType: 'summary_large_image' },
   });
 
   return (
@@ -43,14 +37,15 @@ export default function Home() {
         {seoTags}
       </Head>
       <Navbar />
-      <ThemeToggle />
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Certification /> {/* Add the Certification component */}
-      <Contact />
-      <ScrollToTopButton /> {/* Add the ScrollToTopButton */}
+      <main>
+        <Hero />
+        <Reel />
+        <Projects />
+        <About />
+        <Skills />
+        <Contact />
+      </main>
+      <footer className="wrap foot">© 2026 이상훈. ai.marketlink.co.kr의 모든 서비스는 직접 설계하고 운영합니다.</footer>
     </>
   );
 }

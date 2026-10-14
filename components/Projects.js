@@ -1,191 +1,182 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { allProjects } from '../components/projectData';
+import { allProjects, stations, lines, stationId } from './projectData';
+
+// longDesc is "**label:** text" lines with "*   bullet" continuations -> [{label, text}]
+function facts(longDesc) {
+  const out = [];
+  for (const raw of longDesc.split('\n')) {
+    const l = raw.trim();
+    if (!l) continue;
+    const m = l.match(/^\*\*(.+?):?\*\*:?\s*(.*)$/);
+    if (m) out.push({ label: m[1].replace(/^#\s*/, ''), text: m[2] });
+    else if (out.length) out[out.length - 1].text += (out[out.length - 1].text ? '\n' : '') + l.replace(/^\*\s+/, '· ');
+    else out.push({ label: '', text: l });
+  }
+  return out;
+}
+
+const SITE = 'https://ai.marketlink.co.kr';
+// Path routes are public under the domain; port-only routes (:8080, :8434) are internal.
+const liveUrl = (route) => (route.startsWith('/') ? `${SITE}${route}/` : null);
+const same = (a, b) => a && b && a.replace(/\/$/, '') === b.replace(/\/$/, '');
+
+function Media({ p, plate }) {
+  if (p.video) {
+    return (
+      <video controls playsInline preload="none" poster={p.video.poster}>
+        <source src={p.video.src} type="video/mp4" />
+        {p.video.captions && <track kind="captions" srcLang="ko" label="한국어" src={p.video.captions} default />}
+      </video>
+    );
+  }
+  if (p.image) {
+    return <Image src={p.image} alt={`${p.title} 화면`} fill sizes="(max-width: 900px) 100vw, 680px" style={{ objectFit: 'cover', objectPosition: 'top' }} />;
+  }
+  // No screenshot on record: show the station sign instead of borrowing someone else's picture.
+  return <div className="st-plate" aria-hidden="true">{plate}</div>;
+}
+
+function Detail({ p, live, plate }) {
+  const items = p.facts ? p.facts.map(([label, text]) => ({ label, text })) : facts(p.longDesc);
+  return (
+    <div className="st-detail">
+      <div>
+        <div className="st-detail-in">
+          <div className="st-media">
+            <Media p={p} plate={plate} />
+          </div>
+          <div>
+            <ul className="st-facts">
+              {items.map((f, i) => (
+                <li key={i}>
+                  {f.label && <b>{f.label}</b>}
+                  <span style={{ whiteSpace: 'pre-line' }}>{f.text}</span>
+                </li>
+              ))}
+            </ul>
+            {p.tech && <p className="st-stack">{p.tech}</p>}
+            <p className="st-links">
+              {live && <a className="st-link" href={live} target="_blank" rel="noopener noreferrer">서비스 열기</a>}
+              {p.link && !same(p.link, live) && (
+                <a className="st-link" href={p.link} target="_blank" rel="noopener noreferrer">
+                  {(p.linkLabel || '자세한 문서 보기').replace(/\s*↗$/, '')}
+                </a>
+              )}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Row({ id, label, name, summary, project, live, open, toggle }) {
+  const body = (
+    <>
+      <span className="st-dot" aria-hidden="true" />
+      <span className="st-route">{label}</span>
+      <span className="st-body">
+        <span className="st-name">{name}</span>
+        <span className="st-sum">{summary}</span>
+      </span>
+      {project ? <span className="st-more">{open ? '접기' : '자세히'}</span> : <span />}
+    </>
+  );
+  return (
+    <li id={id} className={`st ${open ? 'open' : ''}`}>
+      {project ? (
+        <button className="st-row" aria-expanded={open} aria-controls={`${id}-d`} onClick={() => toggle(id)}>
+          {body}
+        </button>
+      ) : (
+        <div className="st-row">{body}</div>
+      )}
+      {project && (
+        <div id={`${id}-d`} aria-hidden={!open}>
+          <Detail p={project} live={live} plate={label} />
+        </div>
+      )}
+    </li>
+  );
+}
+
+const byTitle = Object.fromEntries(allProjects.map((p) => [p.title, p]));
+const linked = new Set(stations.map((s) => s.project).filter(Boolean));
+const archive = allProjects.filter((p) => !linked.has(p.title));
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filter, setFilter] = useState('All');
-  const [showOriginalImage, setShowOriginalImage] = useState(false);
-
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+  const [open, setOpen] = useState(() => new Set());
+  const toggle = (id) => setOpen((o) => {
+    const n = new Set(o);
+    n.has(id) ? n.delete(id) : n.add(id);
+    return n;
   });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-
-
-  const filteredProjects = allProjects.filter(project =>
-    filter === 'All' ? true : project.category === filter
-  );
-
-  const openModal = (project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-  };
+  // A station clicked on the map arrives as #st-...: open that row.
+  useEffect(() => {
+    const sync = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (id) setOpen((o) => new Set(o).add(id));
+    };
+    sync();
+    window.addEventListener('hashchange', sync);
+    return () => window.removeEventListener('hashchange', sync);
+  }, []);
 
   return (
-    <section id="projects" className="bg-gray-900 py-16 px-4 text-white dark:bg-gray-800">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-12"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Projects
-        </motion.h2>
-
-        {/* Filter Buttons */}
-        <div className="flex justify-center space-x-4 mb-8">
-          {['All', 'AI', 'Web', 'Automation'].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`px-6 py-2 rounded-full font-semibold transition-colors duration-300
-                ${filter === cat ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
-            >
-              {cat}
-            </button>
+    <>
+      <section id="services" className="wrap sec">
+        <h2 className="sec-h">운영 중인 서비스</h2>
+        <p className="sec-lede">
+          ai.marketlink.co.kr 아래 경로마다 서비스가 하나씩 있습니다. 노선 색은 그 서비스가 돌아가는 서버를 뜻합니다.
+          기록이 남아 있는 서비스는 눌러서 자세히 볼 수 있습니다.
+        </p>
+        <div className="lineset">
+          {Object.entries(lines).map(([k, l]) => (
+            <div key={k} style={{ '--c': l.color }}>
+              <div className="line-head">
+                <span className="line-badge">{l.name}</span>
+                <span className="line-note">{l.note}</span>
+              </div>
+              <ol className="stations">
+                {stations.filter((s) => s.line === k).map((s) => (
+                  <Row
+                    key={s.route}
+                    id={stationId(s)}
+                    label={s.route}
+                    name={s.name}
+                    summary={s.summary}
+                    project={byTitle[s.project] ?? (s.detail && { title: s.name, ...s.detail })}
+                    live={liveUrl(s.route)}
+                    open={open.has(stationId(s))}
+                    toggle={toggle}
+                  />
+                ))}
+              </ol>
+            </div>
           ))}
         </div>
+      </section>
 
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {filteredProjects.map((p, i) => (
-            <motion.div
-              key={i}
-              variants={itemVariants}
-              className="relative bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 flex flex-col border border-gray-700"
-            >
-              <div className="relative h-48 w-full mb-4 rounded-md overflow-hidden">
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  fill
-                  className="object-cover"
-                  style={{ opacity: 0.3 }}
-                />
-              </div>
-              <h3 className="text-2xl font-semibold mb-2">{p.title}</h3>
-              <p className="text-gray-400 text-md flex-grow">{p.desc}</p>
-              <p className="text-blue-400 text-sm mt-4">{p.tech}</p>
-              <button
-                onClick={() => openModal(p)}
-                className="mt-6 self-start text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center"
-              >
-                🔗 자세히 보기
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 ml-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
-              </button>
-            </motion.div>
+      <section id="work" className="wrap sec" style={{ '--c': 'var(--line-past)' }}>
+        <h2 className="sec-h">이전 프로젝트</h2>
+        <p className="sec-lede">지금의 플랫폼 이전에 회사와 고객사에서 만든 시스템입니다.</p>
+        <ol className="stations lineset">
+          {archive.map((p, i) => (
+            <Row
+              key={p.title}
+              id={`work-${i}`}
+              label={p.category}
+              name={p.title}
+              summary={p.desc}
+              project={p}
+              open={open.has(`work-${i}`)}
+              toggle={toggle}
+            />
           ))}
-        </motion.div>
-
-        {/* Project Detail Modal */}
-        {isModalOpen && selectedProject && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-800 p-8 rounded-lg shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
-              <button
-                onClick={closeModal}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl leading-none"
-              >
-                &times;
-              </button>
-              {selectedProject.image && (
-                <>
-                  <div
-                    className="relative h-60 w-full mb-6 rounded-md overflow-hidden group cursor-pointer"
-                    onClick={() => setShowOriginalImage(true)}
-                  >
-                    <Image
-                      src={selectedProject.image}
-                      alt={selectedProject.title}
-                      fill
-                      className="object-cover filter grayscale transition-opacity duration-300 group-hover:opacity-30"
-                      style={{ opacity: 1 }}
-                    />
-                    <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-80 transition-opacity duration-300 text-white text-lg font-bold pointer-events-none select-none">
-                      원본 이미지 보기
-                    </span>
-                  </div>
-                  {showOriginalImage && (
-                    <div
-                      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
-                      onClick={() => setShowOriginalImage(false)}
-                    >
-                      <div className="relative max-w-3xl w-full">
-                        <button
-                          className="absolute top-3 right-3 text-white text-3xl z-10"
-                          onClick={e => {
-                            e.stopPropagation();
-                            setShowOriginalImage(false);
-                          }}
-                        >
-                          &times;
-                        </button>
-                        <div className="rounded-lg overflow-hidden">
-                          <Image
-                            src={selectedProject.image}
-                            alt={selectedProject.title}
-                            fill
-                            className="object-contain bg-black"
-                            style={{ opacity: 1, filter: 'none' }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-              <h3 className="text-3xl font-bold text-white mb-3">{selectedProject.title}</h3>
-              <p className="text-blue-400 text-lg mb-4">{selectedProject.tech}</p>
-              <p className="text-gray-300 whitespace-pre-line leading-relaxed">
-                {selectedProject.longDesc}
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
+        </ol>
+      </section>
+    </>
   );
 }
