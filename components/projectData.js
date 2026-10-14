@@ -56,17 +56,20 @@ const allProjects = [
       category: 'AI',
     },
     {
-      title: "롯데웰푸드 SKU 속성 자동 정제 솔루션",
-      tech: "Python, Google Custom Search · Naver Shopping API, RapidFuzz, openpyxl, Chart.js · Mermaid",
-      desc: "SKU 11,461개를 바코드 디코딩 · 검색 · 퍼지매칭으로 속성 자동 정제, 미충족 건은 HITL로 이관",
+      title: "Lotte웰푸드 EAV System",
+      tech: "Python, MySQL 8 (EAV), SQLAlchemy, pandas, RapidFuzz, EasyOCR, Playwright, Google · Naver 검색 API, openpyxl",
+      desc: "제과 · 제빵 18개 카테고리 507,658셀의 속성을 정제하고, 평균 신뢰도 0.875로 계약 기준(0.85)을 넘겼습니다.",
       image: "/images/prjLotteSKU.jpg",
+      link: "https://ai.marketlink.co.kr/lotte/v2/dashboard.html",
+      linkLabel: "QC 대시보드 보기",
       longDesc: `
-        **핵심 역할:** 솔루션 설계 · 개발 100% 단독 수행
-        **바코드 디코딩:** KS 규칙 (880-9 → 6자리, 880-61 → 5자리, 기타 4자리) + 제조사 코드 752개 매핑
-        **검색:** SKU당 5개 쿼리, Google Custom Search 우선 · Naver Shopping 폴백, 캐시 + 레이트리밋
-        **속성 추출:** HW 11종 · 패키징 9종 · 맛 12종 키워드 사전, RapidFuzz 유사도 80% 이상 확정
-        **검증 · 출력:** 허용값 교차 검증, 조건부 서식 · 필터 · 고정창 적용 엑셀 자동 생성
-        **반복 · HITL:** 목표 미달 시 최대 5회 반복, 미채움 SKU는 CSV로 이관 · 6,442셀 자동 정제
+        **핵심 역할:** 기획 · 설계 · 개발 · 운영 100% 단독 수행
+        **규모:** 마스터 55,546행, 정제 대상 SKU 53,102행, 납품 SKU 44,836행, 18개 카테고리(스낵, 비스킷, 캔디, 젤리, 초코, 빵 등), 정제 셀 507,658개
+        **정제 방식:** 결정론 규칙, 공공 DB(식약처 등), 이미지 OCR, 검색 · LLM 순서로 근거를 쌓고 셀마다 출처와 신뢰도를 기록합니다.
+        **품질:** 신뢰도 0.85 이상인 AI 확정 73.9%(375,232셀), 나머지 26.1%는 사람 검수 큐로 보냅니다. 평균 신뢰도 0.875로 계약 기준 0.85를 충족합니다.
+        **검수:** 검수자가 대시보드에서 바로 확정하거나 고치고, AI 확정분의 약 1.5%는 블라인드 표본으로 다시 검수합니다.
+        **데이터 원칙:** 원본 원장과 이미지는 바꾸지 않고, 모든 결과를 근거 태그와 함께 따로 저장해 되돌릴 수 있습니다. 납품, 사내 검수, 참조 스키마를 분리했습니다.
+        **운영:** 매일 정해진 시각에 MySQL 스냅샷으로 대시보드를 갱신하고 버전을 보존하며, 납품용 엑셀을 자동으로 만듭니다.
       `,
       category: 'Automation',
     },
@@ -79,7 +82,7 @@ const allProjects = [
         **핵심 역할:** 클러스터 구축 · 게이트웨이 설계 · 서비스 개발 100% 단독 수행
         **인프라:** NVIDIA DGX Spark 2노드 (GB10, 128GB 통합 메모리), 단일 공개 도메인 HTTPS 게이트웨이 (Let's Encrypt, 보안 헤더), 경로 기반 서비스 라우팅
         **LLM 추론 게이트웨이:** Ollama 2노드 로드밸런싱 (random two least_conn), GPU 동시성 상한(포화 시 503), 헬스체크
-        **자체 개발 서비스 (21):** SOSOP, AI 패널 설문 에이전트, OpenShorts, AI Studio, DataLink, OCR 대시보드, 롯데 SKU 정제, Meatlink AI Hub, CategoryMaster Agents, 농협 주류 매출분석 포털, PMS, Sales Lead Monitor, 사업자정보 조회, 수산물 챗봇, Kiosk MBTI, Builder, 친환경 제품 리서치 대시보드 외
+        **자체 개발 서비스 (21):** SOSOP, AI 패널 설문 에이전트, OpenShorts, AI Studio, DataLink, OCR 대시보드, Lotte웰푸드 EAV System, Meatlink AI Hub, CategoryMaster Agents, 농협 주류 매출분석 포털, PMS, Sales Lead Monitor, 사업자정보 조회, 수산물 챗봇, Kiosk MBTI, Builder, 친환경 제품 리서치 대시보드 외
         **오픈소스 도입 · 운영:** Open WebUI(RAG 챗봇), Mattermost, Termix, GoAccess
         **운영:** GoAccess 트래픽 리포트, 서비스별 로그 분리, 내부 전용 서비스 비공개 전환
       `,
@@ -263,13 +266,13 @@ const allProjects = [
   const stations = [
     { route: '/lv10', line: 'dgx1', name: 'AI 패널 설문 에이전트', summary: 'LLM 페르소나가 브라우저를 직접 조작해 웹 설문에 응답합니다.', project: 'AI 패널 설문 에이전트 (LV10)' },
     { route: '/shorts', line: 'dgx1', name: 'OpenShorts', summary: '긴 영상을 바이럴 숏폼으로 잘라 주는 구독형 SaaS입니다.', project: '[SnapShorts] OpenShorts AI 숏폼 SaaS' },
-    { route: '/lotte', line: 'dgx1', name: '롯데웰푸드 SKU 정제', summary: '상품 11,461개의 속성을 검색과 퍼지 매칭으로 채웁니다.', project: '롯데웰푸드 SKU 속성 자동 정제 솔루션' },
+    { route: '/lotte', line: 'dgx1', name: 'Lotte웰푸드 EAV System', live: 'https://ai.marketlink.co.kr/lotte/v2/dashboard.html', summary: '제과 · 제빵 상품 507,658셀의 속성을 정제하고 검수합니다.', project: 'Lotte웰푸드 EAV System' },
     { route: '/ocr', line: 'dgx1', name: '영수증 OCR', summary: '영수증 62,140건에서 상품 단위 구매 데이터를 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4), Next.js 15, React 19', facts: [['개요', '영수증 이미지에서 상품 단위 구매 데이터를 뽑아내는 배치 파이프라인과 검수 대시보드입니다.'], ['파이프라인', 'PaddleOCR(CPU) 스윕 → Ollama gemma4 텍스트 파싱 → 카테고리 분류 → 12컬럼 엑셀 리포트 → Next.js 검수 대시보드'], ['처리 규모', '영수증 62,140건 중 61,827건(99.5%)을 4일 만에 수록했습니다.'], ['운영', '단계별 결과를 파일로 남겨 중단해도 같은 명령으로 이어서 실행합니다.']] } },
     { route: '/biz', line: 'dgx1', name: '사업자정보 조회', summary: '사업자번호로 사업자 정보를 찾아 줍니다.', detail: { tech: 'React, Vite, Node.js, Gemini API', facts: [['개요', '상호명이나 사업자번호로 사업자 정보를 찾아 줍니다.'], ['구현', 'Gemini API로 검색 결과를 정리하고, 조회 결과를 캐시해 같은 요청을 다시 보내지 않습니다.']] } },
     { route: '/fish', line: 'dgx1', name: '수산물 챗봇', summary: '해양수산부 수산물 정보를 답하는 챗봇입니다.', detail: { tech: 'Python, Streamlit, Ollama (EXAONE 3.5 7.8B), GraphRAG', facts: [['개요', '수산물 데이터를 LLM과 GraphRAG로 묻고 답하는 챗봇입니다. 질문하면 차트와 설명을 함께 돌려줍니다.'], ['로컬 실행', '외부 API 없이 로컬 EXAONE 3.5 모델로 동작하고, 데이터와 코드를 폴더 하나로 묶어 Mac mini에서도 시연합니다.']] } },
     { route: '/sales', line: 'dgx1', name: 'Sales Lead Monitor', summary: '영업 리드를 한 화면에서 추적하는 대시보드입니다.', detail: { image: '/images/stations/sales.jpg', tech: 'React, Vite, Tailwind CSS 4, Python 크롤러', facts: [['개요', '정부·공공기관 지원사업 공고를 모아 영업 리드로 관리하는 대시보드입니다.'], ['수집', 'K-Startup, 기업마당, NIPA, KOCCA, SMTECH의 모집 공고를 키워드 대신 전수로 수집해 제목을 모두 검토합니다.'], ['분류', 'A/B/C 우선순위와 마감 임박(3일 이내)을 표시하고, 재조사 때는 신규·변경·종료 공고만 갱신합니다.'], ['접근성', 'WCAG 2.2 AA 기준으로 색만으로 상태를 전달하지 않습니다.']] } },
     { route: '/kiosk', line: 'dgx1', name: 'Kiosk MBTI', summary: '매장 키오스크에서 하는 MBTI 체험 앱입니다.', detail: { image: '/images/stations/kiosk.jpg', tech: 'React, FastAPI, MySQL 8, Docker, Nginx', facts: [['개요', '키오스크에서 설문에 답하면 MBTI 16유형으로 분류하고 유형별 설명을 보여 줍니다.'], ['현장', 'CES 2026 라이브 데모로 운영했고, 6개 언어(한국어, 영어, 중국어, 일본어, 스페인어, 러시아어)를 지원합니다.'], ['개인정보', '세션 UUID만 저장하고 개인을 식별하는 정보는 모으지 않습니다.']] } },
-    { route: '/builder', line: 'dgx1', name: 'SurveyBuilder', summary: '한국어 설문지 표기를 읽어 설문 화면과 리포트를 만듭니다.', detail: { image: '/images/stations/builder.jpg', tech: 'Next.js, TypeScript', facts: [['개요', '한국어 설문지 표기 규칙을 해석해 응답 화면과 리포트를 만드는 설문 빌더 에이전트입니다.'], ['규칙', '18종 모듈을 정의하고, 파서·리포트·응답 화면이 같은 규칙 문서를 따르도록 맞췄습니다.'], ['운영', '실제 설문 3건이 이 빌더로 운영되고 있습니다.']] } },
+    { route: '/builder', line: 'dgx1', name: 'SurveyBuilder', summary: 'docx, hwp 설문지를 올리면 AI가 웹 설문으로 바로 만들어 줍니다.', live: 'https://ai.marketlink.co.kr/builder', detail: { image: '/images/stations/builder.jpg', tech: 'Next.js, TypeScript, LLM 문서 분석', facts: [['개요', '문서 한 장으로 완성하는 설문 빌더 SaaS(v2.0)입니다. docx나 hwp 설문지를 올리면 AI가 분석해 웹 설문으로 셋업합니다.'], ['자동 구성', '웹 화면 구성, 분기와 스킵 조건, 수집 쿼터를 한 번에 설정합니다.'], ['규칙', '한국어 설문지 표기 규칙과 18종 모듈을 정의하고, 파서와 리포트, 응답 화면이 같은 규칙 문서를 따르도록 맞췄습니다.'], ['운영', '실제 설문 3건이 이 빌더로 운영되고 있습니다.']] } },
     { route: '/ssm', line: 'dgx1', name: 'SSM Intelligence', summary: '카드사 빅데이터 349만 건으로 소형 슈퍼마켓 시장을 분석합니다.', detail: { image: '/images/stations/ssm.jpg', tech: 'Python, ECharts, Node.js, 로그인 인증', facts: [['개요', '카드사 빅데이터로 소형 슈퍼마켓 시장을 분석하는 SSM Intelligence Platform입니다.'], ['데이터', '카드사 6곳, 18개월(2025.01~2026.06), 349만 건, 가맹점 224,061곳의 거래를 집계했습니다.'], ['구성', '시장 대시보드, 브랜드 분석 리포트, AI 어시스턴트, 트렌드를 하나의 허브로 묶었습니다.']] } },
     { route: '/contacts', line: 'dgx1', name: '사내 주소록', summary: '마켓링크 구성원 연락처를 찾습니다.', detail: { facts: [['개요', '마켓링크 구성원 연락처를 찾는 사내 주소록입니다.']] } },
     { route: ':8080', line: 'dgx1', name: '클러스터 대시보드', summary: 'DGX 두 대의 상태를 한 화면에 보여 줍니다.', project: 'MARKETLINK-AX 온프레미스 AI 플랫폼 (NVIDIA DGX Spark ×2)' },
@@ -279,7 +282,7 @@ const allProjects = [
     { route: '/research', line: 'dgx2', name: '친환경 제품 리서치', summary: '친환경 제품 조사 결과를 보는 대시보드입니다.', detail: { tech: 'Python, MySQL, Redis, Docker', facts: [['개요', 'SNS, 커뮤니티, 온라인몰 리뷰에서 친환경농산물에 대한 소비자 인식과 구매 경험을 분석합니다.']] } },
     { route: '/meatlink', line: 'dgx2', name: 'Meatlink AI Hub', summary: '축산물 구매 사진에서 18개 항목을 자동으로 판독합니다.', detail: { image: '/images/stations/meatlink.jpg', tech: 'React, FastAPI, MySQL, Docker, Ollama (로컬 비전 LLM)', facts: [['개요', '축산물 구매 사진을 자동으로 판독하고 메타데이터를 실시간으로 검수하는 SaaS입니다.'], ['판독', '영수증과 라벨 사진 1,370쌍(2,740장)에서 구매일, 부위, 등급, 원산지, 가격 등 18개 항목을 사진 1장당 0.3초에 추출합니다.'], ['검증', '정부 할인행사(농할대전 등)를 따로 분리하고, 축산물 이력제(mtrace)와 연동해 실시간으로 확인합니다.']] } },
     { route: '/master', line: 'dgx2', name: 'CategoryMaster Agents', summary: '카테고리 마스터 데이터를 정리하는 에이전트입니다.', detail: { image: '/images/stations/master.jpg', tech: 'FastAPI, SQLAlchemy, MySQL 8, React, Vite, TypeScript, Caddy', facts: [['개요', '바코드로 상품의 카테고리와 제조사를 분류하는 AI 파이프라인입니다. 엑셀로 하던 수작업을 대신합니다.'], ['분류 방식', '저렴하고 믿을 만한 조회부터 LLM까지 순서대로 시도하고, 신뢰도가 낮은 결과는 사람이 검수하도록 넘깁니다.'], ['학습', '검수에서 고친 결과를 다시 반영해 갈수록 LLM을 덜 씁니다. 배치 진행 상황을 실시간으로 보여 주고 중단할 수 있습니다.'], ['품질', '백엔드 테스트 273개, 프런트엔드 테스트 75개가 통과합니다.']] } },
-    { route: '/nh', line: 'dgx2', name: '농협 주류 매출분석', summary: '협력사별 주류 매출을 분석하는 포털입니다.', detail: { image: '/images/stations/nh.jpg', tech: 'Next.js 16, MySQL 8, systemd', facts: [['개요', '농협 주류 협력사의 매출을 분석하는 포털입니다.'], ['기능', '카테고리·상품별 매출, 실시간 판매 데이터, 주류 뉴스와 통계, 월간 Retail Spotlight 리포트를 제공합니다.'], ['배포', '배포 스크립트가 백업, 빌드, 재시작, 점검을 하고 실패하면 자동으로 이전 버전으로 되돌립니다.']] } },
+    { route: '/nh', line: 'dgx2', name: '농협 주류 협력사 데이터 분석 포털', summary: '주류 협력사가 로그인해 자기 매출과 시장 흐름을 분석합니다.', live: 'https://ai.marketlink.co.kr/nh/login?next=%2Fdashboard', detail: { image: '/images/stations/nh.jpg', tech: 'Next.js 16 (App Router), MySQL 8, ECharts, systemd', facts: [['개요', '농협 하나로마트 주류 협력사가 로그인해 자기 매출과 시장 흐름을 보는 데이터 분석 포털입니다.'], ['기능', '대시보드, 매출, 분석, 인사이트, 트렌드, 리포트, 공지 화면을 제공하고, 주류 뉴스와 통계, 월간 Retail Spotlight 리포트를 함께 보여 줍니다.'], ['권한', '협력사와 관리자 역할을 나누고, 로그인한 사용자만 데이터를 볼 수 있습니다. 등급에 따라 열리는 분석 모듈이 다릅니다.'], ['데이터', '원천 데이터를 정규화해 분석용 마트로 쌓고, 화면에서는 집계 결과만 불러옵니다.'], ['배포', '배포 스크립트가 백업, 빌드, 재시작, 점검을 하고 실패하면 자동으로 이전 버전으로 되돌립니다.']] } },
     { route: ':8434', line: 'infra', name: 'Ollama 로드밸런서', summary: 'LLM 추론 요청을 GPU 서버 두 대에 나눠 보냅니다.', project: 'MARKETLINK-AX 온프레미스 AI 플랫폼 (NVIDIA DGX Spark ×2)' },
     { route: '/pms', line: 'office', name: 'PMS', summary: '프로젝트 일정과 진행 상황을 관리합니다.', detail: { facts: [['개요', '프로젝트 일정과 진행 상황을 관리하는 대시보드입니다.']] } },
   ];

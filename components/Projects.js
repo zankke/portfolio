@@ -148,7 +148,7 @@ export default function Projects() {
                     name={s.name}
                     summary={s.summary}
                     project={byTitle[s.project] ?? (s.detail && { title: s.name, ...s.detail })}
-                    live={liveUrl(s.route)}
+                    live={s.live ?? liveUrl(s.route)}
                     open={open.has(stationId(s))}
                     toggle={toggle}
                   />
