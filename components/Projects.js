@@ -86,7 +86,7 @@ function Media({ p, plate, sizes, play }) {
     );
   }
   const img = p.image ?? p.video?.poster;
-  if (img) return <Image src={img} alt={`${p.title} 화면`} fill sizes={sizes} style={{ objectFit: 'cover', objectPosition: 'top' }} />;
+  if (img) return <Image src={img} alt={`${p.title} 화면`} fill sizes={sizes} style={{ objectFit: 'cover', objectPosition: 'left top' }} />;
   // No screenshot on record: show the route instead of borrowing someone else's picture.
   return <span className="plate" aria-hidden="true">{plate}</span>;
 }
