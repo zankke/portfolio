@@ -1,7 +1,7 @@
 import { RESUME } from './profile';
 
 // Same order as the page.
-const links = [
+export const links = [
   ['#platform', 'Platform'],
   ['#services', 'Services'],
   ['#about', 'Experience'],
@@ -12,9 +12,10 @@ const links = [
 
 const linkCls = 'inline-flex min-h-11 shrink-0 items-center text-ink/80 no-underline hover:underline hover:underline-offset-4';
 
-export default function Navbar() {
+// `className` lets the home page hide it on wide screens, where the left rail takes over.
+export default function Navbar({ className = '' }) {
   return (
-    <div className="sticky top-0 z-40 border-b border-line bg-cream/90 backdrop-blur-md">
+    <div className={`sticky top-0 z-40 border-b border-line bg-cream/90 backdrop-blur-md ${className}`}>
       <div className="wrap flex h-16 items-center justify-between gap-8">
         <a href="/" className="inline-flex min-h-11 items-center text-lg font-semibold tracking-[-0.4px] text-ink no-underline">이상훈</a>
         <nav aria-label="페이지 내 이동" className="ml-auto hidden gap-6 text-[15px] lg:flex">

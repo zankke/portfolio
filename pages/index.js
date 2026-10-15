@@ -1,4 +1,4 @@
-import Hero from "../components/Hero";
+import Hero, { Intro } from "../components/Hero";
 import About from "../components/About";
 import { Services, PastProjects } from "../components/Projects";
 import Platform from "../components/Platform";
@@ -38,23 +38,26 @@ export default function Home() {
       <Head>
         {seoTags}
       </Head>
-      <Navbar />
-      <main>
+      <Navbar className="lg:hidden" />
+      <div className="wrap-wide lg:grid lg:grid-cols-[minmax(300px,360px)_minmax(0,1fr)] lg:gap-x-[clamp(48px,6vw,112px)]">
         <Hero />
-        <Platform />
-        <Services />
-        <About />
-        <PastProjects />
-        <Skills />
-        <Reel />
-        <Contact />
-      </main>
-      <footer className="wrap mt-16 flex flex-wrap justify-between gap-4 border-t border-line pt-6 pb-10 text-sm text-muted md:mt-24">
-        <span>© 2026 이상훈</span>
-        <span className="flex gap-6">
-          <a href={`mailto:${EMAIL}`} className="text-muted hover:text-ink">{EMAIL}</a>
-        </span>
-      </footer>
+        <div className="min-w-0">
+          <main>
+            <Intro />
+            <Platform />
+            <Services />
+            <About />
+            <PastProjects />
+            <Skills />
+            <Reel />
+            <Contact />
+          </main>
+          <footer className="mt-16 flex flex-wrap justify-between gap-4 border-t border-line pt-6 pb-10 text-sm text-muted md:mt-24">
+            <span>© 2026 이상훈</span>
+            <a href={`mailto:${EMAIL}`} className="inline-flex min-h-11 items-center text-muted hover:text-primary">{EMAIL}</a>
+          </footer>
+        </div>
+      </div>
     </>
   );
 }

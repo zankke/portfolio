@@ -1,14 +1,14 @@
 import { Ic } from './icons';
 
 // Every section opens the same way: a heading and, at most, one sentence.
-export default function SectionHead({ icon, title, lede, id }) {
+export default function SectionHead({ icon, title, lede, id, dark }) {
   return (
     <>
-      <h2 id={id} className="flex items-start gap-3 text-4xl font-bold leading-tight tracking-[-1.2px] md:text-5xl">
-        {icon && <Ic as={icon} className="mt-[0.14em]" />}
+      <h2 id={id} className="flex items-center gap-3 text-[30px] font-bold leading-tight tracking-[-0.9px] md:text-4xl">
+        {icon && <Ic as={icon} />}
         {title}
       </h2>
-      {lede && <p className="mt-4 text-lg text-muted">{lede}</p>}
+      {lede && <p className={`mt-3 text-[17px] leading-relaxed ${dark ? 'text-off/75' : 'text-muted'}`}>{lede}</p>}
     </>
   );
 }

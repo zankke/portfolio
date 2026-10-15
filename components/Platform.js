@@ -24,20 +24,20 @@ const security = [
 
 const nodes = ['dgx1', 'dgx2'].map((k) => ({ ...lines[k], ...infra[k], services: stations.filter((s) => s.line === k) }));
 
-const Wire = () => <div aria-hidden="true" className="mx-auto h-6 w-px bg-ink/40" />;
+const Wire = () => <div aria-hidden="true" className="mx-auto h-6 w-px bg-primary/60" />;
 // Gateway fans out to the two node columns (md and up); below md the nodes stack and a plain wire is enough.
 const Fork = ({ up }) => (
-  <div aria-hidden="true" className={`mx-auto hidden h-5 w-[calc(50%+0.5rem)] border-x border-ink/40 md:block ${up ? 'border-b' : 'border-t'}`} />
+  <div aria-hidden="true" className={`mx-auto hidden h-5 w-[calc(50%+0.5rem)] border-x border-primary/60 md:block ${up ? 'border-b' : 'border-t'}`} />
 );
 const Chip = ({ children }) => <li className="rounded-full border border-line bg-off px-2.5 py-0.5 text-[13px] text-ink/85">{children}</li>;
 
 function Rows({ title, items }) {
   return (
     <>
-      <h3 className="mt-10 text-xl font-semibold tracking-[-0.3px]">{title}</h3>
+      <h3 className="mt-12 text-xl font-semibold tracking-[-0.3px]">{title}</h3>
       <dl className="mt-3 border-t border-line">
         {items.map(([k, v]) => (
-          <div key={k} className="grid gap-x-8 gap-y-1 border-b border-line py-4 sm:grid-cols-[120px_minmax(0,1fr)]">
+          <div key={k} className="grid gap-x-8 gap-y-1 border-b border-line py-4 sm:grid-cols-[176px_minmax(0,1fr)]">
             <dt className="font-semibold">{k}</dt>
             <dd className="text-ink/85">{v}</dd>
           </div>
@@ -49,7 +49,7 @@ function Rows({ title, items }) {
 
 export default function Platform() {
   return (
-    <section id="platform" aria-labelledby="platform-h" className="wrap pt-8 md:pt-16">
+    <section id="platform" aria-labelledby="platform-h" className="pt-16 lg:pt-20">
       <SectionHead
         id="platform-h"
         icon={Network}
@@ -66,7 +66,7 @@ export default function Platform() {
           <span className="text-sm text-muted">사내망 경계 · 외부 요청은 게이트웨이로만 전달</span>
         </div>
         <Wire />
-        <div className="rounded-xl bg-ink px-5 py-4 text-off shadow-inset">
+        <div className="rounded-xl bg-primary-strong px-5 py-4 text-off shadow-inset">
           <b className="block font-semibold">HTTPS 게이트웨이</b>
           <span className="text-sm text-off/75">Nginx · Let&apos;s Encrypt · 보안 헤더 · Fail2ban · 경로별 라우팅</span>
         </div>
@@ -74,7 +74,7 @@ export default function Platform() {
         <Fork />
         <div className="grid gap-4 md:grid-cols-2">
           {nodes.map((n) => (
-            <div key={n.name} className="rounded-xl border border-ink/40 bg-cream p-5">
+            <div key={n.name} className="rounded-xl border border-ink/25 bg-cream p-5">
               <p className="flex flex-wrap items-baseline justify-between gap-x-3">
                 <b className="text-lg font-semibold tracking-[-0.3px]">{n.name}</b>
                 <span className="text-sm text-muted">GB10 · 128GB 통합 메모리</span>
@@ -93,7 +93,7 @@ export default function Platform() {
               <ul className="mt-2 flex flex-wrap gap-1.5">
                 {n.services.map((s) => (
                   <li key={s.route}>
-                    <a href={`#${stationId(s)}`} className="inline-flex min-h-8 items-center rounded-full border border-line bg-off px-3 text-sm text-ink/85 no-underline hover:border-ink/40">{s.name}</a>
+                    <a href={`#${stationId(s)}`} className="inline-flex min-h-8 items-center rounded-full border border-line bg-off px-3 text-sm text-ink/85 no-underline hover:border-primary hover:text-primary">{s.name}</a>
                   </li>
                 ))}
               </ul>

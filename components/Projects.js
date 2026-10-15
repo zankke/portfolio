@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { allProjects, stations, stationId, lines } from './projectData';
-import { LayoutGrid, FolderClock } from 'lucide-react';
+import { LayoutGrid, FolderClock, ArrowUpRight } from 'lucide-react';
 import SectionHead from './SectionHead';
 import Figures from './Figures';
 import { LAYER_ICON, Ic } from './icons';
@@ -50,7 +49,7 @@ function layerize(tech) {
 export function Stack({ tech }) {
   if (!tech) return null;
   return (
-    <dl className="mt-6 border-t border-ink">
+    <dl className="mt-6 border-t-2 border-primary">
       {layerize(tech).map(([name, items]) => (
         <div key={name} className="grid grid-cols-[128px_minmax(0,1fr)] gap-4 border-b border-line py-2.5 sm:grid-cols-[136px_minmax(0,1fr)]">
           <dt className="flex items-center gap-1.5 text-sm font-semibold"><Ic as={LAYER_ICON[name]} />{name}</dt>
@@ -94,7 +93,7 @@ const archive = allProjects
 
 const haystack = (it) => [it.label, it.name, it.summary, it.p.tech, it.p.desc].join(' ').toLowerCase();
 
-export function Media({ p, plate, sizes, play }) {
+export function Media({ p, plate, sizes, play, small }) {
   if (p.video && play) {
     return (
       <video controls playsInline preload="none" poster={p.video.poster} className="size-full bg-ink object-contain">
@@ -107,7 +106,7 @@ export function Media({ p, plate, sizes, play }) {
   if (img) return <Image src={img} alt={`${p.title} 화면`} fill sizes={sizes} style={{ objectFit: 'cover', objectPosition: 'left top' }} />;
   // No screenshot on record: show the route instead of borrowing someone else's picture.
   return (
-    <span aria-hidden="true" className="absolute inset-0 flex items-end bg-ink/3 p-5 text-4xl leading-none font-semibold tracking-[-1.2px] break-all text-ink/30 lg:text-5xl">
+    <span aria-hidden="true" className={`absolute inset-0 flex items-end bg-primary-tint/60 font-semibold break-all text-primary/40 ${small ? 'p-2 text-base leading-none' : 'p-5 text-4xl leading-none tracking-[-1.2px] lg:text-5xl'}`}>
       {plate}
     </span>
   );
@@ -178,15 +177,12 @@ function Detail({ it, onClose }) {
   );
 }
 
-// Wide screens preview beside the list; narrow screens have no room, so they go to the service page.
-const narrow = () => window.matchMedia('(max-width: 1023.98px)').matches;
-
 // Status, field and node in one line; shared by the panel and the service page.
 export function Status({ it }) {
   return (
     <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e7f0e4] px-2.5 py-0.5 text-[13px] font-semibold text-[#24502a]">
-        <span aria-hidden="true" className="size-1.5 rounded-full bg-[#2f7a3a]" />운영 중
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-tint px-2.5 py-0.5 text-[13px] font-semibold text-primary-strong">
+        <span aria-hidden="true" className="size-1.5 rounded-full bg-primary-dot" />운영 중
       </span>
       <span>{it.domain}</span>
       {it.node && <><span aria-hidden="true">·</span><span>{it.node}</span></>}
@@ -198,87 +194,78 @@ export function Status({ it }) {
 
 export const techList = (tech) => (tech ? tech.split(/,(?![^()]*\))/).map((t) => t.trim()).filter(Boolean) : []);
 
-// The panel leads with results, then the design calls behind them; the overview is already the summary.
-function Panel({ it }) {
-  const calls = factsOf(it.p).filter((f) => f.label && f.label !== '개요').slice(0, 2);
-  return (
-    <div key={it.id} className="motion-safe:animate-rise">
-      <Status it={it} />
-      <h3 className="mt-3 text-[32px] leading-tight font-semibold tracking-[-0.8px]">{it.name}</h3>
-      <p className="mt-2 text-ink/80">{it.summary}</p>
-      <Figures items={it.results} className="mt-6 grid-cols-3" />
-      <Shot><Media p={it.p} plate={it.label} sizes="560px" /></Shot>
-      {calls.length > 0 && (
-        <dl className="mt-5">
-          {calls.map((f) => (
-            <div key={f.label} className="border-t border-line py-2.5 text-[15px] leading-relaxed">
-              <dt className="text-sm font-semibold text-muted">{f.label}</dt>
-              <dd className="text-ink/85">{f.text}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
-      <ul aria-label="기술 구성" className="mt-4 flex flex-wrap gap-1.5">
-        {techList(it.p.tech).map((t) => <li key={t} className="rounded-full border border-line bg-cream px-2.5 py-0.5 text-[13px] text-ink/80">{t}</li>)}
-      </ul>
-      <p className="mt-6 flex flex-wrap gap-2">
-        <Links it={it} />
-        <Link className="btn-ghost" href={`/services/${it.slug}`}>구현 과정 보기</Link>
-      </p>
-    </div>
-  );
-}
-
 const Chip = ({ on, children, ...rest }) => (
   <button
     type="button"
     aria-pressed={on}
-    className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-[15px] ${on ? 'border-ink bg-ink text-off' : 'border-ink/20 hover:border-ink/50'}`}
+    className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-[15px] ${on ? 'border-primary bg-primary text-off' : 'border-ink/20 hover:border-primary hover:text-primary'}`}
     {...rest}
   >
     {children}
   </button>
 );
 
+// One service as a row: screenshot, what it is, the stack, and its headline number. The whole row opens the service page.
+function ServiceRow({ it }) {
+  const [value, label] = it.results?.[0] ?? [];
+  return (
+    <li id={it.id} className="scroll-mt-12">
+      <Link
+        href={`/services/${it.slug}`}
+        className="group row-hover grid grid-cols-[96px_minmax(0,1fr)] gap-x-4 gap-y-3 py-5 text-ink no-underline sm:grid-cols-[176px_minmax(0,1fr)_auto] sm:gap-x-6"
+      >
+        <span className="relative mt-1 aspect-[16/10] overflow-hidden rounded-md border border-line bg-ink/4">
+          <Media p={it.p} plate={it.label} sizes="176px" small />
+        </span>
+        <span className="min-w-0">
+          <span className="flex flex-wrap items-center gap-x-2 text-[13px] text-muted">
+            {it.domain}<span aria-hidden="true">/</span>{it.node}
+            {it.access === 'login' && <span className="rounded-full border border-ink/20 px-2 text-[12px]">로그인 필요</span>}
+          </span>
+          <span className="mt-1 flex items-start gap-1.5 text-lg leading-snug font-semibold tracking-[-0.3px] group-hover:text-primary">
+            {it.name}
+            <ArrowUpRight aria-hidden="true" strokeWidth={2} className="mt-1 size-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
+          </span>
+          <span className="mt-1 block text-[15px] text-ink/75">{it.summary}</span>
+          <span className="mt-3 hidden flex-wrap gap-1.5 sm:flex">
+            {techList(it.p.tech).slice(0, 5).map((t) => <span key={t} className="rounded-full bg-primary-tint px-2.5 py-0.5 text-[12.5px] text-primary-strong">{t}</span>)}
+          </span>
+        </span>
+        {value && (
+          <span className="col-start-2 sm:col-start-auto sm:min-w-28 sm:text-right">
+            <span className="block text-2xl leading-none font-display tracking-[-0.03em] text-primary tabular-nums whitespace-nowrap">{value}</span>
+            <span className="mt-1 block text-xs text-muted sm:whitespace-nowrap">{label.replace(/ \(.*\)$/, '')}</span>
+          </span>
+        )}
+      </Link>
+    </li>
+  );
+}
+
 export function Services() {
   const [query, setQuery] = useState('');
   const [domain, setDomain] = useState(null);
-  const [cur, setCur] = useState(services[0]);
-  const router = useRouter();
   const q = query.trim().toLowerCase();
   const shown = services.filter((it) => (!domain || it.domain === domain) && (!q || haystack(it).includes(q)));
-  const choose = (it) => (narrow() ? router.push(`/services/${it.slug}`) : setCur(it));
-
-  // Platform diagram links to #st-…: select it in the panel, or open its page on narrow screens.
-  useEffect(() => {
-    const pick = () => {
-      const hit = services.find((it) => `#${it.id}` === window.location.hash);
-      if (hit) choose(hit);
-    };
-    pick();
-    window.addEventListener('hashchange', pick);
-    return () => window.removeEventListener('hashchange', pick);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
-    <section id="services" aria-labelledby="services-h" className="wrap pt-16 md:pt-32">
+    <section id="services" aria-labelledby="services-h" className="pt-20 md:pt-28">
       <SectionHead
         id="services-h"
         icon={LayoutGrid}
         title="Live Services"
-        lede={`사내 DGX Spark 클러스터에서 직접 개발하고 운영하는 서비스 ${services.length}개입니다. 각 서비스의 처리 규모와 결과를 먼저 보여 드립니다.`}
+        lede={`사내 DGX Spark 클러스터에서 직접 개발하고 운영하는 서비스 ${services.length}개입니다. 행을 누르면 서비스별 구현 과정이 열립니다.`}
       />
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+      <div className="mt-8 flex flex-col gap-3">
         <div role="group" aria-label="분야로 거르기" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
           <Chip on={!domain} onClick={() => setDomain(null)}>전체 <span className="text-[13px] opacity-70">{services.length}</span></Chip>
           {DOMAINS.map((d) => (
-            <Chip key={d} on={domain === d} onClick={() => setDomain(d)}>
+            <Chip key={d} on={domain === d} onClick={() => setDomain(domain === d ? null : d)}>
               {d} <span className="text-[13px] opacity-70">{services.filter((s) => s.domain === d).length}</span>
             </Chip>
           ))}
         </div>
-        <label className="w-full sm:w-80">
+        <label className="w-full sm:max-w-md">
           <span className="sr-only">서비스 검색</span>
           <input
             type="search"
@@ -286,58 +273,22 @@ export function Services() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="서비스 검색 (예: OCR, LLM, 설문)"
             autoComplete="off"
-            className="h-12 w-full rounded-md border border-line bg-off px-4 text-base placeholder:text-muted focus-visible:border-ink/40"
+            className="h-12 w-full rounded-md border border-line bg-off px-4 text-base placeholder:text-muted focus-visible:border-primary"
           />
         </label>
       </div>
-      <div className="mt-8 grid items-start gap-x-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
-        <div>
-          <p className="text-sm text-muted" aria-live="polite">
-            {q || domain ? `조건에 맞는 서비스 ${shown.length}개` : `전체 ${shown.length}개`}
-          </p>
-          <ul className="mt-2 border-t border-line">
-            {shown.map((it) => {
-              const [value, label] = it.results?.[0] ?? [];
-              return (
-                <li key={it.id} id={it.id}>
-                  <button
-                    type="button"
-                    aria-current={cur.id === it.id || undefined}
-                    onClick={() => choose(it)}
-                    className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-5 border-b border-line py-4 text-left lg:rounded-lg lg:px-4 lg:hover:bg-ink/3 lg:aria-[current=true]:bg-ink lg:aria-[current=true]:text-off"
-                  >
-                    <span className="min-w-0">
-                      <span className="block text-[13px] text-muted lg:group-aria-[current=true]:text-off/70">{it.domain}</span>
-                      <span className="mt-0.5 block text-[17px] leading-snug font-semibold tracking-[-0.2px]">{it.name}</span>
-                      <span className="mt-1 block text-sm text-muted lg:group-aria-[current=true]:text-off/75">{it.summary}</span>
-                    </span>
-                    <span className="min-w-20 text-right">
-                      {value ? (
-                        <>
-                          <span className="block text-xl leading-none font-display tracking-[-0.03em] tabular-nums whitespace-nowrap lg:text-2xl">{value}</span>
-                          <span className="mt-1 block text-xs whitespace-nowrap text-muted lg:group-aria-[current=true]:text-off/70">{label.replace(/ \(.*\)$/, '')}</span>
-                        </>
-                      ) : (
-                        <span className="text-[13px] whitespace-nowrap text-muted lg:group-aria-[current=true]:text-off/70">{it.side}</span>
-                      )}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          {!shown.length && (
-            <p className="mt-6 text-muted">
-              조건에 맞는 서비스가 없습니다.{' '}
-              <button type="button" className="underline underline-offset-3" onClick={() => { setQuery(''); setDomain(null); }}>전체 목록 보기</button>
-            </p>
-          )}
-        </div>
-
-        <aside aria-live="polite" className="sticky top-22 hidden max-h-[calc(100vh-112px)] overflow-y-auto rounded-2xl border border-line bg-off p-8 lg:block">
-          <Panel it={cur} />
-        </aside>
-      </div>
+      <p className="mt-6 text-sm text-muted" aria-live="polite">
+        {q || domain ? `조건에 맞는 서비스 ${shown.length}개` : `전체 ${shown.length}개`}
+      </p>
+      <ul className="rows mt-2 divide-y divide-line border-y border-line lg:divide-y-0 lg:border-b-0">
+        {shown.map((it) => <ServiceRow key={it.id} it={it} />)}
+      </ul>
+      {!shown.length && (
+        <p className="mt-6 text-muted">
+          조건에 맞는 서비스가 없습니다.{' '}
+          <button type="button" className="inline-flex min-h-11 items-center text-primary underline underline-offset-3" onClick={() => { setQuery(''); setDomain(null); }}>전체 목록 보기</button>
+        </p>
+      )}
     </section>
   );
 }
@@ -345,20 +296,23 @@ export function Services() {
 export function PastProjects() {
   const [open, setOpen] = useState(null);
   return (
-    <section id="work" className="wrap pt-16 md:pt-32">
+    <section id="work" className="pt-20 md:pt-28">
       <SectionHead icon={FolderClock} title="Past Projects" lede="마켓링크 이전과 고객사 프로젝트에서 설계하고 개발한 시스템입니다." />
-      <ul className="mt-10 border-t border-line">
+      <ul className="rows mt-8 divide-y divide-line border-y border-line lg:divide-y-0 lg:border-0">
         {archive.map((it) => (
           <li key={it.id} id={it.id}>
             <button
               type="button"
               onClick={() => setOpen(it)}
-              className="grid w-full items-baseline gap-x-4 border-b border-line py-4.5 text-left hover:bg-ink/3 sm:grid-cols-[200px_minmax(0,1fr)] sm:px-3"
+              className="group row-hover grid w-full items-baseline gap-x-6 gap-y-1 py-4 text-left sm:grid-cols-[176px_minmax(0,1fr)]"
             >
-              <span className="text-sm text-muted">{it.label}</span>
-              <span>
-                <span className="block text-[17px] leading-snug">{it.name}</span>
-                <span className="mt-0.5 block text-sm text-muted">{it.summary}</span>
+              <span className="text-sm text-muted tabular-nums">{it.label}</span>
+              <span className="min-w-0">
+                <span className="block text-[17px] leading-snug font-semibold tracking-[-0.2px] group-hover:text-primary">{it.name}</span>
+                <span className="mt-0.5 block text-[15px] text-ink/70">{it.summary}</span>
+                <span className="mt-2.5 hidden flex-wrap gap-1.5 sm:flex">
+                  {techList(it.p.tech).slice(0, 4).map((t) => <span key={t} className="rounded-full bg-primary-tint px-2.5 py-0.5 text-[12.5px] text-primary-strong">{t}</span>)}
+                </span>
               </span>
             </button>
           </li>

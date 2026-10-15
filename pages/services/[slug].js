@@ -30,7 +30,7 @@ export default function ServicePage({ slug }) {
       </Head>
       <Navbar />
       <main className="wrap pt-6 pb-24">
-        <Link href={`/#${it.id}`} className="inline-flex min-h-11 items-center gap-1 text-sm text-muted no-underline hover:text-ink">
+        <Link href={`/#${it.id}`} className="inline-flex min-h-11 items-center gap-1 text-sm text-muted no-underline hover:text-primary">
           <ChevronLeft aria-hidden className="size-4" />Live Services
         </Link>
 
@@ -52,7 +52,7 @@ export default function ServicePage({ slug }) {
             <H2 id="flow-h">Pipeline</H2>
             <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:auto-cols-fr lg:grid-flow-col">
               {steps.map((s, n) => (
-                <li key={s} className={`rounded-xl border p-5 ${n === steps.length - 1 ? 'border-ink bg-ink text-off' : 'border-line bg-off'}`}>
+                <li key={s} className={`rounded-xl border p-5 ${n === steps.length - 1 ? 'border-primary bg-primary text-off' : 'border-line bg-off'}`}>
                   <span className={`block text-sm ${n === steps.length - 1 ? 'text-off/70' : 'text-muted'}`}>{n + 1}</span>
                   <span className="mt-2 block font-semibold">{s}</span>
                 </li>
@@ -84,7 +84,7 @@ export default function ServicePage({ slug }) {
         </div>
 
         <nav aria-label="다른 서비스" className="mt-20 grid gap-3 sm:grid-cols-2 md:mt-24">
-          <Link href={`/services/${prev.slug}`} className="rounded-xl border border-line bg-off p-6 text-ink no-underline hover:border-ink/40">
+          <Link href={`/services/${prev.slug}`} className="rounded-xl border border-line bg-off p-6 text-ink no-underline hover:border-primary">
             <span className="block text-sm text-muted">이전 서비스</span>
             <span className="mt-1 block text-xl font-semibold">{prev.name}</span>
           </Link>

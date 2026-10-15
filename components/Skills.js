@@ -25,11 +25,11 @@ const certs = '정보처리기사 (한국산업인력공단, 2003) · 우수 프
 
 export default function Skills() {
   return (
-    <section id="skills" className="wrap pt-16 md:pt-32">
+    <section id="skills" className="pt-20 md:pt-28">
       <SectionHead icon={Layers} title="Tech Stack" lede="프런트엔드부터 AI 모델과 인프라까지, 서비스의 전 계층을 직접 다룹니다." />
-      <div className="mt-10 border-t border-ink">
+      <div className="mt-8 border-t-2 border-primary">
         {groups.map(([h, items]) => (
-          <div key={h} className="grid gap-4 border-b border-line py-5 sm:grid-cols-[168px_minmax(0,1fr)]">
+          <div key={h} className="grid gap-4 border-b border-line py-5 sm:grid-cols-[176px_minmax(0,1fr)]">
             <h3 className="flex items-center gap-2 self-start pt-1.5 font-semibold"><Ic as={LAYER_ICON[h]} />{h}</h3>
             <ul className="flex flex-wrap gap-2">
               {items.map(([name, Icon]) => (
@@ -42,7 +42,7 @@ export default function Skills() {
           </div>
         ))}
       </div>
-      <p className="mt-5 grid gap-1 text-[15px] sm:grid-cols-[168px_minmax(0,1fr)] sm:gap-4">
+      <p className="mt-5 grid gap-1 text-[15px] sm:grid-cols-[176px_minmax(0,1fr)] sm:gap-4">
         <b className="font-semibold">Certification · Awards</b>
         <span className="text-muted">{certs}</span>
       </p>

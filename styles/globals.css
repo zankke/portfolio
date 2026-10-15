@@ -6,18 +6,28 @@
   --color-off: #fcfbf8;
   --color-ink: #1c1c1c;
   --color-muted: #5f5f5d;
-  --color-line: #eceae4;
+  --color-line: #e6e6de;
+
+  /* Primary: a deep pine green. 7.2:1 on cream as text, off-white text on it 7.6:1; -strong for hover and dark panels, -tint for quiet fills. */
+  --color-primary: #1d5c3f;
+  --color-primary-strong: #13432d;
+  --color-primary-tint: #e3eee6;
+  --color-primary-dot: #2e8a5c;
 
   --font-weight-display: 700;
 
   --shadow-inset: rgba(255,255,255,0.2) 0 0.5px 0 0 inset, rgba(0,0,0,0.2) 0 0 0 0.5px inset, rgba(0,0,0,0.05) 0 1px 2px 0;
   --shadow-soft: rgba(0,0,0,0.1) 0 4px 12px;
-  --shadow-ring: 0 0 0 2px rgb(59 130 246 / 0.5);
+  --shadow-ring: 0 0 0 2px var(--color-cream), 0 0 0 4px var(--color-primary);
 
   --animate-rise: rise 0.2s ease-out;
   @keyframes rise {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: none; }
+  }
+  @keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: none; opacity: 1; }
   }
 }
 
@@ -28,9 +38,9 @@
 
 @layer base {
   html { scroll-behavior: smooth; scroll-padding-top: 112px; }
-  @media (min-width: 64rem) { html { scroll-padding-top: 80px; } }
+  @media (min-width: 64rem) { html { scroll-padding-top: 48px; } }
   body { @apply bg-cream font-sans text-ink antialiased; word-break: keep-all; }
-  ::selection { @apply bg-ink text-off; }
+  ::selection { @apply bg-primary text-off; }
   :focus-visible { outline: none; box-shadow: var(--shadow-ring), var(--shadow-soft); border-radius: 6px; }
   h1, h2, h3 { text-wrap: balance; }
   p { text-wrap: pretty; }
@@ -51,8 +61,32 @@
   @apply inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-[15px] whitespace-nowrap no-underline active:opacity-80;
 }
 @utility btn-dark {
-  @apply btn bg-ink text-off shadow-inset;
+  @apply btn bg-primary text-off shadow-inset hover:bg-primary-strong;
 }
 @utility btn-ghost {
-  @apply btn border border-ink/40 text-ink hover:bg-ink/4;
+  @apply btn border border-ink/30 text-ink hover:border-primary hover:bg-primary-tint hover:text-primary-strong;
+}
+
+/* Wide page: the left rail plus a content column that takes the rest. */
+@utility wrap-wide {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 56px);
+}
+
+/* A row in a row list: on wide screens it lifts into a card on hover or keyboard focus. */
+@utility row-hover {
+  @apply rounded-xl lg:-mx-4 lg:px-4 lg:transition-[background-color,box-shadow] lg:hover:bg-off lg:hover:shadow-[inset_0_0_0_1px_var(--color-line),var(--shadow-soft)] lg:focus-within:bg-off motion-reduce:transition-none;
+}
+
+/* Row lists (experience, services, projects): on a pointer device, hovering or focusing one row dims its siblings. */
+@layer components {
+  .rows > * { transition: opacity 0.2s ease; }
+  @media (hover: hover) and (min-width: 64rem) {
+    .rows:hover > :not(:hover),
+    .rows:has(:focus-visible) > :not(:has(:focus-visible)) { opacity: 0.55; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rows > * { transition: none; }
+  }
 }

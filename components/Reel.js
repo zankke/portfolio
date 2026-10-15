@@ -11,7 +11,7 @@ const reels = [
 
 export default function Reel() {
   return (
-    <section id="reel" className="wrap pt-16 md:pt-32">
+    <section id="reel" className="pt-20 md:pt-28">
       <SectionHead icon={Clapperboard} title="Showreel" />
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {reels.map((r) => (
