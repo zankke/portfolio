@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { allProjects, stations, stationId } from './projectData';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { allProjects, stations, stationId, lines } from './projectData';
 import { LayoutGrid, FolderClock } from 'lucide-react';
 import SectionHead from './SectionHead';
 import Figures from './Figures';
@@ -19,7 +21,7 @@ function parse(longDesc) {
   }
   return out;
 }
-const factsOf = (p) => (p.facts ? p.facts.map(([label, text]) => ({ label, text })) : parse(p.longDesc ?? ''));
+export const factsOf = (p) => (p.facts ? p.facts.map(([label, text]) => ({ label, text })) : parse(p.longDesc ?? ''));
 
 // The stack, top (what users see) to bottom (the GPU). Same names as the skills section.
 const LAYERS = [
@@ -45,7 +47,7 @@ function layerize(tech) {
   return [...LAYERS.map(([n]) => [n, rows[n]]), ['Other', rest]].filter(([, items]) => items.length);
 }
 
-function Stack({ tech }) {
+export function Stack({ tech }) {
   if (!tech) return null;
   return (
     <dl className="mt-6 border-t border-ink">
@@ -66,11 +68,21 @@ const joinMeta = (...xs) => xs.filter(Boolean).join(' · ');
 const byTitle = Object.fromEntries(allProjects.map((p) => [p.title, p]));
 const linked = new Set(stations.map((s) => s.project).filter(Boolean));
 
+// What kind of work each service is; the filter chips are these, in this order.
+export const DOMAINS = ['데이터 정제', '비전 · OCR', '분석 포털', '생성 · 자동화', '대화형 AI'];
+const DOMAIN = {
+  '/lotte': '데이터 정제', '/master': '데이터 정제', '/ocr': '비전 · OCR', '/meatlink': '비전 · OCR',
+  '/ssm': '분석 포털', '/datalink': '분석 포털', '/nh': '분석 포털', '/sales': '분석 포털',
+  '/sosop': '생성 · 자동화', '/builder': '생성 · 자동화', '/shorts': '생성 · 자동화', '/studio': '생성 · 자동화', '/level10': '생성 · 자동화',
+  '/fish': '대화형 AI',
+};
+
 // One shape for both lists: {id, label, side, meta, name, summary, p (detail), results, live, access}
-const services = stations.map((s) => {
+export const services = stations.map((s) => {
   const p = byTitle[s.project] ?? { title: s.name, ...s.detail };
   return {
-    id: stationId(s), label: s.route, side: s.period || s.route, meta: joinMeta(s.period, s.team, s.role),
+    id: stationId(s), slug: s.route.slice(1), label: s.route, side: s.period || s.route, meta: joinMeta(s.period, s.team, s.role),
+    domain: DOMAIN[s.route] ?? '기타', node: lines[s.line]?.name,
     name: s.name, summary: s.summary, p, results: s.results, access: s.access ?? 'public',
     live: s.access === 'internal' ? null : (s.live ?? `${SITE}${s.route}/`),
   };
@@ -82,7 +94,7 @@ const archive = allProjects
 
 const haystack = (it) => [it.label, it.name, it.summary, it.p.tech, it.p.desc].join(' ').toLowerCase();
 
-function Media({ p, plate, sizes, play }) {
+export function Media({ p, plate, sizes, play }) {
   if (p.video && play) {
     return (
       <video controls playsInline preload="none" poster={p.video.poster} className="size-full bg-ink object-contain">
@@ -101,11 +113,11 @@ function Media({ p, plate, sizes, play }) {
   );
 }
 
-const Shot = ({ children }) => (
+export const Shot = ({ children }) => (
   <div className="relative mt-6 aspect-video overflow-hidden rounded-xl border border-line bg-ink/4">{children}</div>
 );
 
-function Links({ it }) {
+export function Links({ it }) {
   const { p, live, access } = it;
   const login = access === 'login';
   return (
@@ -166,16 +178,34 @@ function Detail({ it, onClose }) {
   );
 }
 
-// Wide screens preview beside the list; narrow screens have no room, so they open the dialog.
+// Wide screens preview beside the list; narrow screens have no room, so they go to the service page.
 const narrow = () => window.matchMedia('(max-width: 1023.98px)').matches;
 
+// Status, field and node in one line; shared by the panel and the service page.
+export function Status({ it }) {
+  return (
+    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e7f0e4] px-2.5 py-0.5 text-[13px] font-semibold text-[#24502a]">
+        <span aria-hidden="true" className="size-1.5 rounded-full bg-[#2f7a3a]" />운영 중
+      </span>
+      <span>{it.domain}</span>
+      {it.node && <><span aria-hidden="true">·</span><span>{it.node}</span></>}
+      {it.meta && <><span aria-hidden="true">·</span><span>{it.meta}</span></>}
+      {it.access === 'login' && <span className="rounded-full border border-ink/20 px-2.5 py-0.5 text-[13px]">로그인 필요</span>}
+    </p>
+  );
+}
+
+export const techList = (tech) => (tech ? tech.split(/,(?![^()]*\))/).map((t) => t.trim()).filter(Boolean) : []);
+
 // The panel leads with results, then the design calls behind them; the overview is already the summary.
-function Panel({ it, onMore }) {
+function Panel({ it }) {
   const calls = factsOf(it.p).filter((f) => f.label && f.label !== '개요').slice(0, 2);
   return (
     <div key={it.id} className="motion-safe:animate-rise">
-      <Head it={it} />
-      <p className="mt-2 text-muted">{it.summary}</p>
+      <Status it={it} />
+      <h3 className="mt-3 text-[32px] leading-tight font-semibold tracking-[-0.8px]">{it.name}</h3>
+      <p className="mt-2 text-ink/80">{it.summary}</p>
       <Figures items={it.results} className="mt-6 grid-cols-3" />
       <Shot><Media p={it.p} plate={it.label} sizes="560px" /></Shot>
       {calls.length > 0 && (
@@ -188,31 +218,47 @@ function Panel({ it, onMore }) {
           ))}
         </dl>
       )}
-      {it.p.tech && <p className="border-t border-line pt-2.5 text-sm text-muted">{it.p.tech}</p>}
-      <p className="mt-5 flex flex-wrap gap-2">
+      <ul aria-label="기술 구성" className="mt-4 flex flex-wrap gap-1.5">
+        {techList(it.p.tech).map((t) => <li key={t} className="rounded-full border border-line bg-cream px-2.5 py-0.5 text-[13px] text-ink/80">{t}</li>)}
+      </ul>
+      <p className="mt-6 flex flex-wrap gap-2">
         <Links it={it} />
-        <button type="button" className="btn-ghost" onClick={onMore}>상세 정보</button>
+        <Link className="btn-ghost" href={`/services/${it.slug}`}>구현 과정 보기</Link>
       </p>
     </div>
   );
 }
 
+const Chip = ({ on, children, ...rest }) => (
+  <button
+    type="button"
+    aria-pressed={on}
+    className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-[15px] ${on ? 'border-ink bg-ink text-off' : 'border-ink/20 hover:border-ink/50'}`}
+    {...rest}
+  >
+    {children}
+  </button>
+);
+
 export function Services() {
   const [query, setQuery] = useState('');
+  const [domain, setDomain] = useState(null);
   const [cur, setCur] = useState(services[0]);
-  const [open, setOpen] = useState(null);
+  const router = useRouter();
   const q = query.trim().toLowerCase();
-  const shown = q ? services.filter((it) => haystack(it).includes(q)) : services;
+  const shown = services.filter((it) => (!domain || it.domain === domain) && (!q || haystack(it).includes(q)));
+  const choose = (it) => (narrow() ? router.push(`/services/${it.slug}`) : setCur(it));
 
-  // Platform diagram links to #st-…: select it in the panel, or open the dialog on narrow screens.
+  // Platform diagram links to #st-…: select it in the panel, or open its page on narrow screens.
   useEffect(() => {
     const pick = () => {
       const hit = services.find((it) => `#${it.id}` === window.location.hash);
-      if (hit) (narrow() ? setOpen : setCur)(hit);
+      if (hit) choose(hit);
     };
     pick();
     window.addEventListener('hashchange', pick);
     return () => window.removeEventListener('hashchange', pick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -221,55 +267,77 @@ export function Services() {
         id="services-h"
         icon={LayoutGrid}
         title="Live Services"
-        lede={`사내 DGX Spark 클러스터에서 직접 개발하고 운영하는 서비스 ${services.length}개입니다. 선택하면 결과와 기술 구성을 볼 수 있습니다.`}
+        lede={`사내 DGX Spark 클러스터에서 직접 개발하고 운영하는 서비스 ${services.length}개입니다. 각 서비스의 처리 규모와 결과를 먼저 보여 드립니다.`}
       />
-      <div className="mt-10 grid items-start gap-x-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+        <div role="group" aria-label="분야로 거르기" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+          <Chip on={!domain} onClick={() => setDomain(null)}>전체 <span className="text-[13px] opacity-70">{services.length}</span></Chip>
+          {DOMAINS.map((d) => (
+            <Chip key={d} on={domain === d} onClick={() => setDomain(d)}>
+              {d} <span className="text-[13px] opacity-70">{services.filter((s) => s.domain === d).length}</span>
+            </Chip>
+          ))}
+        </div>
+        <label className="w-full sm:w-80">
+          <span className="sr-only">서비스 검색</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="서비스 검색 (예: OCR, LLM, 설문)"
+            autoComplete="off"
+            className="h-12 w-full rounded-md border border-line bg-off px-4 text-base placeholder:text-muted focus-visible:border-ink/40"
+          />
+        </label>
+      </div>
+      <div className="mt-8 grid items-start gap-x-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div>
-          <label>
-            <span className="sr-only">서비스 검색</span>
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="서비스 검색 (예: 설문, OCR, LLM)"
-              autoComplete="off"
-              className="h-12 w-full rounded-md border border-line bg-off px-4 text-base placeholder:text-muted focus-visible:border-ink/40"
-            />
-          </label>
-          <p className="mt-4 text-sm text-muted" aria-live="polite">
-            {q ? `‘${query.trim()}’ 검색 결과 ${shown.length}개` : `전체 ${shown.length}개`}
+          <p className="text-sm text-muted" aria-live="polite">
+            {q || domain ? `조건에 맞는 서비스 ${shown.length}개` : `전체 ${shown.length}개`}
           </p>
           <ul className="mt-2 border-t border-line">
-            {shown.map((it) => (
-              <li key={it.id} id={it.id}>
-                <button
-                  type="button"
-                  aria-current={cur.id === it.id || undefined}
-                  onClick={() => (narrow() ? setOpen(it) : setCur(it))}
-                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 border-b border-line py-3.5 text-left lg:px-3 lg:hover:bg-ink/3 lg:aria-[current=true]:bg-ink lg:aria-[current=true]:text-off"
-                >
-                  <span className="min-w-0">
-                    <span className="block text-[17px] leading-snug">{it.name}</span>
-                    <span className="mt-0.5 block text-sm text-muted lg:truncate lg:group-aria-[current=true]:text-off/70">{it.summary}</span>
-                  </span>
-                  <span className="text-[13px] whitespace-nowrap text-muted lg:group-aria-[current=true]:text-off/70">{it.side}</span>
-                </button>
-              </li>
-            ))}
+            {shown.map((it) => {
+              const [value, label] = it.results?.[0] ?? [];
+              return (
+                <li key={it.id} id={it.id}>
+                  <button
+                    type="button"
+                    aria-current={cur.id === it.id || undefined}
+                    onClick={() => choose(it)}
+                    className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-5 border-b border-line py-4 text-left lg:rounded-lg lg:px-4 lg:hover:bg-ink/3 lg:aria-[current=true]:bg-ink lg:aria-[current=true]:text-off"
+                  >
+                    <span className="min-w-0">
+                      <span className="block text-[13px] text-muted lg:group-aria-[current=true]:text-off/70">{it.domain}</span>
+                      <span className="mt-0.5 block text-[17px] leading-snug font-semibold tracking-[-0.2px]">{it.name}</span>
+                      <span className="mt-1 block text-sm text-muted lg:group-aria-[current=true]:text-off/75">{it.summary}</span>
+                    </span>
+                    <span className="min-w-20 text-right">
+                      {value ? (
+                        <>
+                          <span className="block text-xl leading-none font-display tracking-[-0.03em] tabular-nums whitespace-nowrap lg:text-2xl">{value}</span>
+                          <span className="mt-1 block text-xs whitespace-nowrap text-muted lg:group-aria-[current=true]:text-off/70">{label.replace(/ \(.*\)$/, '')}</span>
+                        </>
+                      ) : (
+                        <span className="text-[13px] whitespace-nowrap text-muted lg:group-aria-[current=true]:text-off/70">{it.side}</span>
+                      )}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
           </ul>
-          {q && !shown.length && (
+          {!shown.length && (
             <p className="mt-6 text-muted">
-              ‘{query.trim()}’에 해당하는 서비스가 없습니다.{' '}
-              <button type="button" className="underline underline-offset-3" onClick={() => setQuery('')}>전체 목록 보기</button>
+              조건에 맞는 서비스가 없습니다.{' '}
+              <button type="button" className="underline underline-offset-3" onClick={() => { setQuery(''); setDomain(null); }}>전체 목록 보기</button>
             </p>
           )}
         </div>
 
         <aside aria-live="polite" className="sticky top-22 hidden max-h-[calc(100vh-112px)] overflow-y-auto rounded-2xl border border-line bg-off p-8 lg:block">
-          <Panel it={cur} onMore={() => setOpen(cur)} />
+          <Panel it={cur} />
         </aside>
       </div>
-      <Detail it={open} onClose={() => setOpen(null)} />
     </section>
   );
 }
