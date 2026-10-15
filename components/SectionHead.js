@@ -4,7 +4,7 @@ import { Ic } from './icons';
 export default function SectionHead({ icon, title, lede, id }) {
   return (
     <>
-      <h2 id={id} className="flex items-start gap-3 text-4xl font-semibold leading-tight tracking-[-1.2px] md:text-5xl">
+      <h2 id={id} className="flex items-start gap-3 text-4xl font-bold leading-tight tracking-[-1.2px] md:text-5xl">
         {icon && <Ic as={icon} className="mt-[0.14em]" />}
         {title}
       </h2>

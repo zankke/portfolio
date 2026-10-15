@@ -8,8 +8,7 @@
   --color-muted: #5f5f5d;
   --color-line: #eceae4;
 
-  --font-sans: "Pretendard Variable", Pretendard, ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif;
-  --font-weight-display: 480;
+  --font-weight-display: 700;
 
   --shadow-inset: rgba(255,255,255,0.2) 0 0.5px 0 0 inset, rgba(0,0,0,0.2) 0 0 0 0.5px inset, rgba(0,0,0,0.05) 0 1px 2px 0;
   --shadow-soft: rgba(0,0,0,0.1) 0 4px 12px;
@@ -20,6 +19,11 @@
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: none; }
   }
+}
+
+/* inline: resolve next/font's --font-noto where it is used (inside _app's wrapper), not at :root. */
+@theme inline {
+  --font-sans: var(--font-noto), "Noto Sans KR", sans-serif;
 }
 
 @layer base {
