@@ -3,6 +3,7 @@ import {
   PhpOriginalIcon, MysqlOriginalIcon, NginxOriginalIcon, CentosOriginalIcon, DockerOriginalIcon,
   ExpressOriginalIcon, RedisOriginalIcon, NextjsOriginalIcon, TailwindcssOriginalIcon, TypescriptOriginalIcon,
   PostgresqlOriginalIcon, PandasOriginalIcon, PlaywrightOriginalIcon, StreamlitOriginalIcon,
+  GithubOriginalIcon, VercelOriginalIcon,
 } from '@devicon/react';
 import { Layers } from 'lucide-react';
 import SectionHead from './SectionHead';
@@ -17,6 +18,7 @@ const groups = [
   ['Data', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['pandas', PandasOriginalIcon], ['SQLAlchemy'], ['Google Sheets API']]],
   ['AI Models', [['RAG'], ['RLHF'],['GraphRAG · Neo4j'], ['Embeddings'], ['Ollama'], ['vLLM'], ['EXAONE'], ['Qwen'], ['gemma'], ['Gemini'], ['GPT-4'], ['Claude API'], ['PaddleOCR'], ['faster-whisper'], ['KoBERT']]],
   ['Infrastructure', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['Caddy'], ['systemd'], ['CentOS', CentosOriginalIcon]]],
+  ['CI/CD', [['GitHub', GithubOriginalIcon], ['Vercel', VercelOriginalIcon], ['Preview 배포'], ['Production 자동 배포']]],
   ['Automation', [['Playwright', PlaywrightOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
 ];
 
