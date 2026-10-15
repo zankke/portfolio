@@ -6,7 +6,7 @@ import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import Navbar from "../components/Navbar";
 import Reel from "../components/Reel";
-import { EMAIL, GITHUB } from '../components/profile';
+import { EMAIL } from '../components/profile';
 import { generateNextSeo } from 'next-seo/pages';
 import Head from 'next/head';
 
@@ -53,7 +53,6 @@ export default function Home() {
         <span>© 2026 이상훈</span>
         <span className="flex gap-6">
           <a href={`mailto:${EMAIL}`} className="text-muted hover:text-ink">{EMAIL}</a>
-          <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-ink">GitHub</a>
         </span>
       </footer>
     </>

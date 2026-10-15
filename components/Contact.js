@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Mail } from 'lucide-react';
 import SectionHead from './SectionHead';
-import { EMAIL, GITHUB, RESUME, LINKEDIN } from './profile';
+import { EMAIL, RESUME, LINKEDIN } from './profile';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -29,7 +29,6 @@ export default function Contact() {
             {copied ? '주소를 복사했습니다' : '이메일 주소 복사'}
           </button>
           {LINKEDIN && <a className="btn-ghost" href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn</a>}
-          <a className="btn-ghost" href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub (오픈소스 포크)</a>
         </p>
       </div>
     </section>
