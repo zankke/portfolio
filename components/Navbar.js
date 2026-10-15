@@ -1,8 +1,8 @@
 const links = [
-  ['#services', '서비스'],
-  ['#work', '이전 프로젝트'],
-  ['#reel', '영상'],
-  ['#about', '경력'],
+  ['#services', 'Services'],
+  ['#work', 'Projects'],
+  ['#reel', 'Showreel'],
+  ['#about', 'Experience'],
 ];
 
 export default function Navbar() {
@@ -15,7 +15,7 @@ export default function Navbar() {
             <a key={href} href={`/${href}`} className="inline-flex min-h-11 items-center text-ink/80 no-underline hover:underline hover:underline-offset-4">{label}</a>
           ))}
         </nav>
-        <a className="btn-dark" href="/#contact">연락하기</a>
+        <a className="btn-dark" href="/#contact">Contact</a>
       </div>
     </div>
   );

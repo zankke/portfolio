@@ -14,7 +14,7 @@ const career = [
 export default function About() {
   return (
     <section id="about" className="wrap pt-16 md:pt-32">
-      <SectionHead icon={BriefcaseBusiness} title="경력" lede="IT 예산 관리로 시작해 광고 플랫폼, 글로벌 미디어, 교육 플랫폼을 거쳐 생성형 AI 플랫폼을 만들고 있습니다." />
+      <SectionHead icon={BriefcaseBusiness} title="Experience" lede="IT 예산 관리로 시작해 광고 플랫폼, 글로벌 미디어, 교육 플랫폼을 거쳐 생성형 AI 플랫폼을 만들고 있습니다." />
       <ol className="mt-10 border-t border-line">
         {career.map((c) => (
           <li key={c.yr} className="grid gap-x-8 gap-y-1 border-b border-line py-5 sm:grid-cols-[120px_minmax(0,1fr)]">

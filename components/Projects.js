@@ -21,14 +21,14 @@ function facts(longDesc) {
 
 // The stack, top (what users see) to bottom (the GPU). Same names as the skills section.
 const LAYERS = [
-  ['프런트엔드', /react|vue|vite|next|htmx|streamlit|echarts|tailwind|html|css|javascript|반응형|ux/i],
-  ['백엔드', /fastapi|express|node|php|python|celery|sqlalchemy|jwt|rest|tomcat|apache|iis|\.net|stripe|portone|인증|크롤러|검색 api/i],
-  ['데이터', /mysql|postgres|redis|sqlite|ms-sql|oracle|pandas|csv|openpyxl|eav|rapidfuzz|파이프라인/i],
-  ['AI 모델', /ollama|gpt|openai|gemini|claude|exaone|kobert|llm|ocr|whisper|graphrag|veo|비전/i],
-  ['인프라', /docker|nginx|caddy|systemd|dgx|linux|centos|cloud|ci\/cd|cdn|chromium|playwright|github/i],
+  ['Frontend', /react|vue|vite|next|htmx|streamlit|echarts|tailwind|html|css|javascript|반응형|ux/i],
+  ['Backend', /fastapi|express|node|php|python|celery|sqlalchemy|jwt|rest|tomcat|apache|iis|\.net|stripe|portone|인증|크롤러|검색 api/i],
+  ['Data', /mysql|postgres|redis|sqlite|ms-sql|oracle|pandas|csv|openpyxl|eav|rapidfuzz|파이프라인/i],
+  ['AI Models', /ollama|gpt|openai|gemini|claude|exaone|kobert|llm|ocr|whisper|graphrag|veo|비전/i],
+  ['Infrastructure', /docker|nginx|caddy|systemd|dgx|linux|centos|cloud|ci\/cd|cdn|chromium|playwright|github/i],
 ];
 // A token goes to the first layer that claims it, checked most-specific first.
-const PRIORITY = ['AI 모델', '데이터', '인프라', '프런트엔드', '백엔드'];
+const PRIORITY = ['AI Models', 'Data', 'Infrastructure', 'Frontend', 'Backend'];
 
 function layerize(tech) {
   const rows = Object.fromEntries(LAYERS.map(([n]) => [n, []]));
@@ -45,12 +45,12 @@ function layerize(tech) {
 function Stack({ tech }) {
   if (!tech) return <p className="mt-5 border-t border-ink pt-3 text-[15px] text-muted">기술 구성 기록이 없는 서비스입니다.</p>;
   const { rows, rest } = layerize(tech);
-  const all = rest.length ? [...rows, ['기타', rest]] : rows;
+  const all = rest.length ? [...rows, ['Other', rest]] : rows;
   return (
     <dl className="mt-5 border-t border-ink">
       {all.map(([name, items]) => (
-        <div key={name} className="grid grid-cols-[104px_minmax(0,1fr)] gap-4 border-b border-line py-2.5 sm:grid-cols-[112px_minmax(0,1fr)]">
-          <dt className={`flex items-center gap-1.5 text-sm ${items.length && name !== '기타' ? 'font-semibold' : 'text-muted'}`}><Ic as={LAYER_ICON[name]} />{name}</dt>
+        <div key={name} className="grid grid-cols-[128px_minmax(0,1fr)] gap-4 border-b border-line py-2.5 sm:grid-cols-[136px_minmax(0,1fr)]">
+          <dt className={`flex items-center gap-1.5 text-sm ${items.length && name !== 'Other' ? 'font-semibold' : 'text-muted'}`}><Ic as={LAYER_ICON[name]} />{name}</dt>
           <dd className={`text-[15px] ${items.length ? 'text-ink/85' : 'text-muted'}`}>{items.length ? items.join(', ') : '해당 없음'}</dd>
         </div>
       ))}
@@ -193,7 +193,7 @@ export default function Projects() {
     <>
       <section id="services" aria-labelledby="services-h" className="wrap grid items-start gap-x-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div>
-          <h2 id="services-h" className="mb-4 flex items-center gap-2 text-2xl font-semibold tracking-[-0.6px]"><Ic as={LayoutGrid} />운영 중인 서비스</h2>
+          <h2 id="services-h" className="mb-4 flex items-center gap-2 text-2xl font-semibold tracking-[-0.6px]"><Ic as={LayoutGrid} />Live Services</h2>
           <label>
             <span className="sr-only">서비스 검색</span>
             <input
@@ -236,7 +236,7 @@ export default function Projects() {
       </section>
 
       <section id="work" className="wrap pt-16 md:pt-32">
-        <SectionHead icon={FolderClock} title="이전 프로젝트" lede="마켓링크 합류 전, 기업과 고객사 프로젝트에서 설계하고 개발한 시스템입니다." />
+        <SectionHead icon={FolderClock} title="Past Projects" lede="마켓링크 합류 전, 기업과 고객사 프로젝트에서 설계하고 개발한 시스템입니다." />
         <ul className="mt-10 border-t border-line">
           {archive.map((it) => <Row key={it.id} it={it} onPick={setOpen} wide />)}
         </ul>

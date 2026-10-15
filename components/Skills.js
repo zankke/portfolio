@@ -12,21 +12,21 @@ import { LAYER_ICON, Ic } from './icons';
 // [name, devicon or null]. Only a skill's own logo is used; no stand-in logos for tools devicon lacks.
 // Same layer names as the service stack, top (screen) to bottom (GPU).
 const groups = [
-  ['프런트엔드', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vue.js', VuejsOriginalIcon], ['Vite', VitejsOriginalIcon], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX']]],
-  ['백엔드', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon]]],
-  ['데이터', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['MariaDB', MariadbOriginalIcon], ['SQLite', SqliteOriginalIcon], ['pandas', PandasOriginalIcon], ['Google Sheets API']]],
-  ['AI 모델', [['Claude API'], ['GPT-4'], ['Gemini'], ['Ollama'], ['EXAONE'], ['KoBERT'], ['TensorFlow', TensorflowOriginalIcon], ['YOLO'], ['Whisper']]],
-  ['인프라', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['CentOS', CentosOriginalIcon], ['LoadBalancer'], ['AWS', AmazonwebservicesOriginalWordmarkIcon], ['Google Cloud', GooglecloudOriginalIcon], ['NCP']]],
-  ['자동화', [['Playwright', PlaywrightOriginalIcon], ['n8n'], ['OpenAPI', OpenapiOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
+  ['Frontend', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vue.js', VuejsOriginalIcon], ['Vite', VitejsOriginalIcon], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX']]],
+  ['Backend', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon]]],
+  ['Data', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['MariaDB', MariadbOriginalIcon], ['SQLite', SqliteOriginalIcon], ['pandas', PandasOriginalIcon], ['Google Sheets API']]],
+  ['AI Models', [['Claude API'], ['GPT-4'], ['Gemini'], ['Ollama'], ['EXAONE'], ['KoBERT'], ['TensorFlow', TensorflowOriginalIcon], ['YOLO'], ['Whisper']]],
+  ['Infrastructure', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['CentOS', CentosOriginalIcon], ['LoadBalancer'], ['AWS', AmazonwebservicesOriginalWordmarkIcon], ['Google Cloud', GooglecloudOriginalIcon], ['NCP']]],
+  ['Automation', [['Playwright', PlaywrightOriginalIcon], ['n8n'], ['OpenAPI', OpenapiOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
 ];
 
 export default function Skills() {
   return (
     <section id="skills" className="wrap pt-16 md:pt-32">
-      <SectionHead icon={Layers} title="기술 스택" lede="프런트엔드부터 AI 모델과 인프라까지, 서비스의 전 계층을 직접 다룹니다." />
+      <SectionHead icon={Layers} title="Tech Stack" lede="프런트엔드부터 AI 모델과 인프라까지, 서비스의 전 계층을 직접 다룹니다." />
       <div className="mt-10 border-t border-ink">
         {groups.map(([h, items]) => (
-          <div key={h} className="grid gap-4 border-b border-line py-5 sm:grid-cols-[132px_minmax(0,1fr)]">
+          <div key={h} className="grid gap-4 border-b border-line py-5 sm:grid-cols-[168px_minmax(0,1fr)]">
             <h3 className="flex items-center gap-2 self-start pt-1.5 font-semibold"><Ic as={LAYER_ICON[h]} />{h}</h3>
             <ul className="flex flex-wrap gap-2">
               {items.map(([name, Icon]) => (
