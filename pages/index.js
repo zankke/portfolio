@@ -13,7 +13,7 @@ const SITE = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
   : '';
 const TITLE = '이상훈 | Full Stack AI Engineer';
-const DESCRIPTION = 'AI 서비스를 기획하고 만들고, GPU 서버에서 직접 운영합니다. ai.marketlink.co.kr에서 21개 서비스를 운영 중입니다.';
+const DESCRIPTION = 'Full Stack AI Engineer 이상훈의 포트폴리오. AI 서비스를 기획부터 GPU 운영까지 직접 설계하고 구축합니다.';
 
 export default function Home() {
   const seoTags = generateNextSeo({
@@ -45,7 +45,13 @@ export default function Home() {
         <Skills />
         <Contact />
       </main>
-      <footer className="wrap foot">© 2026 이상훈. ai.marketlink.co.kr의 모든 서비스는 직접 설계하고 운영합니다.</footer>
+      <footer className="wrap mt-16 flex flex-wrap justify-between gap-4 border-t border-line pt-6 pb-10 text-sm text-muted md:mt-24">
+        <span>© 2026 이상훈</span>
+        <span className="flex gap-6">
+          <a href="mailto:itsme.kevin@icloud.com" className="text-muted hover:text-ink">itsme.kevin@icloud.com</a>
+          <a href="https://github.com/zankke" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-ink">GitHub</a>
+        </span>
+      </footer>
     </>
   );
 }

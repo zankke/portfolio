@@ -194,7 +194,6 @@ const allProjects = [
   const lines = {
     dgx1: { name: 'DGX-01', note: 'DGX-01에서 운영' },
     dgx2: { name: 'DGX-02', note: 'DGX-02에서 운영' },
-    infra: { name: '추론 인프라', note: 'GPU 두 대를 묶는 LLM 추론 계층' },
     office: { name: '사내 서버', note: '사내 서버에서 운영' },
   };
 
@@ -210,7 +209,6 @@ const allProjects = [
     { route: '/builder', line: 'dgx1', name: 'SurveyBuilder', summary: 'docx, hwp 설문지를 올리면 AI가 웹 설문으로 바로 만들어 줍니다.', live: 'https://ai.marketlink.co.kr/builder', detail: { image: '/images/stations/builder.jpg', tech: 'Next.js, TypeScript, LLM 문서 분석', facts: [['개요', '설문 빌더 SaaS(v2.0)입니다. docx나 hwp 설문지를 올리면 AI가 분석해 웹 설문으로 셋업합니다.'], ['자동 구성', '웹 화면 구성, 분기와 스킵 조건, 수집 쿼터를 한 번에 설정합니다.'], ['규칙', '한국어 설문지 표기 규칙과 18종 모듈을 정의하고, 파서와 리포트, 응답 화면이 같은 규칙 문서를 따르도록 맞췄습니다.'], ['운영', '실제 설문 3건이 이 빌더로 운영되고 있습니다.']] } },
     { route: '/ssm', line: 'dgx1', name: 'SSM Intelligence', summary: '카드사 빅데이터 349만 건으로 소형 슈퍼마켓 시장을 분석합니다.', detail: { image: '/images/stations/ssm.jpg', tech: 'Python, ECharts, Node.js, 로그인 인증', facts: [['개요', '카드사 빅데이터로 소형 슈퍼마켓 시장을 분석하는 SSM Intelligence Platform입니다.'], ['데이터', '카드사 6곳, 18개월(2025.01~2026.06), 349만 건, 가맹점 224,061곳의 거래를 집계했습니다.'], ['구성', '시장 대시보드, 브랜드 분석 리포트, AI 어시스턴트, 트렌드를 하나의 허브로 묶었습니다.']] } },
     { route: '/contacts', line: 'dgx1', name: '사내 주소록', summary: '마켓링크 구성원 연락처를 찾습니다.', detail: { facts: [['개요', '마켓링크 구성원 연락처를 찾는 사내 주소록입니다.']] } },
-    { route: ':8080', line: 'dgx1', name: '클러스터 대시보드', summary: 'DGX 두 대의 상태를 한 화면에 보여 줍니다.', project: 'MARKETLINK-AX 온프레미스 AI 플랫폼 (NVIDIA DGX Spark ×2)' },
     { route: '/sosop', line: 'dgx2', name: 'SOSOP', summary: '설문 파일 한 장으로 HTML, PDF, PPTX 리포트를 만듭니다.', project: '[SOSOP] 소상공인 경쟁력 평가 리포트 자동화 시스템' },
     { route: '/studio', line: 'dgx2', name: 'AI Studio', summary: '프롬프트 최적화부터 이미지 생성, 갤러리, 결제까지 한곳에서 합니다.', detail: { tech: 'React, Vite, Node.js (Express, TypeScript), MySQL, JWT, Stripe', facts: [['개요', 'mLAB AI Studio. 프롬프트를 다듬고 번역해 이미지를 만들고, 갤러리로 관리하는 생성형 이미지 스튜디오입니다.'], ['기능', '프롬프트 최적화와 번역, 이미지 생성, 갤러리, 구독 결제, 관리자 대시보드를 갖췄습니다.']] } },
     { route: '/datalink', line: 'dgx2', name: 'DataLink', summary: '게임 이용자 리뷰 68,767건의 감성과 키워드를 분석합니다.', detail: { image: '/images/stations/datalink.jpg', tech: 'Python, React, Vite, 데이터 파이프라인', facts: [['개요', '게임 이용자 리뷰를 모아 감성과 키워드를 분석하는 리서치 포털입니다. 첫 화면은 PUBG Intelligence Dashboard입니다.'], ['분석', 'Steam과 Reddit 리뷰 68,767건으로 감성 점수, 키워드, 카테고리, 감정 분석, 요약 리포트를 만듭니다.'], ['기능', '데이터에 직접 질문하는 DataChat과 해외 한국 게임 이용자 조사 분석을 제공합니다.']] } },
@@ -218,7 +216,6 @@ const allProjects = [
     { route: '/meatlink', line: 'dgx2', name: 'Meatlink AI Hub', summary: '축산물 구매 사진에서 18개 항목을 자동으로 판독합니다.', detail: { image: '/images/stations/meatlink.jpg', tech: 'React, FastAPI, MySQL, Docker, Ollama (로컬 비전 LLM)', facts: [['개요', '축산물 구매 사진을 자동으로 판독하고 메타데이터를 실시간으로 검수하는 SaaS입니다.'], ['판독', '영수증과 라벨 사진 1,370쌍(2,740장)에서 구매일, 부위, 등급, 원산지, 가격 등 18개 항목을 사진 1장당 0.3초에 추출합니다.'], ['검증', '정부 할인행사(농할대전 등)를 따로 분리하고, 축산물 이력제(mtrace)와 연동해 실시간으로 확인합니다.']] } },
     { route: '/master', line: 'dgx2', name: 'CategoryMaster Agents', summary: '카테고리 마스터 데이터를 정리하는 에이전트입니다.', detail: { image: '/images/stations/master.jpg', tech: 'FastAPI, SQLAlchemy, MySQL 8, React, Vite, TypeScript, Caddy', facts: [['개요', '바코드로 상품의 카테고리와 제조사를 분류하는 AI 파이프라인입니다. 엑셀로 하던 수작업을 대신합니다.'], ['분류 방식', '저렴하고 믿을 만한 조회부터 LLM까지 순서대로 시도하고, 신뢰도가 낮은 결과는 사람이 검수하도록 넘깁니다.'], ['학습', '검수에서 고친 결과를 다시 반영해 갈수록 LLM을 덜 씁니다. 배치 진행 상황을 실시간으로 보여 주고 중단할 수 있습니다.'], ['품질', '백엔드 테스트 273개, 프런트엔드 테스트 75개가 통과합니다.']] } },
     { route: '/nh', line: 'dgx2', name: '농협 주류 협력사 데이터 분석 포털', summary: '주류 협력사가 로그인해 자기 매출과 시장 흐름을 분석합니다.', live: 'https://ai.marketlink.co.kr/nh/login?next=%2Fdashboard', detail: { image: '/images/stations/nh.jpg', tech: 'Next.js 16 (App Router), MySQL 8, ECharts, systemd', facts: [['개요', '농협 하나로마트 주류 협력사가 로그인해 자기 매출과 시장 흐름을 보는 데이터 분석 포털입니다.'], ['기능', '대시보드, 매출, 분석, 인사이트, 트렌드, 리포트, 공지 화면을 제공하고, 주류 뉴스와 통계, 월간 Retail Spotlight 리포트를 함께 보여 줍니다.'], ['권한', '협력사와 관리자 역할을 나누고, 로그인한 사용자만 데이터를 볼 수 있습니다. 등급에 따라 열리는 분석 모듈이 다릅니다.'], ['데이터', '원천 데이터를 정규화해 분석용 마트로 쌓고, 화면에서는 집계 결과만 불러옵니다.'], ['배포', '배포 스크립트가 백업, 빌드, 재시작, 점검을 하고 실패하면 자동으로 이전 버전으로 되돌립니다.']] } },
-    { route: ':8434', line: 'infra', name: 'Ollama 로드밸런서', summary: 'LLM 추론 요청을 GPU 서버 두 대에 나눠 보냅니다.', project: 'MARKETLINK-AX 온프레미스 AI 플랫폼 (NVIDIA DGX Spark ×2)' },
     { route: '/pms', line: 'office', name: 'PMS', summary: '프로젝트 일정과 진행 상황을 관리합니다.', detail: { facts: [['개요', '프로젝트 일정과 진행 상황을 관리하는 대시보드입니다.']] } },
   ];
 
