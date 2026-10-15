@@ -2,6 +2,7 @@ import Hero, { Intro } from "../components/Hero";
 import About from "../components/About";
 import { Services, PastProjects } from "../components/Projects";
 import Platform from "../components/Platform";
+import AIEngineering from "../components/AIEngineering";
 import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import Navbar from "../components/Navbar";
@@ -44,6 +45,7 @@ export default function Home() {
         <div className="min-w-0">
           <main>
             <Intro />
+            <AIEngineering />
             <Platform />
             <Services />
             <About />

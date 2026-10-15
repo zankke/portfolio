@@ -2,6 +2,7 @@ import { RESUME } from './profile';
 
 // Same order as the page.
 export const links = [
+  ['#ai', 'AI'],
   ['#platform', 'Platform'],
   ['#services', 'Services'],
   ['#about', 'Experience'],
