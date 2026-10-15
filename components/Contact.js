@@ -4,7 +4,7 @@ import SectionHead from './SectionHead';
 import { EMAIL, RESUME, LINKEDIN } from './profile';
 
 // Copies the address and says so in place for 2s; the icon swap is the confirmation, the live region tells screen readers.
-export function CopyEmail({ className }) {
+export function CopyEmail({ className, compact }) {
   const [copied, setCopied] = useState(false);
   const t = useRef();
   const copy = async () => {
@@ -19,9 +19,12 @@ export function CopyEmail({ className }) {
   };
   const Icon = copied ? Check : Copy;
   return (
-    <button type="button" className={`${className} gap-2`} onClick={copy}>
-      <Icon key={String(copied)} aria-hidden="true" strokeWidth={2} className="size-4 motion-safe:animate-[pop_.25s_ease-out]" />
-      <span aria-live="polite">{copied ? '복사했습니다' : '이메일 복사'}</span>
+    <button type="button" className={`${className} relative gap-2`} onClick={copy} aria-label={compact ? '이메일 주소 복사' : undefined}>
+      <Icon key={String(copied)} aria-hidden="true" strokeWidth={2} className={`size-4 motion-safe:animate-[pop_.25s_ease-out] ${copied ? 'text-primary' : ''}`} />
+      {/* compact: the confirmation floats beside the icon instead of replacing a label */}
+      <span aria-live="polite" className={compact ? `pointer-events-none absolute left-full ml-1 rounded-md bg-primary px-2 py-1 text-[13px] whitespace-nowrap text-off ${copied ? 'motion-safe:animate-rise' : 'sr-only'}` : ''}>
+        {copied ? '복사했습니다' : compact ? '' : '이메일 복사'}
+      </span>
     </button>
   );
 }

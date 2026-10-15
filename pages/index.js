@@ -39,7 +39,7 @@ export default function Home() {
         {seoTags}
       </Head>
       <Navbar className="lg:hidden" />
-      <div className="wrap-wide lg:grid lg:grid-cols-[minmax(300px,360px)_minmax(0,1fr)] lg:gap-x-[clamp(48px,6vw,112px)]">
+      <div className="wrap lg:grid lg:grid-cols-[minmax(300px,360px)_minmax(0,1fr)] lg:gap-x-[clamp(48px,6vw,112px)]">
         <Hero />
         <div className="min-w-0">
           <main>
