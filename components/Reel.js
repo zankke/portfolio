@@ -1,3 +1,4 @@
+import { Clapperboard } from 'lucide-react';
 import SectionHead from './SectionHead';
 
 // Videos live on the platform itself, next to the services they show.
@@ -11,7 +12,7 @@ const reels = [
 export default function Reel() {
   return (
     <section id="reel" className="wrap pt-16 md:pt-32">
-      <SectionHead title="영상 소개" />
+      <SectionHead icon={Clapperboard} title="영상 소개" />
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {reels.map((r) => (
           <figure key={r.file}>

@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { allProjects, stations, lines, stationId } from './projectData';
+import { LayoutGrid, FolderClock } from 'lucide-react';
 import SectionHead from './SectionHead';
+import { LAYER_ICON, Ic } from './icons';
 
 // longDesc is "**label:** text" lines with "*   bullet" continuations -> [{label, text}]
 function facts(longDesc) {
@@ -47,8 +49,8 @@ function Stack({ tech }) {
   return (
     <dl className="mt-5 border-t border-ink">
       {all.map(([name, items]) => (
-        <div key={name} className="grid grid-cols-[88px_minmax(0,1fr)] gap-4 border-b border-line py-2.5 sm:grid-cols-[96px_minmax(0,1fr)]">
-          <dt className={`text-sm ${items.length && name !== '기타' ? 'font-semibold' : 'text-muted'}`}>{name}</dt>
+        <div key={name} className="grid grid-cols-[104px_minmax(0,1fr)] gap-4 border-b border-line py-2.5 sm:grid-cols-[112px_minmax(0,1fr)]">
+          <dt className={`flex items-center gap-1.5 text-sm ${items.length && name !== '기타' ? 'font-semibold' : 'text-muted'}`}><Ic as={LAYER_ICON[name]} />{name}</dt>
           <dd className={`text-[15px] ${items.length ? 'text-ink/85' : 'text-muted'}`}>{items.length ? items.join(', ') : '해당 없음'}</dd>
         </div>
       ))}
@@ -191,7 +193,7 @@ export default function Projects() {
     <>
       <section id="services" aria-labelledby="services-h" className="wrap grid items-start gap-x-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div>
-          <h2 id="services-h" className="mb-4 text-2xl font-semibold tracking-[-0.6px]">운영 중인 서비스</h2>
+          <h2 id="services-h" className="mb-4 flex items-center gap-2 text-2xl font-semibold tracking-[-0.6px]"><Ic as={LayoutGrid} />운영 중인 서비스</h2>
           <label>
             <span className="sr-only">서비스 검색</span>
             <input
@@ -234,7 +236,7 @@ export default function Projects() {
       </section>
 
       <section id="work" className="wrap pt-16 md:pt-32">
-        <SectionHead title="이전 프로젝트" lede="마켓링크 합류 전, 기업과 고객사 프로젝트에서 설계하고 개발한 시스템입니다." />
+        <SectionHead icon={FolderClock} title="이전 프로젝트" lede="마켓링크 합류 전, 기업과 고객사 프로젝트에서 설계하고 개발한 시스템입니다." />
         <ul className="mt-10 border-t border-line">
           {archive.map((it) => <Row key={it.id} it={it} onPick={setOpen} wide />)}
         </ul>
