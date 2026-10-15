@@ -78,7 +78,7 @@ const services = stations.map((s) => {
 // The platform write-up has its own section; everything else not behind a station is a past project.
 const archive = allProjects
   .filter((p) => !linked.has(p.title) && !p.title.startsWith('MARKETLINK-AX'))
-  .map((p, i) => ({ id: `work-${i}`, label: joinMeta(p.org, p.year), meta: p.role, name: p.title, summary: p.desc, p }));
+  .map((p, i) => ({ id: `work-${i}`, label: joinMeta(p.org, p.year) || p.category, meta: p.role, name: p.title, summary: p.desc, p }));
 
 const haystack = (it) => [it.label, it.name, it.summary, it.p.tech, it.p.desc].join(' ').toLowerCase();
 
@@ -204,11 +204,11 @@ export function Services() {
   const q = query.trim().toLowerCase();
   const shown = q ? services.filter((it) => haystack(it).includes(q)) : services;
 
-  // Platform diagram links to #st-…; on wide screens that also selects the service.
+  // Platform diagram links to #st-…: select it in the panel, or open the dialog on narrow screens.
   useEffect(() => {
     const pick = () => {
       const hit = services.find((it) => `#${it.id}` === window.location.hash);
-      if (hit && !narrow()) setCur(hit);
+      if (hit) (narrow() ? setOpen : setCur)(hit);
     };
     pick();
     window.addEventListener('hashchange', pick);

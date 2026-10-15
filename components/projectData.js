@@ -122,11 +122,10 @@ const allProjects = [
     {
       title: "MarketLink Consumer Survey Center",
       tech: "KoBERT, GPT-4, 설문 응답 분류, CSV 처리",
-      desc: "설문 코드를 자동으로 분류하는 AI를 설계했습니다. 데이터 처리 속도가 150배 빨라졌습니다.",
+      desc: "설문 주관식 응답에 코드를 자동으로 붙이는 분류 AI를 설계했습니다.",
       image: "/images/prjOpenSurvey.png",
       longDesc: `
-        **맡은 일:** 설문 코드를 자동으로 분류하는 AI를 설계했습니다.
-        **성과:** 데이터 처리 속도가 150배 빨라졌습니다.
+        **맡은 일:** 설문 주관식 응답에 코드를 자동으로 붙이는 분류 AI를 설계했습니다.
       `,
       category: 'AI',
     },

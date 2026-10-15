@@ -1,7 +1,7 @@
 import {
   ReactOriginalIcon, Html5OriginalIcon, NodejsOriginalIcon, FastapiOriginalIcon, PythonOriginalIcon,
   PhpOriginalIcon, MysqlOriginalIcon, NginxOriginalIcon, CentosOriginalIcon, DockerOriginalIcon,
-  ExpressOriginalIcon, RedisOriginalIcon, NextjsOriginalIcon, VitejsOriginalIcon, TailwindcssOriginalIcon, TypescriptOriginalIcon,
+  ExpressOriginalIcon, RedisOriginalIcon, NextjsOriginalIcon, TailwindcssOriginalIcon, TypescriptOriginalIcon,
   PostgresqlOriginalIcon, PandasOriginalIcon, PlaywrightOriginalIcon, StreamlitOriginalIcon,
 } from '@devicon/react';
 import { Layers } from 'lucide-react';
@@ -12,7 +12,7 @@ import { LAYER_ICON, Ic } from './icons';
 // Same layer names as the service stack, top (screen) to bottom (GPU).
 // Every entry appears in at least one service or project on this page.
 const groups = [
-  ['Frontend', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vite', VitejsOriginalIcon], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX'], ['ECharts']]],
+  ['Frontend', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vite'], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX'], ['ECharts']]],
   ['Backend', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon], ['Stripe']]],
   ['Data', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['pandas', PandasOriginalIcon], ['SQLAlchemy'], ['Google Sheets API']]],
   ['AI Models', [['Ollama'], ['EXAONE'], ['Gemini'], ['GPT-4'], ['Claude API'], ['PaddleOCR'], ['faster-whisper'], ['GraphRAG'], ['KoBERT']]],
