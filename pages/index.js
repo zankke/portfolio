@@ -12,7 +12,7 @@ import Head from 'next/head';
 const SITE = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
   : '';
-const TITLE = '이상훈 | Full Stack AI Developer, AI Platform Director';
+const TITLE = '이상훈 | Full Stack AI Engineer';
 const DESCRIPTION = 'AI 서비스를 기획하고 만들고, GPU 서버에서 직접 운영합니다. ai.marketlink.co.kr에서 21개 서비스를 운영 중입니다.';
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
       ...(SITE && { url: `${SITE}/` }),
       title: TITLE,
       description: DESCRIPTION,
-      images: [{ url: `${SITE}/og.png`, width: 1200, height: 630, alt: '이상훈과 ai.marketlink.co.kr 서비스 노선도', type: 'image/png' }],
+      images: [{ url: `${SITE}/og.png`, width: 1200, height: 630, alt: '이상훈, Full Stack AI Engineer', type: 'image/png' }],
       site_name: '이상훈 포트폴리오',
       locale: 'ko_KR',
     },
@@ -39,8 +39,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Reel />
         <Projects />
+        <Reel />
         <About />
         <Skills />
         <Contact />

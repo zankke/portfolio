@@ -2,7 +2,7 @@ const allProjects = [
     {
       title: "[SOSOP] 소상공인 경쟁력 평가 리포트 자동화 시스템",
       tech: "FastAPI, Celery, PostgreSQL, Redis, python-pptx, Chromium, HTMX, OpenAI·Gemini·Ollama, Docker Compose",
-      desc: "설문 파일 한 장 → HTML·PDF·PPTX 리포트 자동 생성. Windows 전용 레거시 도구를 웹 시스템으로 재구축",
+      desc: "설문 파일 한 장을 올리면 HTML, PDF, PPTX 리포트가 나옵니다. Windows에서만 돌던 기존 도구를 웹 시스템으로 다시 만들었습니다.",
       image: "/videos/sosop/poster.jpg",
       video: {
         src: "https://ai.marketlink.co.kr/portfolio/sosop-intro.mp4",
@@ -11,47 +11,47 @@ const allProjects = [
       },
       link: "https://ai.marketlink.co.kr/sosop",
       longDesc: `
-        **핵심 역할:** 기획 · 설계 · 개발 · 배포 100% 단독 수행
-        **배경:** Tkinter + PowerPoint COM 기반 Windows 전용 도구 → 이식 불가 문제를 웹 시스템 재구축으로 해결
-        **파이프라인:** 6단계 (집계 → 정제 → 인사이트 → PPT→PDF ∥ HTML), 단계별 엑셀 시트 누적, 실패 단계부터 재시도
-        **LLM 폴백 체인:** OpenAI → Gemini → Ollama(EXAONE 3.5 32B), 마지막 성공 모델만 기록
-        **산출물:** 하나의 HTML 덱에서 HTML · PDF · PPTX 동시 생성 (PPTX 편집 가능, PDF 자체 점검), 로그인 없는 공유 링크 발급
-        **수치 조정:** 문항별 응답 건수 조정 시 Top3 비율 · 등급 즉시 재계산, 원본 응답은 보존
-        **배포 · 운영:** Docker Compose 5개 서비스 (web · worker 동일 이미지), 관리자 로그인 + OTP, Google Drive 동기화
+        **맡은 일:** 기획, 설계, 개발, 배포를 혼자 했습니다.
+        **배경:** 기존 도구는 Tkinter와 PowerPoint COM으로 만들어 Windows에서만 돌았고, 다른 환경으로 옮길 수 없었습니다. 그래서 웹 시스템으로 다시 만들었습니다.
+        **파이프라인:** 6단계로 나뉩니다. 집계, 정제, 인사이트를 거쳐 PPT→PDF와 HTML을 나란히 만듭니다. 단계마다 결과를 엑셀 시트에 쌓고, 실패하면 그 단계부터 다시 돌립니다.
+        **LLM 폴백:** OpenAI가 실패하면 Gemini, 그다음 Ollama(EXAONE 3.5 32B)로 넘어갑니다. 기록에는 마지막으로 성공한 모델만 남깁니다.
+        **산출물:** HTML 덱 하나에서 HTML, PDF, PPTX를 함께 만듭니다. PPTX는 편집할 수 있고, PDF는 만든 뒤 스스로 점검합니다. 로그인 없이 볼 수 있는 공유 링크도 발급합니다.
+        **수치 조정:** 문항별 응답 건수를 고치면 Top3 비율과 등급을 바로 다시 계산합니다. 원본 응답은 그대로 둡니다.
+        **배포와 운영:** Docker Compose로 서비스 5개를 띄우고, web과 worker는 같은 이미지를 씁니다. 관리자는 로그인과 OTP로 들어오고, 결과는 Google Drive와 동기화합니다.
       `,
       category: 'AI',
     },
     {
       title: "AI 패널 설문 에이전트 (LV10)",
       tech: "Node.js, Express 5, TypeScript, Playwright + CDP, React 19, Vite 8, MySQL, Gemini·OpenAI·EXAONE",
-      desc: "한국어 페르소나 LLM이 브라우저를 직접 조종해 웹 설문을 자동 응답. 목표 완주율 80% 이상",
+      desc: "한국어 페르소나를 입힌 LLM이 브라우저를 직접 조작해 웹 설문에 답합니다. 목표 완주율은 80% 이상입니다.",
       image: "/images/prjLV10_SurveyAgent.jpg",
       link: "https://ai.marketlink.co.kr/PROJECT_DOSSIER.html",
-      linkLabel: "시스템 도시에 보기 ↗",
+      linkLabel: "시스템 도시에 보기",
       longDesc: `
-        **핵심 역할:** 기획 · 설계 · 개발 100% 단독 수행
-        **개요:** Nemotron 한국어 패널 페르소나를 탑재한 LLM이 Playwright(CDP)로 설문을 읽고 · 판단하고 · 마킹하는 자동응답 시스템
-        **실행 사이클:** URL 접수 → 쿼터 인지 페르소나 배정 → DOM/AX 파싱 → 질문 유형 감지 → LLM 추론 → 응답 실행 → 제출 → 완료/스크린아웃 판정 (8단계 루프)
-        **핵심 역량:** 6대 스크린아웃 생존 필라 (SPA-safe 데드락 감지, 스크리너 구간 안전 응답 등), SSE/WebSocket 실시간 관제 대시보드
-        **엔지니어링:** 백엔드 서비스 모듈 28+, server.ts 6,212 → 277 라인 리팩터링, vitest 23 스위트 · 179 케이스
-        **LLM:** Gemini · OpenAI · 로컬 EXAONE 3계열 추론 엔진 선택
+        **맡은 일:** 기획, 설계, 개발을 혼자 했습니다.
+        **개요:** Nemotron 한국어 패널 페르소나를 입힌 LLM이 Playwright(CDP)로 설문을 읽고, 판단하고, 답을 표시합니다.
+        **실행 순서:** URL을 받으면 쿼터에 맞는 페르소나를 배정하고, DOM과 접근성 트리를 파싱해 질문 유형을 알아냅니다. LLM이 답을 정하면 입력해서 제출하고, 완료인지 스크린아웃인지 판정합니다. 이 8단계를 설문이 끝날 때까지 반복합니다.
+        **스크린아웃 대응:** 스크린아웃을 피하는 장치를 6가지 넣었습니다. SPA 화면이 멈추면 감지하고, 스크리너 구간에서는 안전한 답을 고르는 식입니다. 진행 상황은 SSE와 WebSocket으로 관제 대시보드에서 실시간으로 봅니다.
+        **엔지니어링:** 백엔드 서비스 모듈이 28개가 넘습니다. 6,212줄이던 server.ts를 리팩터링해 277줄로 줄였고, 테스트는 vitest 23개 스위트, 179개 케이스입니다.
+        **LLM:** Gemini, OpenAI, 로컬 EXAONE 3 계열 중에서 추론 엔진을 고를 수 있습니다.
       `,
       category: 'AI',
     },
     {
       title: "[SnapShorts] OpenShorts AI 숏폼 SaaS",
       tech: "FastAPI, Celery + Redis, PostgreSQL(RLS), faster-whisper, Gemini, Stripe·PortOne, NVIDIA DGX GPU",
-      desc: "롱폼 영상 → 바이럴 숏폼 자동 생성 SaaS. 클립 1편 원가 약 21원, 클립 매출총이익률 88%",
+      desc: "긴 영상을 바이럴 숏폼으로 잘라 주는 SaaS입니다. 클립 1편 원가는 약 21원, 클립 매출총이익률은 88%입니다.",
       image: "/images/prjOpenShorts.jpg",
       link: "https://ai.marketlink.co.kr/shorts/",
-      linkLabel: "아키텍처 · 사업 보고서 보기 ↗",
+      linkLabel: "아키텍처와 사업 보고서 보기",
       longDesc: `
-        **핵심 역할:** 기획 · 설계 · 개발 100% 단독 수행
-        **기능:** AI 클립 생성기, 쿠팡 핫딜 쇼츠, AI 블로그 포스팅, 유튜브 스튜디오, UGC 가상 크리에이터 · 아바타 갤러리
-        **아키텍처:** JWT 멀티테넌트 + PostgreSQL 행 단위 보안(RLS), Celery 분산 GPU 워커 (DGX 2노드), 로컬 GPU 우선 · 클라우드 폴백
-        **마진 가드:** 작업 전 크레딧 차감 Lock, API 원가 대비 최소 35% 마진 보장 단가 연동
-        **원가 혁신:** 클립 1편 $0.016(약 21.4원) → 판매 $0.15, 매출총이익률 88.5% · DGX 온프레미스로 원가 78% 절감 (설계 기준)
-        **결제:** Stripe 정기결제 + PortOne/Toss 국내 간편결제
+        **맡은 일:** 기획, 설계, 개발을 혼자 했습니다.
+        **기능:** AI 클립 생성기, 쿠팡 핫딜 쇼츠, AI 블로그 포스팅, 유튜브 스튜디오, UGC 가상 크리에이터와 아바타 갤러리가 있습니다.
+        **아키텍처:** JWT 멀티테넌트 구조에 PostgreSQL 행 단위 보안(RLS)을 걸었습니다. Celery GPU 워커를 DGX 두 노드에 나눠 돌리고, 로컬 GPU를 먼저 쓰다가 안 되면 클라우드로 넘깁니다.
+        **마진 보호:** 작업을 시작하기 전에 크레딧을 잠가서 먼저 차감합니다. 단가는 API 원가보다 최소 35% 마진이 남도록 연동했습니다.
+        **원가:** 클립 1편 원가는 $0.016(약 21.4원), 판매가는 $0.15로 매출총이익률이 88.5%입니다. 설계 기준으로 DGX 온프레미스를 쓰면 원가가 78% 줄어듭니다.
+        **결제:** 정기결제는 Stripe로, 국내 간편결제는 PortOne/Toss로 받습니다.
       `,
       category: 'AI',
     },
@@ -63,7 +63,7 @@ const allProjects = [
       link: "https://ai.marketlink.co.kr/lotte/v2/dashboard.html",
       linkLabel: "QC 대시보드 보기",
       longDesc: `
-        **핵심 역할:** 기획 · 설계 · 개발 · 운영 100% 단독 수행
+        **맡은 일:** 기획, 설계, 개발, 운영을 혼자 했습니다.
         **규모:** 마스터 55,546행, 정제 대상 SKU 53,102행, 납품 SKU 44,836행, 18개 카테고리(스낵, 비스킷, 캔디, 젤리, 초코, 빵 등), 정제 셀 507,658개
         **정제 방식:** 결정론 규칙, 공공 DB(식약처 등), 이미지 OCR, 검색 · LLM 순서로 근거를 쌓고 셀마다 출처와 신뢰도를 기록합니다.
         **품질:** 신뢰도 0.85 이상인 AI 확정 73.9%(375,232셀), 나머지 26.1%는 사람 검수 큐로 보냅니다. 평균 신뢰도 0.875로 계약 기준 0.85를 충족합니다.
@@ -76,39 +76,37 @@ const allProjects = [
     {
       title: "MARKETLINK-AX 온프레미스 AI 플랫폼 (NVIDIA DGX Spark ×2)",
       tech: "NVIDIA DGX Spark(GB10) ×2, Nginx, Let's Encrypt, Docker, Ollama LB, FastAPI · Next.js · Vite",
-      desc: "DGX 2노드 클러스터 위에 26개 서비스 · 132개 엔드포인트를 단일 도메인으로 운영하는 사내 AI 플랫폼",
+      desc: "DGX 두 노드 클러스터에서 서비스 26개와 엔드포인트 132개를 도메인 하나로 운영하는 사내 AI 플랫폼입니다.",
       image: "/images/prjDGXPlatform.jpg",
       longDesc: `
-        **핵심 역할:** 클러스터 구축 · 게이트웨이 설계 · 서비스 개발 100% 단독 수행
-        **인프라:** NVIDIA DGX Spark 2노드 (GB10, 128GB 통합 메모리), 단일 공개 도메인 HTTPS 게이트웨이 (Let's Encrypt, 보안 헤더), 경로 기반 서비스 라우팅
-        **LLM 추론 게이트웨이:** Ollama 2노드 로드밸런싱 (random two least_conn), GPU 동시성 상한(포화 시 503), 헬스체크
-        **자체 개발 서비스 (21):** SOSOP, AI 패널 설문 에이전트, OpenShorts, AI Studio, DataLink, OCR 대시보드, Lotte웰푸드 EAV System, Meatlink AI Hub, CategoryMaster Agents, 농협 주류 매출분석 포털, PMS, Sales Lead Monitor, 사업자정보 조회, 수산물 챗봇, Kiosk MBTI, Builder, 친환경 제품 리서치 대시보드 외
-        **오픈소스 도입 · 운영:** Open WebUI(RAG 챗봇), Mattermost, Termix, GoAccess
-        **운영:** GoAccess 트래픽 리포트, 서비스별 로그 분리, 내부 전용 서비스 비공개 전환
+        **맡은 일:** 클러스터 구축, 게이트웨이 설계, 서비스 개발을 혼자 했습니다.
+        **인프라:** NVIDIA DGX Spark 두 노드(GB10, 128GB 통합 메모리)를 씁니다. 공개 도메인 하나에 HTTPS 게이트웨이(Let's Encrypt, 보안 헤더)를 두고, 경로마다 서비스를 연결합니다.
+        **LLM 추론 게이트웨이:** Ollama 요청을 두 노드에 나눠 보냅니다(random two least_conn). GPU 동시 요청 수에 상한을 두어 꽉 차면 503을 돌려주고, 헬스체크를 합니다.
+        **직접 만든 서비스 (21):** SOSOP, AI 패널 설문 에이전트, OpenShorts, AI Studio, DataLink, OCR 대시보드, Lotte웰푸드 EAV System, Meatlink AI Hub, CategoryMaster Agents, 농협 주류 매출분석 포털, PMS, Sales Lead Monitor, 사업자정보 조회, 수산물 챗봇, Kiosk MBTI, Builder, 친환경 제품 리서치 대시보드 외
+        **도입해 운영하는 오픈소스:** Open WebUI(RAG 챗봇), Mattermost, Termix, GoAccess
+        **운영:** GoAccess로 트래픽 리포트를 만들고, 로그는 서비스별로 나눠 둡니다. 내부 전용 서비스는 외부에 공개하지 않습니다.
       `,
       category: 'AI',
     },
     {
       title: "AI Video Generation Framework",
       tech: "Python, Node.js, REST API, JSON Pipeline",
-      desc: "8단계 AI 영상 자동 생성 Framework 기획/설계/개발. 콘텐츠 제작 효율 60% ↑",
+      desc: "AI로 영상을 만드는 8단계 Framework를 기획, 설계, 개발했습니다. 콘텐츠 제작 효율이 60% 올랐습니다.",
       image: "/images/prjAI_Video_Framework.png",
       longDesc: `
-        **핵심 역할:** AI 영상 자동 생성 플랫폼 기획 및 설계
-        **주요 성과:** 콘텐츠 제작 효율 160% ↑
-        **기존 기술 스택:** Python, Node.js, REST API, JSON 파이프라인
+        **맡은 일:** AI 영상 자동 생성 플랫폼을 기획하고 설계했습니다.
+        **성과:** 콘텐츠 제작 효율이 160% 올랐습니다.
       `,
       category: 'AI',
     },
     {
       title: "[AI] CommercialAds Video Generation Framework",
       tech: "Python, Node.js, REST API, JSON Pipeline",
-      desc: "AI 광고 영상 (Short & Long Form 자동 생성",
+      desc: "숏폼과 롱폼 AI 광고 영상을 자동으로 만듭니다.",
       image: "/images/prjVideoAI.png",
       longDesc: `
-        **핵심 역할:** AI 영상 자동 생성 플랫폼 기획 및 설계
-        **주요 성과:** 콘텐츠 제작 효율 200% ↑
-        **기존 기술 스택:** Python, Node.js, REST API, JSON 파이프라인
+        **맡은 일:** AI 영상 자동 생성 플랫폼을 기획하고 설계했습니다.
+        **성과:** 콘텐츠 제작 효율이 200% 올랐습니다.
       `,
       category: 'AI',
     },
@@ -126,129 +124,110 @@ const allProjects = [
     {
       title: "Edge&Next 의료정보 통합 플랫폼",
       tech: "CentOS, Apache2, Nginx, PHP 7.4, EMR 연동, React",
-      desc: "백엔드 & 인증 구조 설계. 실시간 EMR 연동, 고가용성 확보",
+      desc: "백엔드와 인증 구조를 설계했습니다. EMR과 실시간으로 연동하고 고가용성을 확보했습니다.",
       image: "/images/prjAutomation_01_social.png",
       longDesc: `
-        **핵심 역할:** 백엔드 & 인증 구조 설계
-        **주요 성과:** 실시간 EMR 연동, 고가용성 확보
-        **기존 기술 스택:** CentOS, Apache2, Nginx, PHP 7.4, EMR 연동, React
+        **맡은 일:** 백엔드와 인증 구조를 설계했습니다.
+        **성과:** EMR과 실시간으로 연동하고 고가용성을 확보했습니다.
       `,
       category: 'Web',
     },
     {
       title: "Sales Admin System v3.0",
       tech: "SaaS, BI, AI Dashboard, Python, Node.js",
-      desc: "BI + AI Dashboard 구축. 데이터 분석 효율 193% 향상",
+      desc: "BI와 AI 대시보드를 만들었습니다. 데이터 분석 효율이 193% 올랐습니다.",
       image: "/images/prjInfra_SalesMgmt.png",
       longDesc: `
-        **핵심 역할:** BI + AI Dashboard 구축
-        **주요 성과:** 데이터 분석 효율 193% 향상
-        **기존 기술 스택:** SaaS, BI, AI Dashboard, Python, Node.js
+        **맡은 일:** BI와 AI 대시보드를 만들었습니다.
+        **성과:** 데이터 분석 효율이 193% 올랐습니다.
       `,
       category: 'Automation',
     },
     {
       title: "MarketLink Consumer Survey Center",
       tech: "KoBERT, GPT-4, 설문 응답 분류, CSV 처리",
-      desc: "설문 코드 자동 분류 AI 설계. 데이터 처리 속도 150배 향상",
+      desc: "설문 코드를 자동으로 분류하는 AI를 설계했습니다. 데이터 처리 속도가 150배 빨라졌습니다.",
       image: "/images/prjOpenSurvey.png",
       longDesc: `
-        **핵심 역할:** 설문 코드 자동 분류 AI 설계
-        **주요 성과:** 데이터 처리 속도 150배 향상
-        **기존 기술 스택:** KoBERT, GPT-4, 설문 응답 분류, CSV 처리
+        **맡은 일:** 설문 코드를 자동으로 분류하는 AI를 설계했습니다.
+        **성과:** 데이터 처리 속도가 150배 빨라졌습니다.
       `,
       category: 'AI',
     },
     {
       title: "Kakaopay Securities Dashboard",
       tech: "Apache-Tomcat, 데이터 로그 분석, 트래픽 모니터링",
-      desc: "시스템 운영 로그 분석 및 시각화. 서비스 안정성 100% 유지",
+      desc: "시스템 운영 로그를 분석하고 시각화했습니다. 서비스 안정성 100%를 유지했습니다.",
       image: "/images/prjKakaopaysec_Monitoring.png",
       longDesc: `
-        **핵심 역할:** 시스템 운영 로그 분석 및 시각화
-        **주요 성과:** 서비스 안정성 100% 유지
-        **기존 기술 스택:** Apache-Tomcat, 데이터 로그 분석, 트래픽 모니터링
+        **맡은 일:** 시스템 운영 로그를 분석하고 시각화했습니다.
+        **성과:** 서비스 안정성 100%를 유지했습니다.
       `,
       category: 'Web',
     },
     {
       title: "교육연수원 및 e-Learning 플랫폼 개발",
       tech: "모바일 반응형 웹, UX/UI, LMS",
-      desc: "반응형 웹/UX 설계. 월간 사용자 30% 증가",
+      desc: "반응형 웹과 UX를 설계했습니다. 월간 사용자가 30% 늘었습니다.",
       image: "/images/prjKFTA_Responsive.png",
       longDesc: `
-        **핵심 역할:** 반응형 웹/UX 설계
-        **주요 성과:** 월간 사용자 30% 증가
-        **기존 기술 스택:** 모바일 반응형 웹, UX/UI, LMS
+        **맡은 일:** 반응형 웹과 UX를 설계했습니다.
+        **성과:** 월간 사용자가 30% 늘었습니다.
       `,
       category: 'Web',
     },
     {
       title: "AI 기반 콘텐츠 자동 생성 워크플로우",
       tech: "Claude API, Google Sheet API, Hashtag Generation",
-      desc: "Claude API, Hashtag Generation, Google Sheet API 연동. 이미지/텍스트 자동화 기반 SNS 콘텐츠 생성. 포스트 생성 자동화 파이프라인 구축.",
+      desc: "Claude API, 해시태그 생성, Google Sheet API를 연동해 SNS 포스트를 자동으로 만드는 파이프라인입니다.",
       image: "/images/prjWorkflowAutomation.png",
       longDesc: `
-        **주요 기술:**
-        *   Claude API, Hashtag Generation, Google Sheet API 연동
-        *   이미지/텍스트 자동화 기반 SNS 콘텐츠 생성
-        **성과:**
-        *   포스트 생성 자동화 파이프라인 구축 (기획 → 해시태그 → 이미지 → 업로드)
-        *   마케팅팀 작업시간 70% 단축
+        **사용 기술:** Claude API, 해시태그 생성, Google Sheet API를 연동해 이미지와 텍스트를 자동으로 만들고 SNS 콘텐츠를 생성합니다.
+        **성과:** 기획, 해시태그, 이미지, 업로드로 이어지는 포스트 생성 과정을 자동화했습니다. 마케팅팀 작업 시간이 70% 줄었습니다.
       `,
       category: 'AI',
     },
     {
       title: "한국교총 종합교육연수원 웹 개편 및 LMS 시스템 개선",
       tech: "PHP, MS-SQL, IIS, HTML5, JavaScript, CSS, CDN, .NET Framework",
-      desc: "한국교총 종합교육연수원 웹사이트 전면 개편, 반응형/적응형 웹 구현, FLASH 컨텐츠 변환, LMS 기능 개선 등을 통해 사이트 재도약 및 운영 효율 증대.",
+      desc: "한국교총 종합교육연수원 웹사이트를 전면 개편했습니다. 반응형·적응형 웹을 만들고, FLASH 콘텐츠를 변환하고, LMS 기능을 고쳐 운영 효율을 높였습니다.",
       image: "/images/prjKFTA_main.png",
       longDesc: `
-        **과업 수행 목표:** 'TOP 교원 연수 사이트로 Re-Positioning'을 목표로 하며, 2020 KERIS 연수원 평가 대비 요구조건 반영, 모바일 대응 사이트 개편, FLASH 지원 종료에 따른 대응, LMS/LCMS 기능 개선, 이용자 유입 확대를 위한 UX/UI 개선 등을 포함합니다.
+        **목표:** 'TOP 교원 연수 사이트로 Re-Positioning'이 목표였습니다. 2020 KERIS 연수원 평가 요구 조건 반영, 모바일 대응 개편, FLASH 지원 종료 대응, LMS/LCMS 기능 개선, 이용자를 늘리기 위한 UX/UI 개선을 맡았습니다.
 
-        **주요 과제 및 진행 결과 요약 (2020.11.05일 기준):**
-        *   종합교육연수원 반응형 웹 전면 개편 (www.kftaedu.or.kr): 5월 31일 완료되었으며, 운영 지원이 진행 중입니다.
-        *   원격교육연수원 "사제동행" 1차 개편 (리뉴얼): 3월 30일 완료되었으며, 교육 이수 조건 변경 반영 및 디자인 전면 리뉴얼 등이 이루어졌습니다.
-        *   원격교육연수원 "사제동행" 2차 개편 (반응형 웹): 개발 진척율 90%로, 연내(12월 2주 이내) 완료를 목표로 진행 중입니다.
-        *   FLASH 컨텐츠 변환: 계획된 1,800차시(80개 과정 이내) 대비 실제 1,802차시(75개 과정)가 진행되었으며, 진행율은 93%입니다.
+        **진행 상황 (2020.11.05 기준):**
+        *   종합교육연수원 반응형 웹 전면 개편(www.kftaedu.or.kr): 5월 31일에 끝내고 운영을 지원하고 있습니다.
+        *   원격교육연수원 "사제동행" 1차 개편(리뉴얼): 3월 30일에 끝냈습니다. 교육 이수 조건 변경을 반영하고 디자인을 전부 새로 했습니다.
+        *   "사제동행" 2차 개편(반응형 웹): 90%까지 진행했고, 12월 2주 안에 끝낼 계획입니다.
+        *   FLASH 콘텐츠 변환: 계획은 1,800차시(80개 과정 이내)였고, 실제로 1,802차시(75개 과정)를 맡아 93%를 마쳤습니다.
 
-        **원격교육연수원 사제동행 1차 리뉴얼 개편 (2020.01.02~2020.3.28):**
-        디자인 리뉴얼 전면 개편, PC 가로 폭 가변 확대, LMS 연수 이수 조건 변경 개발이 수행되었고, 완료 후 운영 유지 보수가 지원 중입니다.
+        **사제동행 1차 리뉴얼 (2020.01.02~2020.3.28):** 디자인을 전면 개편하고, PC 화면 가로 폭을 가변으로 넓히고, LMS 연수 이수 조건을 바꿨습니다. 끝난 뒤에는 유지보수를 지원하고 있습니다.
 
-        **LMS 연수 이수 조건 변경 개발 (1차 개편 관련):**
-        *   1, 2학점 과정의 경우, 기존의 '학습 참여(20점)'와 '설문(20점)'이 삭제되고, '의견 등록(신설, 40점)'이 추가되었으며, 온라인 시험은 60점으로 유지되었습니다.
-        *   4학점 과정의 경우, 기존의 '진도 점수(10점)'가 삭제되고, '온라인 시험'이 10점에서 20점으로 변경되었습니다. 진도율은 80% 이상에서 90% 이상으로 변경되었습니다.
-        *   이수 기준은 '총점 60점 이상 / 진도율 90% 이상'으로 명시되었습니다.
+        **KERIS 기준에 맞춘 LMS 이수 조건 변경 (1차 개편):**
+        *   1, 2학점 과정: '학습 참여(20점)'와 '설문(20점)'을 없애고 '의견 등록(40점)'을 새로 넣었습니다. 온라인 시험은 60점 그대로입니다.
+        *   4학점 과정: '진도 점수(10점)'를 없애고 온라인 시험을 10점에서 20점으로 올렸습니다. 진도율 기준은 80% 이상에서 90% 이상으로 바꿨습니다.
+        *   이수 기준은 '총점 60점 이상, 진도율 90% 이상'입니다.
 
-        **종합교육연수원 적응형 웹 전면 개편 (2020.03.02~2020.05.31):** 적응형 웹으로 전면 개편이 완료(100%)되었으며, 운영 지원이 진행 중입니다.
+        **종합교육연수원 적응형 웹 개편 (2020.03.02~2020.05.31):** 적응형 웹으로 전면 개편을 마쳤고, 운영을 지원하고 있습니다.
 
-        **FLASH 교육 과정 변환 (2020.02.01~2020.12.31):** FLASH 컨텐츠를 HTML5 및 MP4 형식으로 변환하는 작업이 진행되었으며, 연내 완료 예정(93%)입니다.
+        **FLASH 과정 변환 (2020.02.01~2020.12.31):** FLASH 콘텐츠를 HTML5와 MP4로 바꾸고 있습니다. 93%를 마쳤고 연내에 끝낼 예정입니다.
 
-        **외부 연동 모듈 변경:** 결제 모듈이 이니시스(INICIS)에서 NHN KCP로, 문자메시지(SMS) 모듈이 KCT(한국케이블텔레콤)에서 와이즈캔(WISECAN)으로 변경되었습니다.
+        **추가 개발:** 처음에는 FLASH 퀴즈를 MP4로 바꿨지만, 사용자가 직접 풀어야 해서 과정 평가(퀴즈)를 별도 포맷으로 다시 만들었습니다(차시당 평균 3페이지). 학습 자료 다운로드 링크도 별도 페이지로 만들었습니다(차시당 평균 2페이지).
 
-        **추가 개발 사항:** 당초 FLASH 원본 퀴즈를 MP4로 변환했으나, 사용자 상호작용이 필요한 별도 포맷으로 과정 평가(퀴즈) 기능이 추가 개발(차시당 평균 3페이지)되었고, 학습 자료 다운로드 링크도 별도 페이지로 개발(차시당 평균 2페이지)되었습니다.
+        **외부 연동 모듈 교체:** 결제 모듈을 이니시스(INICIS)에서 NHN KCP로, 문자(SMS/LMS/MMS) 모듈을 KCT(한국케이블텔레콤)에서 와이즈캔(WISECAN)으로 바꿨습니다.
 
-        **시스템 구성:** 원격교육연수원 '사제동행'은 Web 서버(2대), Contents 서버, LMS 서버, DB 서버(1대, MS-SQL 2012)로 구성되어 있으며, 종합교육연수원은 Web 서버(1대), DB 서버(1대, ORACLE)로 구성되어 있습니다.
+        **시스템 구성:** 원격교육연수원 '사제동행'은 Web 서버 2대, Contents 서버, LMS 서버, DB 서버 1대(MS-SQL 2012)로, 종합교육연수원은 Web 서버 1대와 DB 서버 1대(ORACLE)로 구성됩니다.
 
-        **# 운영 체제 (Operating System):** Windows Server 2012 R2 Standard
-        **웹 서버 (Web Server):** IIS 8.5 (Internet Information Services Version 8.5.9600.16384)
-        **데이터베이스 (Database):** MS-SQL 2012, ORACLE
-        **개발/스크립트 언어:** ASP, HTML5, JavaScript, CSS
+        **운영 체제:** Windows Server 2012 R2 Standard
+        **웹 서버:** IIS 8.5 (8.5.9600.16384)
+        **데이터베이스:** MS-SQL 2012, ORACLE
+        **개발 언어:** ASP, HTML5, JavaScript, CSS
         **기타 기술:** CDN, .NET Framework
 
-        **2. 주요 모듈 및 연동 시스템 (Key Modules & Integrations)**
-        *   **결제 모듈 (Payment Gateway, PG):** 이니시스 (INICIS) -> NHN KCP
-        *   **문자메시지(SMS/LMS/MMS) 모듈:** KCT (한국케이블텔레콤) -> 와이즈캔 (WISECAN)
-
-        **3. 주요 프로젝트 기술 과제 (Key Project Technical Tasks)**
-        *   **웹 사이트 개편:** 반응형 웹 (Responsive Web): 원격교육연수원 '사제동행' 사이트 2차 전면 개편, 적응형 웹 (Adaptive Web): 종합교육연수원 사이트 전면 개편
-        *   **컨텐츠 변환:** FLASH 컨텐츠를 HTML5 및 MP4 형식으로 변환, 사용자 상호작용 퀴즈 및 학습 자료 다운로드 페이지 추가 개발.
-        *   **LMS 기능 개발:** KERIS 연수 이수 조건 변경에 따른 LMS 시스템 재개발 (의견 등록 신설, 온라인 시험 점수 변경, 진도율 기준 통일).
-
-        **4. 기타 개발/개선 사항**
-        *   검색엔진 최적화 (SEO): 기초 마련
-        *   운영 자동화: 수강연기/취소/과목변경 자동화 처리, 관리자 페이지 구현, 자격증 발급 프로세스 개선, 단체 신청 관련 기능 강화.
-        *   사용자 편의 기능: NICE 개인번호 자동 입력, 포인트 적립/차감 오류 개선, LMS 관리자 화면 개선.
+        **그 밖의 개발과 개선:**
+        *   검색엔진 최적화(SEO)의 기초를 마련했습니다.
+        *   수강 연기, 취소, 과목 변경을 자동으로 처리하고, 관리자 페이지를 만들고, 자격증 발급 과정과 단체 신청 기능을 개선했습니다.
+        *   NICE 개인번호를 자동으로 입력하게 했고, 포인트 적립과 차감 오류를 고쳤고, LMS 관리자 화면을 개선했습니다.
       `,
       category: 'Web',
     }
@@ -257,10 +236,10 @@ const allProjects = [
   // Every public path on ai.marketlink.co.kr is a "station"; line = the machine it runs on.
   // `project` points at an allProjects title when a detailed write-up exists.
   const lines = {
-    dgx1: { name: 'DGX-01', note: 'DGX-01에서 운영', color: 'var(--line-dgx1)' },
-    dgx2: { name: 'DGX-02', note: 'DGX-02에서 운영', color: 'var(--line-dgx2)' },
-    infra: { name: '추론 인프라', note: 'GPU 두 대를 묶는 LLM 추론 계층', color: 'var(--line-infra)' },
-    office: { name: '사내 서버', note: '사내 서버에서 운영', color: 'var(--line-office)' },
+    dgx1: { name: 'DGX-01', note: 'DGX-01에서 운영' },
+    dgx2: { name: 'DGX-02', note: 'DGX-02에서 운영' },
+    infra: { name: '추론 인프라', note: 'GPU 두 대를 묶는 LLM 추론 계층' },
+    office: { name: '사내 서버', note: '사내 서버에서 운영' },
   };
 
   const stations = [
@@ -272,7 +251,7 @@ const allProjects = [
     { route: '/fish', line: 'dgx1', name: '수산물 챗봇', summary: '해양수산부 수산물 정보를 답하는 챗봇입니다.', detail: { tech: 'Python, Streamlit, Ollama (EXAONE 3.5 7.8B), GraphRAG', facts: [['개요', '수산물 데이터를 LLM과 GraphRAG로 묻고 답하는 챗봇입니다. 질문하면 차트와 설명을 함께 돌려줍니다.'], ['로컬 실행', '외부 API 없이 로컬 EXAONE 3.5 모델로 동작하고, 데이터와 코드를 폴더 하나로 묶어 Mac mini에서도 시연합니다.']] } },
     { route: '/sales', line: 'dgx1', name: 'Sales Lead Monitor', summary: '영업 리드를 한 화면에서 추적하는 대시보드입니다.', detail: { image: '/images/stations/sales.jpg', tech: 'React, Vite, Tailwind CSS 4, Python 크롤러', facts: [['개요', '정부·공공기관 지원사업 공고를 모아 영업 리드로 관리하는 대시보드입니다.'], ['수집', 'K-Startup, 기업마당, NIPA, KOCCA, SMTECH의 모집 공고를 키워드 대신 전수로 수집해 제목을 모두 검토합니다.'], ['분류', 'A/B/C 우선순위와 마감 임박(3일 이내)을 표시하고, 재조사 때는 신규·변경·종료 공고만 갱신합니다.'], ['접근성', 'WCAG 2.2 AA 기준으로 색만으로 상태를 전달하지 않습니다.']] } },
     { route: '/kiosk', line: 'dgx1', name: 'Kiosk MBTI', summary: '매장 키오스크에서 하는 MBTI 체험 앱입니다.', detail: { image: '/images/stations/kiosk.jpg', tech: 'React, FastAPI, MySQL 8, Docker, Nginx', facts: [['개요', '키오스크에서 설문에 답하면 MBTI 16유형으로 분류하고 유형별 설명을 보여 줍니다.'], ['현장', 'CES 2026 라이브 데모로 운영했고, 6개 언어(한국어, 영어, 중국어, 일본어, 스페인어, 러시아어)를 지원합니다.'], ['개인정보', '세션 UUID만 저장하고 개인을 식별하는 정보는 모으지 않습니다.']] } },
-    { route: '/builder', line: 'dgx1', name: 'SurveyBuilder', summary: 'docx, hwp 설문지를 올리면 AI가 웹 설문으로 바로 만들어 줍니다.', live: 'https://ai.marketlink.co.kr/builder', detail: { image: '/images/stations/builder.jpg', tech: 'Next.js, TypeScript, LLM 문서 분석', facts: [['개요', '문서 한 장으로 완성하는 설문 빌더 SaaS(v2.0)입니다. docx나 hwp 설문지를 올리면 AI가 분석해 웹 설문으로 셋업합니다.'], ['자동 구성', '웹 화면 구성, 분기와 스킵 조건, 수집 쿼터를 한 번에 설정합니다.'], ['규칙', '한국어 설문지 표기 규칙과 18종 모듈을 정의하고, 파서와 리포트, 응답 화면이 같은 규칙 문서를 따르도록 맞췄습니다.'], ['운영', '실제 설문 3건이 이 빌더로 운영되고 있습니다.']] } },
+    { route: '/builder', line: 'dgx1', name: 'SurveyBuilder', summary: 'docx, hwp 설문지를 올리면 AI가 웹 설문으로 바로 만들어 줍니다.', live: 'https://ai.marketlink.co.kr/builder', detail: { image: '/images/stations/builder.jpg', tech: 'Next.js, TypeScript, LLM 문서 분석', facts: [['개요', '설문 빌더 SaaS(v2.0)입니다. docx나 hwp 설문지를 올리면 AI가 분석해 웹 설문으로 셋업합니다.'], ['자동 구성', '웹 화면 구성, 분기와 스킵 조건, 수집 쿼터를 한 번에 설정합니다.'], ['규칙', '한국어 설문지 표기 규칙과 18종 모듈을 정의하고, 파서와 리포트, 응답 화면이 같은 규칙 문서를 따르도록 맞췄습니다.'], ['운영', '실제 설문 3건이 이 빌더로 운영되고 있습니다.']] } },
     { route: '/ssm', line: 'dgx1', name: 'SSM Intelligence', summary: '카드사 빅데이터 349만 건으로 소형 슈퍼마켓 시장을 분석합니다.', detail: { image: '/images/stations/ssm.jpg', tech: 'Python, ECharts, Node.js, 로그인 인증', facts: [['개요', '카드사 빅데이터로 소형 슈퍼마켓 시장을 분석하는 SSM Intelligence Platform입니다.'], ['데이터', '카드사 6곳, 18개월(2025.01~2026.06), 349만 건, 가맹점 224,061곳의 거래를 집계했습니다.'], ['구성', '시장 대시보드, 브랜드 분석 리포트, AI 어시스턴트, 트렌드를 하나의 허브로 묶었습니다.']] } },
     { route: '/contacts', line: 'dgx1', name: '사내 주소록', summary: '마켓링크 구성원 연락처를 찾습니다.', detail: { facts: [['개요', '마켓링크 구성원 연락처를 찾는 사내 주소록입니다.']] } },
     { route: ':8080', line: 'dgx1', name: '클러스터 대시보드', summary: 'DGX 두 대의 상태를 한 화면에 보여 줍니다.', project: 'MARKETLINK-AX 온프레미스 AI 플랫폼 (NVIDIA DGX Spark ×2)' },

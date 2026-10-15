@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { allProjects, stations, lines, stationId } from './projectData';
 
@@ -16,13 +16,68 @@ function facts(longDesc) {
   return out;
 }
 
+// The stack, top (what users see) to bottom (the GPU). Same names as the skills section.
+const LAYERS = [
+  ['화면', /react|vue|vite|next|htmx|streamlit|echarts|tailwind|html|css|javascript|반응형|ux/i],
+  ['API·백엔드', /fastapi|express|node|php|python|celery|sqlalchemy|jwt|rest|tomcat|apache|iis|\.net|stripe|portone|인증|크롤러|검색 api/i],
+  ['데이터', /mysql|postgres|redis|sqlite|ms-sql|oracle|pandas|csv|openpyxl|eav|rapidfuzz|파이프라인/i],
+  ['모델', /ollama|gpt|openai|gemini|claude|exaone|kobert|llm|ocr|whisper|graphrag|veo|비전/i],
+  ['운영', /docker|nginx|caddy|systemd|dgx|linux|centos|cloud|ci\/cd|cdn|chromium|playwright|github/i],
+];
+// A token goes to the first layer that claims it, checked most-specific first.
+const PRIORITY = ['모델', '데이터', '운영', '화면', 'API·백엔드'];
+
+function layerize(tech) {
+  const rows = Object.fromEntries(LAYERS.map(([n]) => [n, []]));
+  const rest = [];
+  for (const raw of tech.split(/[,·+](?![^()]*\))/)) {
+    const t = raw.trim();
+    if (!t) continue;
+    const hit = PRIORITY.find((n) => LAYERS.find(([k]) => k === n)[1].test(t));
+    (hit ? rows[hit] : rest).push(t);
+  }
+  return { rows: LAYERS.map(([n]) => [n, rows[n]]), rest };
+}
+
+function Stack({ tech }) {
+  if (!tech) return <p className="stack-none">기술 구성 기록이 없는 서비스입니다.</p>;
+  const { rows, rest } = layerize(tech);
+  return (
+    <dl className="stack">
+      {rows.map(([name, items]) => (
+        <div key={name} className={items.length ? '' : 'off'}>
+          <dt>{name}</dt>
+          <dd>{items.length ? items.join(', ') : '쓰지 않음'}</dd>
+        </div>
+      ))}
+      {rest.length > 0 && (
+        <div className="rest"><dt>그 밖에</dt><dd>{rest.join(', ')}</dd></div>
+      )}
+    </dl>
+  );
+}
+
 const SITE = 'https://ai.marketlink.co.kr';
 // Path routes are public under the domain; port-only routes (:8080, :8434) are internal.
 const liveUrl = (route) => (route.startsWith('/') ? `${SITE}${route}/` : null);
 const same = (a, b) => a && b && a.replace(/\/$/, '') === b.replace(/\/$/, '');
 
-function Media({ p, plate }) {
-  if (p.video) {
+const byTitle = Object.fromEntries(allProjects.map((p) => [p.title, p]));
+const linked = new Set(stations.map((s) => s.project).filter(Boolean));
+
+// One shape for both lists: {id, label, meta, name, summary, p (detail), live}
+const services = stations.map((s) => {
+  const p = byTitle[s.project] ?? { title: s.name, ...s.detail };
+  return { id: stationId(s), label: s.route, meta: lines[s.line].name, name: s.name, summary: s.summary, p, live: s.live ?? liveUrl(s.route) };
+});
+const archive = allProjects
+  .filter((p) => !linked.has(p.title))
+  .map((p, i) => ({ id: `work-${i}`, label: p.category, meta: '', name: p.title, summary: p.desc, p }));
+
+const haystack = (it) => [it.label, it.name, it.summary, it.p.tech, it.p.desc].join(' ').toLowerCase();
+
+function Media({ p, plate, sizes, play }) {
+  if (p.video && play) {
     return (
       <video controls playsInline preload="none" poster={p.video.poster}>
         <source src={p.video.src} type="video/mp4" />
@@ -30,153 +85,139 @@ function Media({ p, plate }) {
       </video>
     );
   }
-  if (p.image) {
-    return <Image src={p.image} alt={`${p.title} 화면`} fill sizes="(max-width: 900px) 100vw, 680px" style={{ objectFit: 'cover', objectPosition: 'top' }} />;
-  }
-  // No screenshot on record: show the station sign instead of borrowing someone else's picture.
-  return <div className="st-plate" aria-hidden="true">{plate}</div>;
+  const img = p.image ?? p.video?.poster;
+  if (img) return <Image src={img} alt={`${p.title} 화면`} fill sizes={sizes} style={{ objectFit: 'cover', objectPosition: 'top' }} />;
+  // No screenshot on record: show the route instead of borrowing someone else's picture.
+  return <span className="plate" aria-hidden="true">{plate}</span>;
 }
 
-function Detail({ p, live, plate }) {
-  const items = p.facts ? p.facts.map(([label, text]) => ({ label, text })) : facts(p.longDesc);
+function Links({ it }) {
+  const { p, live } = it;
   return (
-    <div className="st-detail">
-      <div>
-        <div className="st-detail-in">
-          <div className="st-media">
-            <Media p={p} plate={plate} />
-          </div>
-          <div>
-            <ul className="st-facts">
-              {items.map((f, i) => (
-                <li key={i}>
-                  {f.label && <b>{f.label}</b>}
-                  <span style={{ whiteSpace: 'pre-line' }}>{f.text}</span>
-                </li>
-              ))}
-            </ul>
-            {p.tech && <p className="st-stack">{p.tech}</p>}
-            <p className="st-links">
-              {live && <a className="st-link" href={live} target="_blank" rel="noopener noreferrer">서비스 열기</a>}
-              {p.link && !same(p.link, live) && (
-                <a className="st-link" href={p.link} target="_blank" rel="noopener noreferrer">
-                  {(p.linkLabel || '자세한 문서 보기').replace(/\s*↗$/, '')}
-                </a>
-              )}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Row({ id, label, name, summary, project, live, open, toggle }) {
-  const body = (
     <>
-      <span className="st-dot" aria-hidden="true" />
-      <span className="st-route">{label}</span>
-      <span className="st-body">
-        <span className="st-name">{name}</span>
-        <span className="st-sum">{summary}</span>
-      </span>
-      {project ? <span className="st-more">{open ? '접기' : '자세히'}</span> : <span />}
+      {live && <a className="btn btn-dark" href={live} target="_blank" rel="noopener noreferrer">서비스 열기</a>}
+      {p.link && !same(p.link, live) && (
+        <a className="btn btn-ghost" href={p.link} target="_blank" rel="noopener noreferrer">
+          {(p.linkLabel || '자세한 문서 보기').replace(/\s*↗$/, '')}
+        </a>
+      )}
     </>
   );
+}
+
+function Head({ it, as: H = 'h3', id }) {
   return (
-    <li id={id} className={`st ${open ? 'open' : ''}`}>
-      {project ? (
-        <button className="st-row" aria-expanded={open} aria-controls={`${id}-d`} onClick={() => toggle(id)}>
-          {body}
-        </button>
-      ) : (
-        <div className="st-row">{body}</div>
-      )}
-      {project && (
-        <div id={`${id}-d`} aria-hidden={!open}>
-          <Detail p={project} live={live} plate={label} />
+    <>
+      <p className="meta"><span>{it.label}</span>{it.meta && <span>{it.meta}</span>}</p>
+      <H id={id} className="panel-h">{it.name}</H>
+    </>
+  );
+}
+
+function Detail({ it, onClose }) {
+  const ref = useRef(null);
+  useEffect(() => { if (it) ref.current?.showModal(); }, [it]);
+  if (!it) return null;
+  const { p } = it;
+  const items = p.facts ? p.facts.map(([label, text]) => ({ label, text })) : facts(p.longDesc ?? '');
+  return (
+    <dialog
+      ref={ref}
+      className="detail"
+      aria-labelledby="detail-h"
+      onClose={onClose}
+      onClick={(e) => { if (e.target === ref.current) ref.current.close(); }}
+    >
+      <div className="detail-in">
+        <div className="detail-head">
+          <div><Head it={it} id="detail-h" /></div>
+          <button type="button" className="btn btn-ghost" onClick={() => ref.current.close()}>닫기</button>
         </div>
-      )}
+        <div className="shot"><Media p={p} plate={it.label} sizes="(max-width: 900px) 100vw, 840px" play /></div>
+        <Stack tech={p.tech} />
+        <ul className="facts">
+          {items.map((f, i) => (
+            <li key={i}>
+              {f.label && <b>{f.label}</b>}
+              <span>{f.text}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="actions"><Links it={it} /></p>
+      </div>
+    </dialog>
+  );
+}
+
+function Row({ it, current, onPick }) {
+  return (
+    <li id={it.id}>
+      <button type="button" className="row" aria-current={current || undefined} onClick={() => onPick(it)}>
+        <span className="row-label">{it.label}</span>
+        <span className="row-body">
+          <span className="row-name">{it.name}</span>
+          <span className="row-sum">{it.summary}</span>
+        </span>
+        {it.meta && <span className="row-meta">{it.meta}</span>}
+      </button>
     </li>
   );
 }
 
-const byTitle = Object.fromEntries(allProjects.map((p) => [p.title, p]));
-const linked = new Set(stations.map((s) => s.project).filter(Boolean));
-const archive = allProjects.filter((p) => !linked.has(p.title));
+const narrow = () => window.matchMedia('(max-width: 900px)').matches;
 
 export default function Projects() {
-  const [open, setOpen] = useState(() => new Set());
-  const toggle = (id) => setOpen((o) => {
-    const n = new Set(o);
-    n.has(id) ? n.delete(id) : n.add(id);
-    return n;
-  });
+  const [query, setQuery] = useState('');
+  const [cur, setCur] = useState(services[0]);
+  const [open, setOpen] = useState(null);
+  const q = query.trim().toLowerCase();
+  const shown = q ? services.filter((it) => haystack(it).includes(q)) : services;
 
-  // A station clicked on the map arrives as #st-...: open that row.
-  useEffect(() => {
-    const sync = () => {
-      const id = decodeURIComponent(window.location.hash.slice(1));
-      if (id) setOpen((o) => new Set(o).add(id));
-    };
-    sync();
-    window.addEventListener('hashchange', sync);
-    return () => window.removeEventListener('hashchange', sync);
-  }, []);
+  // Wide screens preview beside the list; narrow screens have no room, so they open the dialog.
+  const pick = (it) => (narrow() ? setOpen(it) : setCur(it));
 
   return (
     <>
-      <section id="services" className="wrap sec">
-        <h2 className="sec-h">운영 중인 서비스</h2>
-        <p className="sec-lede">
-          ai.marketlink.co.kr 아래 경로마다 서비스가 하나씩 있습니다. 노선 색은 그 서비스가 돌아가는 서버를 뜻합니다.
-          기록이 남아 있는 서비스는 눌러서 자세히 볼 수 있습니다.
-        </p>
-        <div className="lineset">
-          {Object.entries(lines).map(([k, l]) => (
-            <div key={k} style={{ '--c': l.color }}>
-              <div className="line-head">
-                <span className="line-badge">{l.name}</span>
-                <span className="line-note">{l.note}</span>
-              </div>
-              <ol className="stations">
-                {stations.filter((s) => s.line === k).map((s) => (
-                  <Row
-                    key={s.route}
-                    id={stationId(s)}
-                    label={s.route}
-                    name={s.name}
-                    summary={s.summary}
-                    project={byTitle[s.project] ?? (s.detail && { title: s.name, ...s.detail })}
-                    live={s.live ?? liveUrl(s.route)}
-                    open={open.has(stationId(s))}
-                    toggle={toggle}
-                  />
-                ))}
-              </ol>
-            </div>
-          ))}
+      <section id="services" className="wrap explorer" aria-label="운영 중인 서비스">
+        <div>
+          <label className="find">
+            <span className="sr-only">서비스 찾기</span>
+            <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="서비스 찾기: 설문, OCR, LLM" autoComplete="off" />
+          </label>
+          <p className="count" aria-live="polite">
+            {q ? `‘${query.trim()}’ 관련 서비스 ${shown.length}개` : `운영 중인 서비스 ${shown.length}개`}
+          </p>
+          <ul className="rows">
+            {shown.map((it) => <Row key={it.id} it={it} current={cur.id === it.id} onPick={pick} />)}
+          </ul>
+          {q && !shown.length && (
+            <p className="empty">
+              ‘{query.trim()}’와 맞는 서비스가 없습니다. <button type="button" className="link" onClick={() => setQuery('')}>전체 목록 보기</button>
+            </p>
+          )}
         </div>
+
+        <aside className="panel" aria-live="polite">
+          <Head it={cur} />
+          <p className="panel-sum">{cur.summary}</p>
+          <div className="shot"><Media p={cur.p} plate={cur.label} sizes="560px" /></div>
+          <Stack tech={cur.p.tech} />
+          <p className="actions">
+            <Links it={cur} />
+            <button type="button" className="btn btn-ghost" onClick={() => setOpen(cur)}>자세히 보기</button>
+          </p>
+        </aside>
       </section>
 
-      <section id="work" className="wrap sec" style={{ '--c': 'var(--line-past)' }}>
+      <section id="work" className="wrap sec">
         <h2 className="sec-h">이전 프로젝트</h2>
         <p className="sec-lede">지금의 플랫폼 이전에 회사와 고객사에서 만든 시스템입니다.</p>
-        <ol className="stations lineset">
-          {archive.map((p, i) => (
-            <Row
-              key={p.title}
-              id={`work-${i}`}
-              label={p.category}
-              name={p.title}
-              summary={p.desc}
-              project={p}
-              open={open.has(`work-${i}`)}
-              toggle={toggle}
-            />
-          ))}
-        </ol>
+        <ul className="rows rows-wide">
+          {archive.map((it) => <Row key={it.id} it={it} onPick={setOpen} />)}
+        </ul>
       </section>
+
+      <Detail it={open} onClose={() => setOpen(null)} />
     </>
   );
 }

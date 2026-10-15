@@ -7,22 +7,24 @@ import {
 } from '@devicon/react';
 
 // [name, devicon or null]. Only a skill's own logo is used; no stand-in logos for tools devicon lacks.
+// Same layer names as the service stack, top (screen) to bottom (GPU).
 const groups = [
-  ['AI · LLM', [['Claude API'], ['GPT-4'], ['Gemini'], ['Ollama'], ['EXAONE'], ['KoBERT'], ['TensorFlow', TensorflowOriginalIcon], ['YOLO'], ['Whisper']]],
-  ['백엔드', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon]]],
-  ['프런트엔드', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vue.js', VuejsOriginalIcon], ['Vite', VitejsOriginalIcon], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX']]],
+  ['화면', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vue.js', VuejsOriginalIcon], ['Vite', VitejsOriginalIcon], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX']]],
+  ['API·백엔드', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon]]],
   ['데이터', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['MariaDB', MariadbOriginalIcon], ['SQLite', SqliteOriginalIcon], ['pandas', PandasOriginalIcon], ['Google Sheets API']]],
-  ['인프라', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['CentOS', CentosOriginalIcon], ['LoadBalancer'], ['AWS', AmazonwebservicesOriginalWordmarkIcon], ['Google Cloud', GooglecloudOriginalIcon], ['NCP']]],
+  ['모델', [['Claude API'], ['GPT-4'], ['Gemini'], ['Ollama'], ['EXAONE'], ['KoBERT'], ['TensorFlow', TensorflowOriginalIcon], ['YOLO'], ['Whisper']]],
+  ['운영', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['CentOS', CentosOriginalIcon], ['LoadBalancer'], ['AWS', AmazonwebservicesOriginalWordmarkIcon], ['Google Cloud', GooglecloudOriginalIcon], ['NCP']]],
   ['자동화', [['Playwright', PlaywrightOriginalIcon], ['n8n'], ['OpenAPI', OpenapiOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
 ];
 
 export default function Skills() {
   return (
     <section id="skills" className="wrap sec">
-      <h2 className="sec-h">다루는 기술</h2>
-      <div className="skills">
+      <h2 className="sec-h">층마다 다루는 기술</h2>
+      <p className="sec-lede">화면, API, 데이터, 모델, 서버 운영을 모두 직접 다룹니다.</p>
+      <div className="layers">
         {groups.map(([h, items]) => (
-          <div key={h}>
+          <div key={h} className="layer">
             <h3>{h}</h3>
             <ul className="skill-list">
               {items.map(([name, Icon]) => (

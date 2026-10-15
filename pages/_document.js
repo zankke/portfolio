@@ -9,7 +9,6 @@ export default function Document() {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
-        <link rel="preload" href="/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </Head>
       <body>
         <Main />

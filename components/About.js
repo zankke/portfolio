@@ -18,7 +18,6 @@ export default function About() {
       <ol className="career">
         {career.map((c) => (
           <li key={c.yr}>
-            <span className="st-dot" aria-hidden="true" />
             <span className="yr">{c.yr}</span>
             <div>
               <h3>{c.title}</h3>
