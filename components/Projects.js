@@ -198,6 +198,7 @@ export default function Projects() {
         </div>
 
         <aside className="panel" aria-live="polite">
+          <div key={cur.id} className="panel-in">
           <Head it={cur} />
           <p className="panel-sum">{cur.summary}</p>
           <div className="shot"><Media p={cur.p} plate={cur.label} sizes="560px" /></div>
@@ -206,6 +207,7 @@ export default function Projects() {
             <Links it={cur} />
             <button type="button" className="btn btn-ghost" onClick={() => setOpen(cur)}>자세히 보기</button>
           </p>
+          </div>
         </aside>
       </section>
 
