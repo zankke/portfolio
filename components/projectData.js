@@ -48,14 +48,15 @@ const allProjects = [
     },
     {
       title: "Lotte웰푸드 EAV System",
-      tech: "Python, MySQL 8 (EAV), SQLAlchemy, pandas, RapidFuzz, EasyOCR, Playwright, Google/Naver 검색 API, openpyxl",
-      desc: "제과 · 제빵 18개 카테고리 507,658셀의 속성을 정제하고, 평균 신뢰도 0.875로 계약 기준(0.85)을 넘겼습니다.",
+      tech: "Python, RLHF, MySQL 8 (EAV), SQLAlchemy, pandas, RapidFuzz, EasyOCR, Playwright, Google/Naver 검색 API, openpyxl",
+      desc: "제과 · 제빵 18개 카테고리 507,658셀의 속성을 정제하고, 평균 신뢰도 0.875로 계약 기준(0.85)을 넘겼습니다. Human QA 결과로 모델을 다시 학습시키는 RLHF 구조입니다.",
       image: "/images/prjLotteSKU.jpg",
       longDesc: `
         **규모:** 마스터 55,546행, 정제 대상 SKU 53,102행, 납품 SKU 44,836행, 18개 카테고리(스낵, 비스킷, 캔디, 젤리, 초코, 빵 등), 정제 셀 507,658개
         **정제 방식:** 결정론 규칙, 공공 DB(식약처 등), 이미지 OCR, 검색 · LLM 순서로 근거를 쌓고 셀마다 출처와 신뢰도를 기록합니다.
         **품질:** 신뢰도 0.85 이상인 AI 확정 73.9%(375,232셀), 나머지 26.1%는 사람 검수 큐로 보냅니다. 평균 신뢰도 0.875로 계약 기준 0.85를 충족합니다.
         **검수:** 검수자가 대시보드에서 바로 확정하거나 고치고, AI 확정분의 약 1.5%는 블라인드 표본으로 다시 검수합니다.
+        **RLHF:** Human QA 검수 결과 → 사람 피드백으로 모델 학습 강화 → 속성판단 파이프라인에 재적용
         **데이터 원칙:** 원본 원장과 이미지는 바꾸지 않고, 모든 결과를 근거 태그와 함께 따로 저장해 되돌릴 수 있습니다. 납품, 사내 검수, 참조 스키마를 분리했습니다.
         **운영:** 매일 정해진 시각에 MySQL 스냅샷으로 대시보드를 갱신하고 버전을 보존하며, 납품용 엑셀을 자동으로 만듭니다.
       `,
@@ -182,7 +183,7 @@ const allProjects = [
   // (default public); `period`, `team`, `role` render as one meta line and stay hidden while empty.
   // Ordered by strength of evidence: the first one is selected on load.
   const stations = [
-    { route: '/lotte', line: 'dgx1', results: [['507,658셀', '속성 정제'], ['0.875', '평균 신뢰도 (계약 기준 0.85)'], ['73.9%', 'AI 자동 확정 비율']], name: 'Lotte웰푸드 EAV System', live: 'https://ai.marketlink.co.kr/lotte/v2/dashboard.html', summary: '제과 · 제빵 상품 507,658셀의 속성을 정제하고 검수합니다.', project: 'Lotte웰푸드 EAV System' },
+    { route: '/lotte', line: 'dgx1', results: [['507,658셀', '속성 정제'], ['0.875', '평균 신뢰도 (계약 기준 0.85)'], ['73.9%', 'AI 자동 확정 비율']], name: 'Lotte웰푸드 EAV System', live: 'https://ai.marketlink.co.kr/lotte/v2/dashboard.html', summary: '제과 · 제빵 507,658셀의 속성을 정제합니다. 사람 검수 결과로 모델을 다시 학습시키는 RLHF 구조입니다.', project: 'Lotte웰푸드 EAV System' },
     { route: '/ocr', line: 'dgx1', results: [['62,140건', '처리한 영수증'], ['99.5%', '수록률'], ['4일', '처리 기간']], name: '영수증 OCR', summary: '영수증 62,140건에서 상품 단위 구매 데이터를 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4), Next.js 15, React 19', facts: [['개요', '영수증 이미지에서 상품 단위 구매 데이터를 뽑아내는 배치 파이프라인과 검수 대시보드입니다.'], ['파이프라인', 'PaddleOCR(CPU) 스윕 → Ollama gemma4 텍스트 파싱 → 카테고리 분류 → 12컬럼 엑셀 리포트 → Next.js 검수 대시보드'], ['처리 규모', '영수증 62,140건 중 61,827건(99.5%)을 4일 만에 수록했습니다.'], ['운영', '단계별 결과를 파일로 남겨 중단해도 같은 명령으로 이어서 실행합니다.']] } },
     { route: '/master', line: 'dgx2', results: [['348개', '통과한 테스트 (백엔드 273 · 프런트엔드 75)']], name: 'CategoryMaster Agents', summary: '카테고리 마스터 데이터를 정리하는 에이전트입니다.', detail: { image: '/images/stations/master.jpg', tech: 'FastAPI, SQLAlchemy, MySQL 8, React, Vite, TypeScript, Caddy', facts: [['개요', '바코드로 상품의 카테고리와 제조사를 분류하는 AI 파이프라인입니다. 엑셀로 하던 수작업을 대신합니다.'], ['분류 방식', '저렴하고 믿을 만한 조회부터 LLM까지 순서대로 시도하고, 신뢰도가 낮은 결과는 사람이 검수하도록 넘깁니다.'], ['학습', '검수에서 고친 결과를 다시 반영해 갈수록 LLM을 덜 씁니다. 배치 진행 상황을 실시간으로 보여 주고 중단할 수 있습니다.'], ['품질', '백엔드 테스트 273개, 프런트엔드 테스트 75개가 통과합니다.']] } },
     { route: '/meatlink', line: 'dgx2', results: [['18개', '판독 항목'], ['0.3초', '사진 1장당 판독'], ['2,740장', '판독한 사진']], name: 'Meatlink AI Hub', summary: '축산물 구매 사진에서 18개 항목을 자동으로 판독합니다.', detail: { image: '/images/stations/meatlink.jpg', tech: 'React, FastAPI, MySQL, Docker, Ollama (로컬 비전 LLM)', facts: [['개요', '축산물 구매 사진을 자동으로 판독하고 메타데이터를 실시간으로 검수하는 SaaS입니다.'], ['판독', '영수증과 라벨 사진 1,370쌍(2,740장)에서 구매일, 부위, 등급, 원산지, 가격 등 18개 항목을 사진 1장당 0.3초에 추출합니다.'], ['검증', '정부 할인행사(농할대전 등)를 따로 분리하고, 축산물 이력제(mtrace)와 연동해 실시간으로 확인합니다.']] } },

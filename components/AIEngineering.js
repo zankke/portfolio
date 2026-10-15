@@ -45,6 +45,14 @@ const caps = [
     href: '/services/master', label: 'CategoryMaster Agents',
   },
   {
+    k: 'RLHF',
+    title: '사람의 검수가 모델을 키운다.',
+    body: 'Human QA 결과를 피드백으로 모델 학습을 강화하고, 강화된 모델을 속성판단 파이프라인에 다시 적용합니다.',
+    proof: '507,658셀 · 평균 신뢰도 0.875',
+    tags: ['RLHF', 'Human QA', 'EAV'],
+    href: '/services/lotte', label: 'Lotte웰푸드 EAV',
+  },
+  {
     k: 'LLM Ops',
     title: '모델이 죽어도 서비스는 산다.',
     body: 'OpenAI가 실패하면 Gemini로, 그다음 로컬 EXAONE으로 넘어갑니다. GPU가 꽉 차면 줄 세우지 않고 바로 503을 돌려줍니다.',
@@ -60,7 +68,7 @@ export default function AIEngineering() {
       <SectionHead id="ai-h" icon={BrainCircuit} title="AI Engineering" lede="RAG부터 로컬 LLM 운영까지. 모두 지금 돌아가는 서비스에서 나온 이야기입니다." />
       <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {caps.map((c, i) => (
-          <li key={c.k} className={`flex flex-col rounded-2xl border p-6 ${i === 0 ? 'border-primary-strong bg-primary-strong text-off sm:col-span-2' : 'border-line bg-off'} ${i === caps.length - 1 ? 'sm:col-span-2' : ''}`}>
+          <li key={c.k} className={`flex flex-col rounded-2xl border p-6 ${i === 0 ? 'border-primary-strong bg-primary-strong text-off sm:col-span-2' : 'border-line bg-off'}`}>
             <p className={`text-[13px] font-semibold tracking-wide ${i === 0 ? 'text-off/70' : 'text-primary'}`}>{c.k}</p>
             <h3 className={`mt-2 font-bold tracking-[-0.5px] ${i === 0 ? 'text-[28px] leading-tight md:text-[34px]' : 'text-[22px] leading-snug'}`}>{c.title}</h3>
             <p className={`mt-3 leading-relaxed ${i === 0 ? 'text-off/85 md:text-[17px]' : 'text-ink/80'}`}>{c.body}</p>

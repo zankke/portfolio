@@ -15,7 +15,7 @@ const groups = [
   ['Frontend', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vite'], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX'], ['ECharts']]],
   ['Backend', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon], ['Stripe']]],
   ['Data', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['pandas', PandasOriginalIcon], ['SQLAlchemy'], ['Google Sheets API']]],
-  ['AI Models', [['RAG'], ['GraphRAG · Neo4j'], ['Embeddings'], ['Ollama'], ['vLLM'], ['EXAONE'], ['Qwen'], ['gemma'], ['Gemini'], ['GPT-4'], ['Claude API'], ['PaddleOCR'], ['faster-whisper'], ['KoBERT']]],
+  ['AI Models', [['RAG'], ['RLHF'],['GraphRAG · Neo4j'], ['Embeddings'], ['Ollama'], ['vLLM'], ['EXAONE'], ['Qwen'], ['gemma'], ['Gemini'], ['GPT-4'], ['Claude API'], ['PaddleOCR'], ['faster-whisper'], ['KoBERT']]],
   ['Infrastructure', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['Caddy'], ['systemd'], ['CentOS', CentosOriginalIcon]]],
   ['Automation', [['Playwright', PlaywrightOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
 ];
