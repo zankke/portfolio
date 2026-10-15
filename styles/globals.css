@@ -98,7 +98,7 @@ body {
 .stack > div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .stack dt { font-size: 14px; font-weight: 600; }
 .stack dd { font-size: 15px; color: var(--ink-83); }
-.stack .off dt, .stack .off dd { color: var(--ink-40); font-weight: 400; }
+.stack .off dt, .stack .off dd { color: var(--muted); font-weight: 400; }
 .stack .rest dt { font-weight: 400; color: var(--muted); }
 .stack .rest dd { color: var(--muted); }
 .stack-none { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--ink); font-size: 15px; color: var(--muted); }
