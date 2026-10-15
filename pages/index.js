@@ -54,9 +54,16 @@ export default function Home() {
             <Reel />
             <Contact />
           </main>
-          <footer className="mt-16 flex flex-wrap justify-between gap-4 border-t border-line pt-6 pb-10 text-sm text-muted md:mt-24">
-            <span>© 2026 이상훈</span>
-            <a href={`mailto:${EMAIL}`} className="inline-flex min-h-11 items-center text-muted hover:text-primary">{EMAIL}</a>
+          <footer className="mt-16 border-t-2 border-primary pt-8 pb-10 md:mt-24">
+            <p lang="en" className="font-display text-[clamp(40px,7vw,88px)] leading-[0.95] tracking-[-0.04em] text-primary-strong">SANG HOON, LEE</p>
+            <p className="mt-3 text-ink/80">이상훈 · Full Stack AI Engineer</p>
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line pt-4 text-sm text-muted">
+              <span>© 2026 SANG HOON, LEE</span>
+              <span className="flex flex-wrap gap-x-5">
+                <a href={`mailto:${EMAIL}`} className="inline-flex min-h-11 items-center text-muted hover:text-primary">{EMAIL}</a>
+                <a href="#" className="inline-flex min-h-11 items-center text-muted hover:text-primary">맨 위로</a>
+              </span>
+            </div>
           </footer>
         </div>
       </div>
