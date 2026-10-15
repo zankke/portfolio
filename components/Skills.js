@@ -20,8 +20,8 @@ const groups = [
   ['Automation', [['Playwright', PlaywrightOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
 ];
 
-// From the 2003 entry that used to sit in Experience, and the awards in the IT portfolio summary deck.
-const certs = '정보처리기사 (한국산업인력공단, 2003) · 우수 프로젝트상 (메조미디어, 2014) · 기술리더상 (아이너스, 2019)';
+// From the 2003 entry that used to sit in Experience.
+const certs = '정보처리기사 (한국산업인력공단, 2003)';
 
 export default function Skills() {
   return (
@@ -43,7 +43,7 @@ export default function Skills() {
         ))}
       </div>
       <p className="mt-5 grid gap-1 text-[15px] sm:grid-cols-[176px_minmax(0,1fr)] sm:gap-4">
-        <b className="font-semibold">Certification · Awards</b>
+        <b className="font-semibold">Certification</b>
         <span className="text-muted">{certs}</span>
       </p>
     </section>
