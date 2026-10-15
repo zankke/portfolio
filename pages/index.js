@@ -1,10 +1,12 @@
 import Hero from "../components/Hero";
 import About from "../components/About";
-import Projects from "../components/Projects";
+import { Services, PastProjects } from "../components/Projects";
+import Platform from "../components/Platform";
 import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import Navbar from "../components/Navbar";
 import Reel from "../components/Reel";
+import { EMAIL, GITHUB } from '../components/profile';
 import { generateNextSeo } from 'next-seo/pages';
 import Head from 'next/head';
 
@@ -39,17 +41,19 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Projects />
-        <Reel />
+        <Platform />
+        <Services />
         <About />
+        <PastProjects />
         <Skills />
+        <Reel />
         <Contact />
       </main>
       <footer className="wrap mt-16 flex flex-wrap justify-between gap-4 border-t border-line pt-6 pb-10 text-sm text-muted md:mt-24">
         <span>© 2026 이상훈</span>
         <span className="flex gap-6">
-          <a href="mailto:itsme.kevin@icloud.com" className="text-muted hover:text-ink">itsme.kevin@icloud.com</a>
-          <a href="https://github.com/zankke" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-ink">GitHub</a>
+          <a href={`mailto:${EMAIL}`} className="text-muted hover:text-ink">{EMAIL}</a>
+          <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-ink">GitHub</a>
         </span>
       </footer>
     </>

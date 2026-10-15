@@ -6,7 +6,7 @@ const BASE = 'https://ai.marketlink.co.kr/portfolio';
 
 const reels = [
   { file: 'sanghoon-reel-services', title: '운영 중인 서비스', note: 'ai.marketlink.co.kr의 서비스와 플랫폼을 30초로 소개합니다.' },
-  { file: 'sanghoon-reel', title: '지난 프로젝트 하이라이트', note: '데이터 처리 속도 150배, 광고 영상 제작 효율 200% 등 주요 성과를 30초로 정리했습니다.' },
+  { file: 'sanghoon-reel', title: '지난 프로젝트 하이라이트', note: '설문 코드 자동 분류, AI 광고 영상 생성 등 지난 프로젝트를 30초로 정리했습니다.' },
 ];
 
 export default function Reel() {

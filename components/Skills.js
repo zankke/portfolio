@@ -1,7 +1,6 @@
 import {
-  VuejsOriginalIcon, ReactOriginalIcon, Html5OriginalIcon, NodejsOriginalIcon, FastapiOriginalIcon, PythonOriginalIcon,
-  PhpOriginalIcon, MysqlOriginalIcon, MariadbOriginalIcon, SqliteOriginalIcon, TensorflowOriginalIcon, NginxOriginalIcon,
-  CentosOriginalIcon, DockerOriginalIcon, AmazonwebservicesOriginalWordmarkIcon, GooglecloudOriginalIcon, OpenapiOriginalIcon,
+  ReactOriginalIcon, Html5OriginalIcon, NodejsOriginalIcon, FastapiOriginalIcon, PythonOriginalIcon,
+  PhpOriginalIcon, MysqlOriginalIcon, NginxOriginalIcon, CentosOriginalIcon, DockerOriginalIcon,
   ExpressOriginalIcon, RedisOriginalIcon, NextjsOriginalIcon, VitejsOriginalIcon, TailwindcssOriginalIcon, TypescriptOriginalIcon,
   PostgresqlOriginalIcon, PandasOriginalIcon, PlaywrightOriginalIcon, StreamlitOriginalIcon,
 } from '@devicon/react';
@@ -11,14 +10,18 @@ import { LAYER_ICON, Ic } from './icons';
 
 // [name, devicon or null]. Only a skill's own logo is used; no stand-in logos for tools devicon lacks.
 // Same layer names as the service stack, top (screen) to bottom (GPU).
+// Every entry appears in at least one service or project on this page.
 const groups = [
-  ['Frontend', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vue.js', VuejsOriginalIcon], ['Vite', VitejsOriginalIcon], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX']]],
-  ['Backend', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon]]],
-  ['Data', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['MariaDB', MariadbOriginalIcon], ['SQLite', SqliteOriginalIcon], ['pandas', PandasOriginalIcon], ['Google Sheets API']]],
-  ['AI Models', [['Claude API'], ['GPT-4'], ['Gemini'], ['Ollama'], ['EXAONE'], ['KoBERT'], ['TensorFlow', TensorflowOriginalIcon], ['YOLO'], ['Whisper']]],
-  ['Infrastructure', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['CentOS', CentosOriginalIcon], ['LoadBalancer'], ['AWS', AmazonwebservicesOriginalWordmarkIcon], ['Google Cloud', GooglecloudOriginalIcon], ['NCP']]],
-  ['Automation', [['Playwright', PlaywrightOriginalIcon], ['n8n'], ['OpenAPI', OpenapiOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
+  ['Frontend', [['React', ReactOriginalIcon], ['Next.js', NextjsOriginalIcon], ['Vite', VitejsOriginalIcon], ['Tailwind CSS', TailwindcssOriginalIcon], ['TypeScript', TypescriptOriginalIcon], ['HTML5', Html5OriginalIcon], ['HTMX'], ['ECharts']]],
+  ['Backend', [['Python', PythonOriginalIcon], ['FastAPI', FastapiOriginalIcon], ['Node.js', NodejsOriginalIcon], ['Express', ExpressOriginalIcon], ['PHP 7.4', PhpOriginalIcon], ['Celery'], ['Redis', RedisOriginalIcon], ['Stripe']]],
+  ['Data', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['pandas', PandasOriginalIcon], ['SQLAlchemy'], ['Google Sheets API']]],
+  ['AI Models', [['Ollama'], ['EXAONE'], ['Gemini'], ['GPT-4'], ['Claude API'], ['PaddleOCR'], ['faster-whisper'], ['GraphRAG'], ['KoBERT']]],
+  ['Infrastructure', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['Caddy'], ['systemd'], ['CentOS', CentosOriginalIcon]]],
+  ['Automation', [['Playwright', PlaywrightOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['python-pptx'], ['openpyxl']]],
 ];
+
+// From the 2003 entry that used to sit in Experience, and the awards in the IT portfolio summary deck.
+const certs = '정보처리기사 (한국산업인력공단, 2003) · 우수 프로젝트상 (메조미디어, 2014) · 기술리더상 (아이너스, 2019)';
 
 export default function Skills() {
   return (
@@ -39,6 +42,10 @@ export default function Skills() {
           </div>
         ))}
       </div>
+      <p className="mt-5 grid gap-1 text-[15px] sm:grid-cols-[168px_minmax(0,1fr)] sm:gap-4">
+        <b className="font-semibold">Certification · Awards</b>
+        <span className="text-muted">{certs}</span>
+      </p>
     </section>
   );
 }

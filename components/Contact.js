@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Mail } from 'lucide-react';
 import SectionHead from './SectionHead';
-
-const EMAIL = 'itsme.kevin@icloud.com';
+import { EMAIL, GITHUB, RESUME, LINKEDIN } from './profile';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -20,15 +19,17 @@ export default function Contact() {
   return (
     <section id="contact" className="wrap pt-16 md:pt-32">
       <div className="rounded-2xl border border-line bg-off p-8 sm:p-12 lg:p-18">
-        <SectionHead icon={Mail} title="Contact" lede="AI 서비스나 사내 GPU 인프라를 준비하고 있다면 연락 주세요. 도입 검토부터 개발과 운영까지 함께합니다." />
+        <SectionHead icon={Mail} title="Contact" lede="채용 제안과 협업 문의 모두 환영합니다. 이메일로 연락 주세요." />
         <a href={`mailto:${EMAIL}`} className="mt-8 inline-block text-[26px] leading-tight font-display tracking-[-0.025em] break-all text-ink underline decoration-1 underline-offset-8 hover:decoration-2 sm:text-5xl">
           {EMAIL}
         </a>
         <p className="mt-8 flex flex-wrap gap-2">
-          <button type="button" className="btn-dark" onClick={copy} aria-live="polite">
+          {RESUME && <a className="btn-dark" href={RESUME} download>이력서 다운로드</a>}
+          <button type="button" className={RESUME ? 'btn-ghost' : 'btn-dark'} onClick={copy} aria-live="polite">
             {copied ? '주소를 복사했습니다' : '이메일 주소 복사'}
           </button>
-          <a className="btn-ghost" href="https://github.com/zankke" target="_blank" rel="noopener noreferrer">GitHub</a>
+          {LINKEDIN && <a className="btn-ghost" href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn</a>}
+          <a className="btn-ghost" href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub (오픈소스 포크)</a>
         </p>
       </div>
     </section>

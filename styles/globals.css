@@ -23,7 +23,8 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 112px; }
+  @media (min-width: 64rem) { html { scroll-padding-top: 80px; } }
   body { @apply bg-cream font-sans text-ink antialiased; word-break: keep-all; }
   ::selection { @apply bg-ink text-off; }
   :focus-visible { outline: none; box-shadow: var(--shadow-ring), var(--shadow-soft); border-radius: 6px; }
