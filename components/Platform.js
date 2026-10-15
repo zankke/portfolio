@@ -109,7 +109,6 @@ export default function Platform() {
           <span className="text-sm text-muted">두 노드의 Ollama로 요청 분산 · 동시 요청 상한 · 헬스체크</span>
           <ul className="mt-3 flex flex-wrap gap-1.5">{models.map((m) => <Chip key={m}>{m}</Chip>)}</ul>
         </div>
-        <p className="mt-4 text-center text-sm text-muted">관리 접속: Tailscale VPN</p>
       </figure>
 
       <Rows title="설계 결정" items={decisions} />
