@@ -199,7 +199,7 @@ const allProjects = [
   };
 
   const stations = [
-    { route: '/lv10', line: 'dgx1', name: 'AI 패널 설문 에이전트', summary: 'LLM 페르소나가 브라우저를 직접 조작해 웹 설문에 응답합니다.', project: 'AI 패널 설문 에이전트 (LV10)' },
+    { route: '/lv10', line: 'dgx1', name: 'AI 패널 설문 에이전트', live: 'https://ai.marketlink.co.kr/level10', summary: 'LLM 페르소나가 브라우저를 직접 조작해 웹 설문에 응답합니다.', project: 'AI 패널 설문 에이전트 (LV10)' },
     { route: '/shorts', line: 'dgx1', name: 'OpenShorts', summary: '긴 영상을 바이럴 숏폼으로 잘라 주는 구독형 SaaS입니다.', project: '[SnapShorts] OpenShorts AI 숏폼 SaaS' },
     { route: '/lotte', line: 'dgx1', name: 'Lotte웰푸드 EAV System', live: 'https://ai.marketlink.co.kr/lotte/v2/dashboard.html', summary: '제과 · 제빵 상품 507,658셀의 속성을 정제하고 검수합니다.', project: 'Lotte웰푸드 EAV System' },
     { route: '/ocr', line: 'dgx1', name: '영수증 OCR', summary: '영수증 62,140건에서 상품 단위 구매 데이터를 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4), Next.js 15, React 19', facts: [['개요', '영수증 이미지에서 상품 단위 구매 데이터를 뽑아내는 배치 파이프라인과 검수 대시보드입니다.'], ['파이프라인', 'PaddleOCR(CPU) 스윕 → Ollama gemma4 텍스트 파싱 → 카테고리 분류 → 12컬럼 엑셀 리포트 → Next.js 검수 대시보드'], ['처리 규모', '영수증 62,140건 중 61,827건(99.5%)을 4일 만에 수록했습니다.'], ['운영', '단계별 결과를 파일로 남겨 중단해도 같은 명령으로 이어서 실행합니다.']] } },
