@@ -41,7 +41,7 @@ body {
 .sec-lede { margin-top: 16px; max-width: 40em; color: var(--muted); font-size: 18px; line-height: 1.5; }
 
 /* ---------- buttons ---------- */
-.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 16px; border-radius: 6px; font: inherit; font-size: 15px; font-weight: 400; line-height: 1.5; text-decoration: none; white-space: nowrap; cursor: pointer; border: 0; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border-radius: 6px; font: inherit; font-size: 15px; font-weight: 400; line-height: 1.5; text-decoration: none; white-space: nowrap; cursor: pointer; border: 0; }
 .btn:active { opacity: 0.8; }
 .btn-dark { background: var(--ink); color: var(--off); box-shadow: var(--inset); }
 .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink-40); }
@@ -51,6 +51,7 @@ body {
 /* ---------- nav ---------- */
 .nav { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--cream) 90%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .nav-in { display: flex; align-items: center; gap: 32px; height: var(--nav-h); }
+.nav-mark, .nav nav a { display: inline-flex; align-items: center; min-height: 44px; }
 .nav-mark { font-size: 18px; font-weight: 600; letter-spacing: -0.4px; color: var(--ink); text-decoration: none; }
 .nav nav { display: flex; gap: 24px; margin-left: auto; font-size: 15px; }
 .nav nav a { color: var(--ink-83); text-decoration: none; }
