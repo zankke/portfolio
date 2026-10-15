@@ -39,7 +39,7 @@ function Rows({ title, items }) {
         {items.map(([k, v]) => (
           <div key={k} className="grid gap-x-8 gap-y-1 border-b border-line py-4 sm:grid-cols-[120px_minmax(0,1fr)]">
             <dt className="font-semibold">{k}</dt>
-            <dd className="max-w-[44em] text-ink/85">{v}</dd>
+            <dd className="text-ink/85">{v}</dd>
           </div>
         ))}
       </dl>

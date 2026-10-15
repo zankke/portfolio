@@ -38,7 +38,7 @@ export default function ServicePage({ slug }) {
           <div className="min-w-0 flex-[1_1_560px]">
             <Status it={it} />
             <h1 className="mt-4 text-4xl leading-[1.05] font-display tracking-[-0.025em] sm:text-5xl lg:text-[64px]">{it.name}</h1>
-            <p className="mt-5 max-w-[36em] text-lg text-ink/80 md:text-xl">{overview}</p>
+            <p className="mt-5 text-lg text-ink/80 md:text-xl">{overview}</p>
           </div>
           <p className="flex flex-wrap gap-2"><Links it={it} /></p>
         </header>

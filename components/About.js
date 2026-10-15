@@ -26,7 +26,7 @@ export default function About() {
               <h3 className="flex flex-wrap items-baseline gap-x-3 text-[19px] leading-snug font-semibold tracking-[-0.3px]">
                 {c.title}{c.role && <span className="text-[15px] font-normal tracking-normal text-ink/70">{c.role}</span>}
               </h3>
-              <p className="mt-1 max-w-[44em] text-muted">{c.desc}</p>
+              <p className="mt-1 text-muted">{c.desc}</p>
             </div>
           </li>
         ))}

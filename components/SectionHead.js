@@ -8,7 +8,7 @@ export default function SectionHead({ icon, title, lede, id }) {
         {icon && <Ic as={icon} className="mt-[0.14em]" />}
         {title}
       </h2>
-      {lede && <p className="mt-4 max-w-[40em] text-lg text-muted">{lede}</p>}
+      {lede && <p className="mt-4 text-lg text-muted">{lede}</p>}
     </>
   );
 }
