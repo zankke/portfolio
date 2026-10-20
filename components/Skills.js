@@ -31,7 +31,7 @@ const groups = [
   ['Data', [['PostgreSQL', PostgresqlOriginalIcon], ['MySQL', MysqlOriginalIcon], ['Supabase', SupabaseOriginalIcon], ['pandas', PandasOriginalIcon], ['SQLAlchemy', SqlalchemyOriginalIcon], ['Google Sheets API']]],
   ['AI Models', [['RAG'], ['RLHF'], ['GraphRAG · Neo4j', Neo4jOriginalIcon], ['Embeddings'], ['Ollama'], ['vLLM'], ['EXAONE'], ['Qwen'], ['gemma'], ['Gemini'], ['GPT-4'], ['Claude API'], ['PaddleOCR'], ['faster-whisper'], ['KoBERT']]],
   ['Infrastructure', [['NVIDIA DGX Spark'], ['Nginx', NginxOriginalIcon], ['Docker', DockerOriginalIcon], ['Caddy'], ['systemd'], ['Ubuntu', UbuntuOriginalIcon], ['CentOS', CentosOriginalIcon]]],
-  ['Cloud', [['AWS', AmazonwebservicesOriginalWordmarkIcon], ['Google Cloud (GCP)', GooglecloudOriginalIcon], ['NAVER Cloud Platform (NBP)', NaverIcon]]],
+  ['Cloud', [['AWS', AmazonwebservicesOriginalWordmarkIcon], ['Google Cloud (GCP)', GooglecloudOriginalIcon], ['NAVER Cloud Platform (NCP)', NaverIcon]]],
   ['CI/CD', [['GitHub', GithubOriginalIcon], ['Vercel', VercelOriginalIcon], ['Preview 배포'], ['Production 자동 배포']]],
   ['Automation', [['Playwright', PlaywrightOriginalIcon], ['Streamlit', StreamlitOriginalIcon], ['n8n', N8nIcon], ['python-pptx'], ['openpyxl']]],
 ];
