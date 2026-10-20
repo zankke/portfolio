@@ -33,7 +33,7 @@ const certs = '정보처리기사 (한국산업인력공단, 2003)';
 export default function Skills() {
   return (
     <section id="skills" className="pt-20 md:pt-28">
-      <SectionHead icon={Layers} title="Tech Stack" lede="프런트엔드부터 AI 모델과 인프라까지, 서비스의 전 계층을 직접 다룹니다." />
+      <SectionHead icon={Layers} title="Tech Stack" lede="프런트엔드, AI 모델, 인프라까지 서비스의 전 계층을 직접 다룹니다." />
       <div className="mt-8 border-t-2 border-primary">
         {groups.map(([h, items]) => (
           <div key={h} className="grid gap-4 border-b border-line py-5 sm:grid-cols-[176px_minmax(0,1fr)]">

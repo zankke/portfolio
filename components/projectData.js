@@ -23,7 +23,7 @@ const allProjects = [
     {
       title: "AI 패널 설문 에이전트 (LV10)",
       tech: "Node.js, Express 5, TypeScript, Playwright + CDP, React 19, Vite 8, MySQL, Gemini·OpenAI·EXAONE",
-      desc: "한국어 페르소나를 입힌 LLM이 브라우저를 직접 조작해 웹 설문을 처음부터 끝까지 진행합니다.",
+      desc: "한국어 페르소나를 입힌 LLM이 브라우저를 조작해 웹 설문을 처음부터 끝까지 진행합니다.",
       image: "/images/prjLV10_SurveyAgent.jpg",
       longDesc: `
         **개요:** Nemotron 한국어 패널 페르소나를 입힌 LLM이 Playwright(CDP)로 설문을 읽고, 판단하고, 답을 표시합니다.
@@ -68,7 +68,7 @@ const allProjects = [
     {
       title: "MARKETLINK-AX 온프레미스 AI 플랫폼 (NVIDIA DGX Spark ×2)",
       tech: "NVIDIA DGX Spark(GB10) ×2, Nginx, Let's Encrypt, Docker, Ollama LB, FastAPI · Next.js · Vite",
-      desc: "DGX 두 노드 클러스터에서 서비스 26개와 엔드포인트 132개를 도메인 하나로 운영하는 사내 AI 플랫폼입니다.",
+      desc: "서비스 26개와 엔드포인트 132개를 도메인 하나로 묶은 사내 AI 플랫폼입니다. DGX 두 노드 클러스터에서 운영합니다.",
       image: "/images/prjDGXPlatform.jpg",
       longDesc: `
         **인프라:** NVIDIA DGX Spark 두 노드(GB10, 128GB 통합 메모리)를 씁니다. 공개 도메인 하나에 HTTPS 게이트웨이(Let's Encrypt, 보안 헤더)를 두고, 경로마다 서비스를 연결합니다.
@@ -116,7 +116,7 @@ const allProjects = [
     {
       title: "Sales Admin System v3.0",
       tech: "SaaS, BI, AI Dashboard, Python, Node.js",
-      desc: "영업 데이터를 보는 BI와 AI 대시보드를 만들었습니다.",
+      desc: "영업 데이터를 보는 BI와 AI 대시보드를 구축했습니다.",
       image: "/images/prjInfra_SalesMgmt.png",
       longDesc: `
         **맡은 일:** BI와 AI 대시보드를 만들었습니다.
@@ -148,7 +148,7 @@ const allProjects = [
     {
       title: "AI 기반 콘텐츠 자동 생성 워크플로우",
       tech: "Claude API, Google Sheet API, Hashtag Generation",
-      desc: "Claude API, 해시태그 생성, Google Sheet API를 연동해 SNS 포스트를 자동으로 만드는 파이프라인입니다.",
+      desc: "Claude API, 해시태그 생성, Google Sheet API를 연동한 파이프라인으로 SNS 포스트를 자동 생성합니다.",
       image: "/images/prjWorkflowAutomation.png",
       longDesc: `
         **사용 기술:** Claude API, 해시태그 생성, Google Sheet API를 연동해 이미지와 텍스트를 자동으로 만들고 SNS 콘텐츠를 생성합니다.
@@ -189,26 +189,26 @@ const allProjects = [
     { route: '/lotte', line: 'dgx1', results: [['673,122셀', '속성 정제'], ['0.866', '평균 신뢰도 (계약 기준 0.85)'], ['75.2%', '확정 비율 (AI · 사람)']], name: 'Lotte웰푸드 EAV System', live: 'https://ai.marketlink.co.kr/lotte/v2/dashboard.html', summary: '상품 속성 673,122셀을 신뢰도 · 근거와 함께 정제합니다. 사람이 확정한 값으로 모델을 다시 학습시키는 RLHF 구조입니다.', project: 'Lotte웰푸드 EAV System' },
     { route: '/ocr', line: 'dgx1', results: [['62,140건', '처리한 영수증'], ['99.5%', '수록률'], ['4일', '처리 기간']], name: '영수증 OCR', summary: '영수증 62,140건에서 상품 단위 구매 데이터를 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4), Next.js 15, React 19', facts: [['개요', '영수증 이미지에서 상품 단위 구매 데이터를 뽑아내는 배치 파이프라인과 검수 대시보드입니다.'], ['파이프라인', 'PaddleOCR(CPU) 스윕 → Ollama gemma4 텍스트 파싱 → 카테고리 분류 → 12컬럼 엑셀 리포트 → Next.js 검수 대시보드'], ['처리 규모', '영수증 62,140건 중 61,827건(99.5%)을 4일 만에 수록했습니다.'], ['운영', '단계별 결과를 파일로 남겨 중단해도 같은 명령으로 이어서 실행합니다.']] } },
     { route: '/master', line: 'dgx2', results: [['348개', '통과한 테스트 (백엔드 273 · 프런트엔드 75)']], name: 'CategoryMaster Agents', summary: '카테고리 마스터 데이터를 정리하는 에이전트입니다.', detail: { image: '/images/stations/master.jpg', tech: 'FastAPI, SQLAlchemy, MySQL 8, React, Vite, TypeScript, Caddy', facts: [['개요', '바코드로 상품의 카테고리와 제조사를 분류하는 AI 파이프라인입니다. 엑셀로 하던 수작업을 대신합니다.'], ['분류 방식', '저렴하고 믿을 만한 조회부터 LLM까지 순서대로 시도하고 신뢰도가 낮은 결과는 사람이 검수하도록 넘깁니다.'], ['학습', '검수에서 고친 결과를 다시 반영해 갈수록 LLM을 덜 씁니다. 배치 진행 상황을 실시간으로 보여 주고 중단할 수 있습니다.'], ['품질', '백엔드 테스트 273개, 프런트엔드 테스트 75개가 통과합니다.']] } },
-    { route: '/meatlink', line: 'dgx2', results: [['18개', '판독 항목'], ['0.3초', '사진 1장당 판독'], ['2,740장', '판독한 사진']], name: 'Meatlink AI Hub', summary: '축산물 구매 사진에서 18개 항목을 자동으로 판독합니다.', detail: { image: '/images/stations/meatlink.jpg', tech: 'React, FastAPI, MySQL, Docker, Ollama (로컬 비전 LLM)', facts: [['개요', '축산물 구매 사진을 자동으로 판독하고 메타데이터를 실시간으로 검수하는 SaaS입니다.'], ['판독', '영수증과 라벨 사진 1,370쌍(2,740장)에서 구매일, 부위, 등급, 원산지, 가격 등 18개 항목을 사진 1장당 0.3초에 추출합니다.'], ['검증', '정부 할인행사(농할대전 등)를 따로 분리하고 축산물 이력제(mtrace)와 연동해 실시간으로 확인합니다.']] } },
-    { route: '/ssm', line: 'dgx1', access: 'login', results: [['349만 건', '카드 거래'], ['224,061곳', '가맹점'], ['18개월', '분석 기간']], name: 'SSM Intelligence', summary: '카드사 빅데이터 349만 건으로 소형 슈퍼마켓 시장을 분석합니다.', detail: { image: '/images/stations/ssm.jpg', tech: 'Python, ECharts, Node.js, 로그인 인증', facts: [['개요', '카드사 빅데이터로 소형 슈퍼마켓 시장을 분석하는 SSM Intelligence Platform입니다.'], ['데이터', '카드사 6곳, 18개월(2025.01~2026.06), 349만 건, 가맹점 224,061곳의 거래를 집계했습니다.'], ['구성', '시장 대시보드, 브랜드 분석 리포트, AI 어시스턴트, 트렌드를 하나의 허브로 묶었습니다.']] } },
+    { route: '/meatlink', line: 'dgx2', results: [['18개', '판독 항목'], ['0.3초', '사진 1장당 판독'], ['2,740장', '판독한 사진']], name: 'Meatlink AI Hub', summary: '축산물 구매 사진에서 18개 항목을 판독합니다.', detail: { image: '/images/stations/meatlink.jpg', tech: 'React, FastAPI, MySQL, Docker, Ollama (로컬 비전 LLM)', facts: [['개요', '축산물 구매 사진을 자동으로 판독하고 메타데이터를 실시간으로 검수하는 SaaS입니다.'], ['판독', '영수증과 라벨 사진 1,370쌍(2,740장)에서 구매일, 부위, 등급, 원산지, 가격 등 18개 항목을 사진 1장당 0.3초에 추출합니다.'], ['검증', '정부 할인행사(농할대전 등)를 따로 분리하고 축산물 이력제(mtrace)와 연동해 확인합니다.']] } },
+    { route: '/ssm', line: 'dgx1', access: 'login', results: [['349만 건', '카드 거래'], ['224,061곳', '가맹점'], ['18개월', '분석 기간']], name: 'SSM Intelligence', summary: '카드사 빅데이터 349만 건으로 소형 슈퍼마켓 시장을 분석합니다.', detail: { image: '/images/stations/ssm.jpg', tech: 'Python, ECharts, Node.js, 로그인 인증', facts: [['개요', 'SSM Intelligence Platform에서 카드사 빅데이터로 소형 슈퍼마켓 시장을 분석합니다.'], ['데이터', '카드사 6곳, 18개월(2025.01~2026.06), 349만 건, 가맹점 224,061곳의 거래를 집계했습니다.'], ['구성', '시장 대시보드, 브랜드 분석 리포트, AI 어시스턴트, 트렌드를 하나의 허브로 묶었습니다.']] } },
     { route: '/sosop', line: 'dgx2', results: [['3종', '산출물 (HTML · PDF · PPTX)'], ['6단계', '단계별로 다시 실행하는 파이프라인']], name: 'SOSOP', summary: '설문 파일 한 장으로 HTML, PDF, PPTX 리포트를 만듭니다.', project: '[SOSOP] 소상공인 경쟁력 평가 리포트 자동화 시스템' },
-    { route: '/builder', line: 'dgx1', results: [['3건', '운영 중인 실제 설문'], ['18종', '설문 모듈']], name: 'SurveyBuilder', summary: 'docx, hwp 설문지를 올리면 AI가 웹 설문으로 바로 만들어 줍니다.', live: 'https://ai.marketlink.co.kr/builder', detail: { image: '/images/stations/builder.jpg', tech: 'Next.js, TypeScript, LLM 문서 분석', facts: [['개요', '설문 빌더 SaaS(v2.0)입니다. docx나 hwp 설문지를 올리면 AI가 분석해 웹 설문으로 셋업합니다.'], ['자동 구성', '웹 화면 구성, 분기와 스킵 조건, 수집 쿼터를 한 번에 설정합니다.'], ['규칙', '한국어 설문지 표기 규칙과 18종 모듈을 정의하고 파서와 리포트, 응답 화면이 같은 규칙 문서를 따르도록 맞췄습니다.'], ['운영', '실제 설문 3건이 이 빌더로 운영되고 있습니다.']] } },
-    { route: '/datalink', line: 'dgx2', results: [['68,767건', '분석한 리뷰 (Steam · Reddit)']], name: 'DataLink', summary: '게임 이용자 리뷰 68,767건의 감성과 키워드를 분석합니다.', detail: { image: '/images/stations/datalink.jpg', tech: 'Python, React, Vite, sentence-transformers, RAG, Ollama (gemma4)', facts: [['RAG', '리뷰를 다국어 임베딩(MiniLM)으로 벡터화해 코사인 유사도 상위 5개를 근거로 찾고 로컬 gemma4가 답합니다. 실패하면 Gemini, Claude 순으로 넘어갑니다.'], ['개요', '게임 이용자 리뷰를 모아 감성과 키워드를 분석하는 리서치 포털입니다. 첫 화면은 PUBG Intelligence Dashboard입니다.'], ['분석', 'Steam과 Reddit 리뷰 68,767건으로 감성 점수, 키워드, 카테고리, 감정 분석, 요약 리포트를 만듭니다.'], ['기능', '데이터에 직접 질문하는 DataChat과 해외 한국 게임 이용자 조사 분석을 제공합니다.']] } },
+    { route: '/builder', line: 'dgx1', results: [['3건', '운영 중인 실제 설문'], ['18종', '설문 모듈']], name: 'SurveyBuilder', summary: 'docx, hwp 설문지를 올리면 AI가 웹 설문으로 만들어 줍니다.', live: 'https://ai.marketlink.co.kr/builder', detail: { image: '/images/stations/builder.jpg', tech: 'Next.js, TypeScript, LLM 문서 분석', facts: [['개요', '설문 빌더 SaaS(v2.0)입니다. docx나 hwp 설문지를 올리면 AI가 분석해 웹 설문으로 셋업합니다.'], ['자동 구성', '웹 화면 구성, 분기와 스킵 조건, 수집 쿼터를 한 번에 설정합니다.'], ['규칙', '한국어 설문지 표기 규칙과 18종 모듈을 정의하고 파서와 리포트, 응답 화면이 같은 규칙 문서를 따르도록 맞췄습니다.'], ['운영', '실제 설문 3건이 이 빌더로 운영되고 있습니다.']] } },
+    { route: '/datalink', line: 'dgx2', results: [['68,767건', '분석한 리뷰 (Steam · Reddit)']], name: 'DataLink', summary: '게임 이용자 리뷰 68,767건의 감성과 키워드를 분석합니다.', detail: { image: '/images/stations/datalink.jpg', tech: 'Python, React, Vite, sentence-transformers, RAG, Ollama (gemma4)', facts: [['RAG', '리뷰를 다국어 임베딩(MiniLM)으로 벡터화해 코사인 유사도 상위 5개를 근거로 찾고 로컬 gemma4가 답합니다. 실패하면 Gemini, Claude 순으로 넘어갑니다.'], ['개요', '게임 이용자 리뷰를 모아 감성과 키워드를 분석하는 리서치 포털입니다. 첫 화면은 PUBG Intelligence Dashboard입니다.'], ['분석', 'Steam과 Reddit 리뷰 68,767건으로 감성 점수, 키워드, 카테고리, 감정 분석, 요약 리포트를 뽑습니다.'], ['기능', 'DataChat으로 데이터에 질문하고 해외 한국 게임 이용자 조사 분석을 볼 수 있습니다.']] } },
     { route: '/shorts', line: 'dgx1', results: [['약 21원', '클립 1편 원가'], ['88.5%', '클립 매출총이익률']], name: 'OpenShorts', summary: '긴 영상을 바이럴 숏폼으로 잘라 주는 구독형 SaaS입니다.', project: '[SnapShorts] OpenShorts AI 숏폼 SaaS' },
-    { route: '/nh', line: 'dgx2', access: 'login', name: '농협 주류 협력사 데이터 분석 포털', summary: '주류 협력사가 로그인해 자기 매출과 시장 흐름을 분석합니다.', live: 'https://ai.marketlink.co.kr/nh/login?next=%2Fdashboard', detail: { image: '/images/stations/nh.jpg', tech: 'Next.js 16 (App Router), MySQL 8, ECharts, systemd', facts: [['개요', '농협 하나로마트 주류 협력사가 로그인해 자기 매출과 시장 흐름을 보는 데이터 분석 포털입니다.'], ['기능', '대시보드, 매출, 분석, 인사이트, 트렌드, 리포트, 공지 화면을 제공하고 주류 뉴스와 통계, 월간 Retail Spotlight 리포트를 함께 보여 줍니다.'], ['권한', '협력사와 관리자 역할을 나누고 로그인한 사용자만 데이터를 볼 수 있습니다. 등급에 따라 열리는 분석 모듈이 다릅니다.'], ['데이터', '원천 데이터를 정규화해 분석용 마트로 쌓고 화면에서는 집계 결과만 불러옵니다.'], ['배포', '배포 스크립트가 백업, 빌드, 재시작, 점검을 하고 실패하면 자동으로 이전 버전으로 되돌립니다.']] } },
-    { route: '/sales', line: 'dgx1', name: 'Sales Lead Monitor', summary: '영업 리드를 한 화면에서 추적하는 대시보드입니다.', detail: { image: '/images/stations/sales.jpg', tech: 'React, Vite, Tailwind CSS 4, Python 크롤러', facts: [['개요', '정부·공공기관 지원사업 공고를 모아 영업 리드로 관리하는 대시보드입니다.'], ['수집', 'K-Startup, 기업마당, NIPA, KOCCA, SMTECH의 모집 공고를 키워드 대신 전수로 수집해 제목을 모두 검토합니다.'], ['분류', 'A/B/C 우선순위와 마감 임박(3일 이내)을 표시하고, 재조사 때는 신규·변경·종료 공고만 갱신합니다.'], ['접근성', 'WCAG 2.2 AA 기준으로 색만으로 상태를 전달하지 않습니다.']] } },
-    { route: '/studio', line: 'dgx2', name: 'AI Studio', summary: '이미지 · 영상 생성부터 프롬프트 도구, 갤러리, 크레딧 결제까지 한 워크스페이스에서 합니다.', detail: { image: '/images/stations/studio.jpg', tech: 'React 19, Vite, TypeScript, Tailwind CSS, Node.js (Express 5), Sequelize, MySQL, JWT, Stripe, OpenAI GPT-4o, Gemini, Replicate (Veo 3), sharp', facts: [
-      ['개요', 'mLAB AI Studio. 텍스트 · 이미지로 이미지와 영상을 만들고 프롬프트를 다듬고 갤러리로 관리하는 생성형 크리에이티브 워크스페이스입니다.'],
+    { route: '/nh', line: 'dgx2', access: 'login', name: '농협 주류 협력사 데이터 분석 포털', summary: '주류 협력사가 로그인해 자기 매출과 시장 흐름을 분석합니다.', live: 'https://ai.marketlink.co.kr/nh/login?next=%2Fdashboard', detail: { image: '/images/stations/nh.jpg', tech: 'Next.js 16 (App Router), MySQL 8, ECharts, systemd', facts: [['개요', '농협 하나로마트 주류 협력사용 데이터 분석 포털입니다. 협력사가 로그인하면 자기 매출과 시장 흐름을 봅니다.'], ['기능', '대시보드, 매출, 분석, 인사이트, 트렌드, 리포트, 공지 화면이 있고 주류 뉴스와 통계, 월간 Retail Spotlight 리포트도 볼 수 있습니다.'], ['권한', '협력사와 관리자 역할을 나누고 로그인한 사용자만 데이터를 볼 수 있습니다. 등급에 따라 열리는 분석 모듈이 다릅니다.'], ['데이터', '원천 데이터를 정규화해 분석용 마트로 쌓고 화면에서는 집계 결과만 불러옵니다.'], ['배포', '배포 스크립트가 백업, 빌드, 재시작, 점검을 하고 실패하면 자동으로 이전 버전으로 되돌립니다.']] } },
+    { route: '/sales', line: 'dgx1', name: 'Sales Lead Monitor', summary: '영업 리드를 한 화면에서 추적하는 대시보드입니다.', detail: { image: '/images/stations/sales.jpg', tech: 'React, Vite, Tailwind CSS 4, Python 크롤러', facts: [['개요', '대시보드에서 정부·공공기관 지원사업 공고를 모아 영업 리드로 관리합니다.'], ['수집', 'K-Startup, 기업마당, NIPA, KOCCA, SMTECH의 모집 공고를 키워드 대신 전수로 수집해 제목을 모두 검토합니다.'], ['분류', 'A/B/C 우선순위와 마감 임박(3일 이내)을 표시하고, 재조사 때는 신규·변경·종료 공고만 갱신합니다.'], ['접근성', 'WCAG 2.2 AA 기준으로 색만으로 상태를 전달하지 않습니다.']] } },
+    { route: '/studio', line: 'dgx2', name: 'AI Studio', summary: '이미지 · 영상 생성, 프롬프트 도구, 갤러리, 크레딧 결제를 한 워크스페이스에서 합니다.', detail: { image: '/images/stations/studio.jpg', tech: 'React 19, Vite, TypeScript, Tailwind CSS, Node.js (Express 5), Sequelize, MySQL, JWT, Stripe, OpenAI GPT-4o, Gemini, Replicate (Veo 3), sharp', facts: [
+      ['개요', 'mLAB AI Studio는 생성형 크리에이티브 워크스페이스입니다. 텍스트 · 이미지로 이미지와 영상을 만들고 프롬프트를 다듬어 갤러리에서 관리합니다.'],
       ['생성 흐름', '프롬프트 작성 → GPT-4o 최적화 · 한영 번역 → 이미지 · 영상 생성 → 갤러리 저장'],
-      ['생성 도구', 'Text → Image, Image → Image(상품 · 패션 · 캐릭터 모드, 스타일 · 조명 · 렌즈 프리셋), 이미지 편집, Text/Image → Video(드론 · 오빗 · FPV 등 카메라 무빙 6종)를 제공합니다.'],
+      ['생성 도구', 'Text → Image, Image → Image(상품 · 패션 · 캐릭터 모드, 스타일 · 조명 · 렌즈 프리셋), 이미지 편집, Text/Image → Video(드론 · 오빗 · FPV 등 카메라 무빙 6종)를 쓸 수 있습니다.'],
       ['모델 라우팅', '이미지는 사내 GPU 생성 서비스를 먼저 쓰고 실패하면 Gemini 이미지 모델로 넘어갑니다. 영상은 Replicate의 Veo 3 · Veo 2 · Stable Video Diffusion을 씁니다.'],
       ['한글 정확도', '이미지 안에 들어갈 한글 문구가 입력한 그대로 나오도록 생성 프롬프트에 텍스트 보호 규칙을 붙입니다.'],
       ['프롬프트 도구', '이미지 · 영상 프롬프트 생성기, 스트리밍 최적화, 참고 이미지를 분석해 프롬프트로 바꾸는 기능이 있습니다.'],
-      ['갤러리', '메이슨리 그리드, 좋아요, 워터마크, sharp로 만든 서버 썸네일을 지원합니다.'],
+      ['갤러리', '메이슨리 그리드, 좋아요, 워터마크, sharp로 만든 서버 썸네일을 갖췄습니다.'],
       ['결제 · 계정', 'Stripe 결제와 웹훅으로 크레딧을 충전하고 작업별로 크레딧을 차감합니다(이미지 1 · 변환 2 · 편집 3 · 영상 3). JWT 로그인과 역할(사용자 · 관리자)을 둡니다.'],
       ['운영', '관리자 대시보드에서 사용자, 기능 플래그, 업데이트 공지, 헬스 · 로그 · 실시간 통계를 관리합니다.'],
     ] } },
-    { route: '/fish', line: 'dgx1', name: '수산물 챗봇', summary: 'GraphRAG 챗봇. 숫자는 Neo4j가 계산하고, 로컬 EXAONE은 설명만 합니다.', detail: { image: '/images/stations/fish.jpg', tech: 'Python, Streamlit, Neo4j, Cypher, Ollama (EXAONE 3.5), GraphRAG', facts: [['GraphRAG', '질문을 분석으로 라우팅하고 Neo4j 지식 그래프에 Cypher를 실제로 실행합니다. 화면의 Cypher가 곧 그 숫자를 만든 질의입니다.'], ['환각 방지', 'LLM에는 계산이 끝난 집계값만 넘깁니다. 원본 행 데이터는 서버 밖으로 나가지 않습니다.'], ['검증', '질문 40문항 벤치마크로 정답 · 오답 · 폴백을 나눠 GraphRAG 도입 전후를 비교합니다.'], ['개요', '수산물 데이터를 LLM과 GraphRAG로 묻고 답하는 챗봇입니다. 질문하면 차트와 설명을 함께 돌려줍니다.'], ['로컬 실행', '외부 API 없이 로컬 EXAONE 3.5 모델로 동작하고 데이터와 코드를 폴더 하나로 묶어 Mac mini에서도 시연합니다.']] } },
+    { route: '/fish', line: 'dgx1', name: '수산물 챗봇', summary: 'GraphRAG 챗봇. 로컬 EXAONE은 Neo4j가 계산한 숫자를 설명만 합니다.', detail: { image: '/images/stations/fish.jpg', tech: 'Python, Streamlit, Neo4j, Cypher, Ollama (EXAONE 3.5), GraphRAG', facts: [['GraphRAG', '질문을 분석으로 라우팅하고 Neo4j 지식 그래프에 Cypher를 실제로 실행합니다. 화면에 보이는 Cypher가 그 숫자를 낸 질의 그대로입니다.'], ['환각 방지', 'LLM에는 계산이 끝난 집계값만 넘깁니다. 원본 행 데이터는 서버 밖으로 나가지 않습니다.'], ['검증', '질문 40문항 벤치마크로 정답 · 오답 · 폴백을 나눠 GraphRAG 도입 전후를 비교합니다.'], ['개요', '수산물 데이터를 LLM과 GraphRAG로 묻고 답하는 챗봇입니다. 질문하면 차트와 설명을 함께 돌려줍니다.'], ['로컬 실행', '외부 API 없이 로컬 EXAONE 3.5 모델로 동작하고 데이터와 코드를 폴더 하나로 묶어 Mac mini에서도 시연합니다.']] } },
     { route: '/level10', line: 'dgx1', name: 'AI 패널 설문 에이전트', live: 'https://ai.marketlink.co.kr/level10', summary: '한국어 페르소나를 입힌 LLM이 브라우저로 웹 설문을 끝까지 진행합니다.', project: 'AI 패널 설문 에이전트 (LV10)' },
   ];
 
