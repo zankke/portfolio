@@ -31,8 +31,8 @@ const caps = [
   {
     k: 'Vision · OCR',
     title: '사진 한 장을 0.3초에 읽는다.',
-    body: '로컬 비전 LLM이 축산물 사진에서 18개 항목을 읽고 PaddleOCR과 gemma4가 영수증 62,140건을 구조화했습니다.',
-    proof: '수록률 99.5% · 판독 2,740장',
+    body: '로컬 비전 LLM이 축산물 사진에서 18개 항목을 읽고 PaddleOCR과 gemma4가 영수증 278,528건을 구조화했습니다.',
+    proof: '수록률 97.1% · 상품 89만 행 · 판독 2,740장',
     tags: ['비전 LLM', 'PaddleOCR', 'gemma4'],
     href: '/services/meatlink', label: 'Meatlink AI Hub',
   },

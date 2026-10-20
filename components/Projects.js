@@ -71,7 +71,7 @@ const linked = new Set(stations.map((s) => s.project).filter(Boolean));
 export const DOMAINS = ['데이터 정제', '비전 · OCR', '분석 포털', '생성 · 자동화', '대화형 AI'];
 const DOMAIN = {
   '/lotte': '데이터 정제', '/master': '데이터 정제', '/ocr': '비전 · OCR', '/meatlink': '비전 · OCR',
-  '/ssm': '분석 포털', '/datalink': '분석 포털', '/nh': '분석 포털', '/sales': '분석 포털',
+  '/ssm': '분석 포털', '/datalink': '분석 포털', '/nh': '분석 포털', '/hpx': '분석 포털', '/sales': '분석 포털',
   '/sosop': '생성 · 자동화', '/builder': '생성 · 자동화', '/shorts': '생성 · 자동화', '/studio': '생성 · 자동화', '/level10': '생성 · 자동화',
   '/fish': '대화형 AI',
 };
