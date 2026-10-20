@@ -187,7 +187,7 @@ const allProjects = [
   // Ordered by strength of evidence: the first one is selected on load.
   const stations = [
     { route: '/lotte', line: 'dgx1', results: [['673,122셀', '속성 정제'], ['0.866', '평균 신뢰도 (계약 기준 0.85)'], ['75.2%', '확정 비율 (AI · 사람)']], name: 'Lotte웰푸드 EAV System', live: 'https://ai.marketlink.co.kr/lotte/v2/dashboard.html', summary: '상품 속성 673,122셀을 신뢰도 · 근거와 함께 정제합니다. 사람이 확정한 값으로 모델을 다시 학습시키는 RLHF 구조입니다.', project: 'Lotte웰푸드 EAV System' },
-    { route: '/ocr', line: 'dgx1', results: [['278,528건', '처리한 영수증'], ['97.1%', '수록률'], ['89만 행', '추출한 상품']], name: '영수증 OCR', summary: '영수증 278,528건에서 상품 단위 구매 데이터 89만 행을 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4, Qwen3.6 27B), rembg, scikit-learn (TF-IDF · LinearSVC), Next.js 15, React 19, SQLite', facts: [
+    { route: '/ocr', line: 'dgx1', access: 'login', live: 'https://ai.marketlink.co.kr/ocr/login', results: [['278,528건', '처리한 영수증'], ['97.1%', '수록률'], ['89만 행', '추출한 상품']], name: '영수증 OCR', summary: '영수증 278,528건에서 상품 단위 구매 데이터 89만 행을 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4, Qwen3.6 27B), rembg, scikit-learn (TF-IDF · LinearSVC), Next.js 15, React 19, SQLite', facts: [
       ['개요', '영수증 이미지에서 상품 단위 구매 데이터를 뽑아내는 배치 파이프라인과 검수 대시보드입니다.'],
       ['파이프라인', 'PaddleOCR(CPU) 스윕 → gemma4 텍스트 파싱 → Qwen3.6 · rembg 재시도 → 후처리 · 카테고리 분류 → 12컬럼 엑셀 · 검수 대시보드'],
       ['처리 규모', '월별 6개 배치에서 영수증 278,528건 중 270,341건(97.1%)을 수록하고 상품 893,137행을 뽑았습니다. 첫 배치 62,140건은 약 3일 만에 끝냈습니다(이미지 VLM 단독 추정 25일).'],
