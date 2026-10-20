@@ -114,16 +114,6 @@ const allProjects = [
       year: '2023',
     },
     {
-      title: "Sales Admin System v3.0",
-      tech: "SaaS, BI, AI Dashboard, Python, Node.js",
-      desc: "영업 데이터를 보는 BI와 AI 대시보드를 구축했습니다.",
-      image: "/images/prjInfra_SalesMgmt.png",
-      longDesc: `
-        **맡은 일:** BI와 AI 대시보드를 만들었습니다.
-      `,
-      category: 'Automation',
-    },
-    {
       title: "MarketLink Consumer Survey Center",
       tech: "KoBERT, GPT-4, 설문 응답 분류, CSV 처리",
       desc: "설문 주관식 응답에 코드를 자동으로 붙이는 분류 AI를 설계했습니다.",
