@@ -1,4 +1,4 @@
-import { Monitor, Server, Database, BrainCircuit, Cpu, Workflow, Puzzle, GitBranch } from 'lucide-react';
+import { Monitor, Server, Database, BrainCircuit, Cpu, Workflow, Puzzle, GitBranch, Cloud } from 'lucide-react';
 
 // One icon per stack layer, shared by the service panel and the skills section.
 export const LAYER_ICON = {
@@ -7,6 +7,7 @@ export const LAYER_ICON = {
   'Data': Database,
   'AI Models': BrainCircuit,
   'Infrastructure': Cpu,
+  'Cloud': Cloud,
   'CI/CD': GitBranch,
   'Automation': Workflow,
   'Other': Puzzle,
