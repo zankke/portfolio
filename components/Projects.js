@@ -121,7 +121,7 @@ export function Links({ it }) {
   const login = access === 'login';
   return (
     <>
-      {live && <a className="btn-dark" href={live} target="_blank" rel="noopener noreferrer">{login ? '로그인 화면 보기' : '서비스 열기'}</a>}
+      {live && <a className="btn-dark" href={live} target="_blank" rel="noopener noreferrer">{login ? 'Link' : '서비스 열기'}</a>}
       {p.link && !same(p.link, live) && (
         <a className="btn-ghost" href={p.link} target="_blank" rel="noopener noreferrer">{p.linkLabel || '관련 문서'}</a>
       )}
