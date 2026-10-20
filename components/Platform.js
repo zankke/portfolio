@@ -10,14 +10,14 @@ const infra = {
 const models = ['Qwen3.6 27B', 'EXAONE 3.5 32B', 'gpt-oss 20B', 'Gemma 4', 'Phi-4 Reasoning', 'Qwen2.5-VL', 'Llama 3.2 Vision', 'GLM-OCR', 'EmbeddingGemma'];
 
 const decisions = [
-  ['추론 분산', 'Ollama 요청을 두 노드에 random two least_conn 방식으로 나눠 보내고, 헬스체크로 노드 상태를 확인합니다.'],
-  ['모델 동기화', '두 노드에 같은 로컬 모델 20종을 두어, 요청이 어느 노드로 가도 같은 결과를 냅니다.'],
-  ['과부하 보호', 'GPU 동시 요청 수에 상한을 두고, 상한을 넘으면 바로 503을 돌려줍니다.'],
-  ['컨테이너 격리', '서비스마다 Docker Compose 프로젝트와 전용 DB 컨테이너를 따로 두어, 한 서비스의 장애나 배포가 다른 서비스에 번지지 않습니다.'],
+  ['추론 분산', 'Ollama 요청을 두 노드에 random two least_conn 방식으로 나눠 보내고 헬스체크로 노드 상태를 확인합니다.'],
+  ['모델 동기화', '두 노드에 같은 로컬 모델 20종을 두어 요청이 어느 노드로 가도 같은 결과를 냅니다.'],
+  ['과부하 보호', 'GPU 동시 요청 수에 상한을 두고 상한을 넘으면 바로 503을 돌려줍니다.'],
+  ['컨테이너 격리', '서비스마다 Docker Compose 프로젝트와 전용 DB 컨테이너를 따로 두어 한 서비스의 장애나 배포가 다른 서비스에 번지지 않습니다.'],
   ['LLM 폴백', 'OpenAI와 Gemini가 모두 실패하면 클러스터의 로컬 EXAONE으로 넘어갑니다(SOSOP).'],
 ];
 const security = [
-  ['경계 방화벽', '두 노드는 사내망 경계의 물리 방화벽 뒤에 있고, 외부 요청은 HTTPS 게이트웨이 한 곳으로만 들어옵니다.'],
+  ['경계 방화벽', '두 노드는 사내망 경계의 물리 방화벽 뒤에 있고 외부 요청은 HTTPS 게이트웨이 한 곳으로만 들어옵니다.'],
   ['침입 차단', 'Fail2ban이 SSH 무차별 대입과 404 경로 스캔을 감지해 해당 IP를 자동 차단합니다. 차단 현황은 웹 UI로 관리합니다.'],
   ['전송 암호화', "Let's Encrypt 인증서로 HTTPS를 적용하고 보안 헤더를 붙입니다."],
 ];
@@ -54,7 +54,7 @@ export default function Platform() {
         id="platform-h"
         icon={Network}
         title="Platform"
-        lede={`NVIDIA DGX Spark 두 대로 만든 사내 GPU 클러스터입니다. 공개 도메인 하나에서 서비스 ${stations.length}개를 경로별로 연결하고, 로컬 LLM 추론은 두 노드에 나눠 처리합니다.`}
+        lede={`NVIDIA DGX Spark 두 대로 만든 사내 GPU 클러스터입니다. 공개 도메인 하나에서 서비스 ${stations.length}개를 경로별로 연결하고 로컬 LLM 추론은 두 노드에 나눠 처리합니다.`}
       />
 
       <figure className="mt-10 rounded-2xl border border-line bg-off p-4 sm:p-8">
