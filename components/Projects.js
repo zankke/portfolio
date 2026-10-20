@@ -133,9 +133,7 @@ function Head({ it, id }) {
   return (
     <>
       <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-        {it.label && <span>{it.label}</span>}
-        {it.access === 'login' && <span className="rounded-full border border-line px-2 py-0.5 text-[13px]">로그인 필요{it.p.video ? ' · 데모 영상' : ''}</span>}
-      </p>
+        {it.label && <span>{it.label}</span>}      </p>
       <h3 id={id} className="mt-1 text-2xl leading-tight font-semibold tracking-[-0.8px] lg:text-[32px]">{it.name}</h3>
       {it.meta && <p className="mt-1.5 text-[15px] text-ink/75">{it.meta}</p>}
     </>
@@ -186,9 +184,7 @@ export function Status({ it }) {
       </span>
       <span>{it.domain}</span>
       {it.node && <><span aria-hidden="true">·</span><span>{it.node}</span></>}
-      {it.meta && <><span aria-hidden="true">·</span><span>{it.meta}</span></>}
-      {it.access === 'login' && <span className="rounded-full border border-ink/20 px-2.5 py-0.5 text-[13px]">로그인 필요</span>}
-    </p>
+      {it.meta && <><span aria-hidden="true">·</span><span>{it.meta}</span></>}    </p>
   );
 }
 
@@ -219,9 +215,7 @@ function ServiceRow({ it }) {
         </span>
         <span className="min-w-0">
           <span className="flex flex-wrap items-center gap-x-2 text-[13px] text-muted">
-            {it.domain}<span aria-hidden="true">/</span>{it.node}
-            {it.access === 'login' && <span className="rounded-full border border-ink/20 px-2 text-[12px]">로그인 필요</span>}
-          </span>
+            {it.domain}<span aria-hidden="true">/</span>{it.node}          </span>
           <span className="mt-1 flex items-start gap-1.5 text-lg leading-snug font-semibold tracking-[-0.3px] group-hover:text-primary">
             {it.name}
             <ArrowUpRight aria-hidden="true" strokeWidth={2} className="mt-1 size-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
