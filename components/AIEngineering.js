@@ -47,8 +47,8 @@ const caps = [
   {
     k: 'RLHF',
     title: '사람의 검수가 모델을 키운다.',
-    body: 'Human QA 결과를 피드백으로 모델 학습을 강화하고, 강화된 모델을 속성판단 파이프라인에 다시 적용합니다.',
-    proof: '507,658셀 · 평균 신뢰도 0.875',
+    body: '사람이 확정한 값이 정답이 되어 모델을 다시 학습시키고, 강화된 모델이 다음 속성판단을 맡습니다.',
+    proof: '사람 확정 69,904셀 · 평균 신뢰도 0.866',
     tags: ['RLHF', 'Human QA', 'EAV'],
     href: '/services/lotte', label: 'Lotte웰푸드 EAV',
   },

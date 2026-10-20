@@ -10,7 +10,7 @@ const YEARS = new Date().getFullYear() - 2004;
 export const proof = [
   [`${stations.length}개`, 'DGX 클러스터에서 운영 중인 AI 서비스'],
   ['2노드', 'NVIDIA DGX Spark 클러스터 직접 구축'],
-  ['50만+ 셀', '롯데웰푸드 속성 정제, 평균 신뢰도 0.875'],
+  ['67만+ 셀', '롯데웰푸드 속성 정제, 평균 신뢰도 0.866'],
   ['2021–2025', '베리타스커넥트 AI 플랫폼개발본부장'],
 ];
 
