@@ -187,14 +187,14 @@ const allProjects = [
   // Ordered by strength of evidence: the first one is selected on load.
   const stations = [
     { route: '/lotte', line: 'dgx1', results: [['673,122셀', '속성 정제'], ['0.866', '평균 신뢰도 (계약 기준 0.85)'], ['75.2%', '확정 비율 (AI · 사람)']], name: 'Lotte웰푸드 EAV System', live: 'https://ai.marketlink.co.kr/lotte/v2/dashboard.html', summary: '상품 속성 673,122셀을 신뢰도 · 근거와 함께 정제합니다. 사람이 확정한 값으로 모델을 다시 학습시키는 RLHF 구조입니다.', project: 'Lotte웰푸드 EAV System' },
-    { route: '/ocr', line: 'dgx1', access: 'login', live: 'https://ai.marketlink.co.kr/ocr/login', results: [['278,528건', '처리한 영수증'], ['97.1%', '수록률'], ['89만 행', '추출한 상품']], name: '영수증 OCR', summary: '영수증 278,528건에서 상품 단위 구매 데이터 89만 행을 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4, Qwen3.6 27B), rembg, scikit-learn (TF-IDF · LinearSVC), Next.js 15, React 19, SQLite', facts: [
-      ['개요', '영수증 이미지에서 상품 단위 구매 데이터를 뽑아내는 배치 파이프라인과 검수 대시보드입니다.'],
+    { route: '/ocr', line: 'dgx1', access: 'login', live: 'https://ai.marketlink.co.kr/ocr/landing/', results: [['278,528건', '처리한 영수증'], ['97.1%', '수록률'], ['89만 행', '추출한 상품']], name: 'Receipt Intelligence (영수증 OCR)', summary: '영수증 278,528건에서 상품 단위 구매 데이터 89만 행을 뽑아냅니다.', detail: { image: '/images/stations/ocr.jpg', tech: 'Python, PaddleOCR PP-OCRv5, Ollama (gemma4, Qwen3.6 27B), rembg, scikit-learn (TF-IDF · LinearSVC), Next.js 15, React 19, SQLite', facts: [
+      ['개요', 'Receipt Intelligence는 영수증 이미지에서 상품 단위 구매 데이터를 뽑아내는 배치 파이프라인과 OCR 결과 검수 대시보드입니다. 영수증 OCR, LLM 구조화, 품질 검증을 한 화면 흐름으로 묶었습니다.'],
       ['파이프라인', 'PaddleOCR(CPU) 스윕 → gemma4 텍스트 파싱 → Qwen3.6 · rembg 재시도 → 후처리 · 카테고리 분류 → 12컬럼 엑셀 · 검수 대시보드'],
       ['처리 규모', '월별 6개 배치에서 영수증 278,528건 중 270,341건(97.1%)을 수록하고 상품 893,137행을 뽑았습니다. 첫 배치 62,140건은 약 3일 만에 끝냈습니다(이미지 VLM 단독 추정 25일).'],
       ['OCR 튜닝', '방향 분류기를 끄고 검출 입력을 키웠습니다. 500장 A/B에서 브랜드 인식이 200건에서 351건으로 늘었습니다.'],
       ['LLM 구조화', 'gemma4가 OCR 텍스트를 JSON 스키마로만 답하게 하고 Pydantic으로 검증합니다. 실패한 영수증은 Qwen3.6 27B로 다시 파싱하고, 배경을 지운(rembg) 이미지로 다시 읽어 더 나은 쪽을 고릅니다.'],
       ['카테고리 분류', '라벨 387,593행으로 학습한 TF-IDF + LinearSVC가 134개 카테고리로 나눕니다. 홀드아웃 정확도는 91.5%(대분류 95.6%)입니다.'],
-      ['검수', '대시보드에서 영수증 이미지와 추출 셀을 나란히 보고 바로 고칩니다. 수정 이력은 따로 기록하고, 미탐지 · 이상 · 저신뢰 행만 걸러 볼 수 있습니다.'],
+      ['검수', '대시보드에서 영수증 이미지와 추출 셀을 나란히 보고 바로 고칩니다. 수정 이력은 따로 기록하고, 미탐지 · 이상 · 저신뢰 행은 플래그 필터로 걸러 보고, 검수한 결과는 Excel · CSV로 내보냅니다.'],
       ['버린 방법', '이미지를 VLM에 바로 넣으면 영수증을 통째로 지어내 폐기했습니다. 이미지를 줄이면 날짜 정확도가 75%에서 42%로 떨어져 쓰지 않았습니다.'],
       ['운영', 'DGX 두 대와 MacBook이 목록의 양 끝에서 나눠 파싱하고, GPU 온도가 78°C를 넘으면 동시 처리 수를 줄입니다. 중단해도 영수증 단위로 이어서 실행합니다.'],
     ] } },
