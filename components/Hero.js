@@ -93,7 +93,7 @@ export function Intro() {
   return (
     <div className="border-t border-line pt-8 lg:border-0 lg:pt-11">
       <p className="text-lead text-ink">
-        마켓링크에서 NVIDIA DGX Spark 2대로 사내 GPU 클러스터를 구축하고 그 위에서 AI 서비스 {stations.length}개를 개발해 운영합니다.
+        NVIDIA DGX Spark로 GPU 클러스터를 구축하고 그 위에서 AI 서비스 {stations.length}개를 개발해 운영합니다.
         <span className="text-muted"> 데이터 정제, 비전 OCR, 분석 포털, 생성 자동화, 대화형 AI 서비스 각각의 처리 규모와 결과를 보여 드립니다.</span>
       </p>
       <p className="mt-8 flex flex-wrap gap-2">
