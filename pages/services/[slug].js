@@ -29,7 +29,7 @@ export default function ServicePage({ slug }) {
         <meta name="description" content={it.summary} />
       </Head>
       <Navbar />
-      <main className="wrap pt-6 pb-24">
+      <main className="wrap pt-6 pb-24 motion-safe:animate-rise motion-reduce:animate-fade">
         <Link href={`/#${it.id}`} className="inline-flex min-h-11 items-center gap-1 text-sm text-muted no-underline hover:text-primary">
           <ChevronLeft aria-hidden className="size-4" />Live Services
         </Link>

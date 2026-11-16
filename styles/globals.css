@@ -64,6 +64,7 @@
   @keyframes draw { from { transform: scaleX(0); } to { transform: none; } }
 
   --animate-rise: rise 0.2s ease-out;
+  --animate-fade: dialog-fade 150ms ease-out;
   @keyframes rise {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: none; }
@@ -103,7 +104,7 @@
 
 /* The two button styles DESIGN.md defines; every CTA on the page is one of these. */
 @utility btn {
-  @apply inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-[15px] whitespace-nowrap no-underline active:opacity-80;
+  @apply inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-[15px] whitespace-nowrap no-underline transition-[transform,background-color,border-color,color] duration-150 ease-[cubic-bezier(.23,1,.32,1)] active:scale-[0.97] motion-reduce:active:scale-100 motion-reduce:active:opacity-80;
 }
 @utility btn-dark {
   @apply btn bg-primary text-off shadow-inset hover:bg-primary-strong;
@@ -168,6 +169,11 @@
     .sec-head .stop { animation: pop linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
   }
 }
+
+/* Opacity-only fade: the dialog scrim fades in with the panel's rise; reduced-motion pages use it for page entry. */
+@keyframes dialog-fade { from { opacity: 0; } to { opacity: 1; } }
+dialog::backdrop { animation: dialog-fade 200ms ease-out; }
+@media (prefers-reduced-motion: reduce) { dialog::backdrop { animation-duration: 120ms; } }
 
 /* Row lists (experience, services, projects): on a pointer device, hovering or focusing one row dims its siblings. */
 @layer components {

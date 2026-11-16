@@ -193,7 +193,7 @@ const Chip = ({ on, children, ...rest }) => (
   <button
     type="button"
     aria-pressed={on}
-    className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-small ${on ? 'bg-primary text-off' : 'shadow-[inset_0_0_0_1px_var(--color-line)] hover:bg-primary-tint'}`}
+    className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-small transition-[transform,background-color,color] duration-150 ease-[cubic-bezier(.23,1,.32,1)] active:scale-[0.97] motion-reduce:active:scale-100 ${on ? 'bg-primary text-off' : 'shadow-[inset_0_0_0_1px_var(--color-line)] hover:bg-primary-tint'}`}
     {...rest}
   >
     {children}

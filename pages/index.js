@@ -57,7 +57,7 @@ export default function Home() {
             <Contact />
           </main>
           <footer className="mt-section pb-10">
-            <div aria-hidden="true" className="flex items-center gap-4"><span className="stop stop-end" /><span className="rule !bg-primary" /></div>
+            <div aria-hidden="true" className="sec-head flex items-center gap-4"><span className="stop stop-end" /><span className="rule !bg-primary" /></div>
             <p lang="en" className="pt-8 pb-1 font-display text-[clamp(40px,7vw,88px)] leading-none tracking-[-0.04em] text-primary-strong">SANG HOON, LEE</p>
             <p className="mt-4 text-body text-ink-2">이상훈 · Full Stack AI Engineer</p>
             <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line pt-4 text-small text-muted">

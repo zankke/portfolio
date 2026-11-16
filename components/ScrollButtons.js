@@ -5,7 +5,7 @@ import { ChevronUp, ChevronDown } from 'lucide-react';
 // On lg+ it sits in the page gutter (4vw) so it barely touches the content column; the ::after keeps a 44px hit area.
 // Smooth scrolling comes from `html { scroll-behavior }` in globals.css, which already honours reduced motion.
 const btn =
-  "relative flex size-11 items-center justify-center rounded-full bg-primary text-off shadow-[var(--shadow-lift)] transition-[opacity,background-color] duration-200 hover:bg-primary-strong active:opacity-80 lg:size-10 lg:after:absolute lg:after:-inset-1 lg:after:content-[''] motion-reduce:transition-none";
+  "relative flex size-11 items-center justify-center rounded-full bg-primary text-off shadow-[var(--shadow-lift)] transition-[opacity,background-color,transform] duration-200 hover:bg-primary-strong active:scale-[0.97] lg:size-10 lg:after:absolute lg:after:-inset-1 lg:after:content-[''] motion-reduce:active:scale-100";
 
 export default function ScrollButtons() {
   const [at, setAt] = useState({ top: true, bottom: false });
