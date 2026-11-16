@@ -239,6 +239,9 @@ function ServiceRow({ it }) {
 export function Services() {
   const [query, setQuery] = useState('');
   const [domain, setDomain] = useState(null);
+  // Rows ease in only after a chip click (not on first paint, not while typing in search).
+  const [swapped, setSwapped] = useState(false);
+  const pick = (d) => { setSwapped(true); setDomain(d); };
   const q = query.trim().toLowerCase();
   const shown = services.filter((it) => (!domain || it.domain === domain) && (!q || haystack(it).includes(q)));
 
@@ -251,9 +254,9 @@ export function Services() {
       />
       <div className="mt-8 flex flex-col gap-3">
         <div role="group" aria-label="분야로 거르기" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 lg:mx-0 lg:px-0 lg:pb-0">
-          <Chip on={!domain} onClick={() => setDomain(null)}>전체 <span className="text-meta opacity-70">{services.length}</span></Chip>
+          <Chip on={!domain} onClick={() => pick(null)}>전체 <span className="text-meta opacity-70">{services.length}</span></Chip>
           {DOMAINS.map((d) => (
-            <Chip key={d} on={domain === d} onClick={() => setDomain(domain === d ? null : d)}>
+            <Chip key={d} on={domain === d} onClick={() => pick(domain === d ? null : d)}>
               {d} <span className="text-meta opacity-70">{services.filter((s) => s.domain === d).length}</span>
             </Chip>
           ))}
@@ -273,7 +276,10 @@ export function Services() {
       <p className="mt-6 text-meta text-muted" aria-live="polite">
         {q || domain ? `조건에 맞는 서비스 ${shown.length}개` : `전체 ${shown.length}개`}
       </p>
-      <ul className="rows mt-2 divide-y divide-line border-y border-line lg:divide-y-0 lg:border-b-0">
+      <ul
+        key={domain ?? 'all'}
+        className={`rows mt-2 divide-y divide-line border-y border-line lg:divide-y-0 lg:border-b-0 ${swapped ? '[&>li]:motion-safe:animate-[rise_180ms_cubic-bezier(.23,1,.32,1)_both] [&>li]:motion-reduce:animate-fade' : ''}`}
+      >
         {shown.map((it) => <ServiceRow key={it.id} it={it} />)}
       </ul>
       {!shown.length && (

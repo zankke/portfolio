@@ -59,7 +59,7 @@ export default function Skills() {
             </h3>
             <ul className="flex flex-wrap gap-2">
               {items.map(([name, Icon]) => (
-                <li key={name} className={`tag-line min-h-9 gap-1.5 bg-off py-1 pr-3.5 text-small hover:bg-primary-tint hover:text-ink ${Icon ? 'pl-1.5' : 'pl-3.5'}`}>
+                <li key={name} className={`tag-line min-h-9 gap-1.5 bg-off py-1 pr-3.5 text-small ${Icon ? 'pl-1.5' : 'pl-3.5'}`}>
                   {Icon && <span aria-hidden="true" className="inline-grid size-[24px] place-items-center [&_svg]:size-[19px]"><Icon size={19} /></span>}
                   {name}
                 </li>

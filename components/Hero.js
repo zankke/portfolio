@@ -68,7 +68,7 @@ export default function Hero() {
                 <a
                   href={href}
                   aria-current={on ? 'location' : undefined}
-                  className="group flex min-h-11 items-center gap-4 text-small text-muted no-underline hover:text-ink aria-[current]:font-semibold aria-[current]:text-primary"
+                  className="group flex min-h-11 items-center gap-4 text-small text-muted no-underline transition-colors duration-200 ease-out hover:text-ink aria-[current]:font-semibold aria-[current]:text-primary motion-reduce:transition-none"
                 >
                   <span aria-hidden="true" className="h-0.5 w-16 origin-left scale-x-50 bg-ink/30 transition-transform duration-200 group-hover:scale-x-75 group-hover:bg-ink group-aria-[current]:scale-x-100 group-aria-[current]:bg-primary motion-reduce:transition-none" />
                   {label}
