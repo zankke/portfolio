@@ -7,6 +7,7 @@ import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import Navbar from "../components/Navbar";
 import Reel from "../components/Reel";
+import ScrollButtons from "../components/ScrollButtons";
 import { EMAIL } from '../components/profile';
 import { generateNextSeo } from 'next-seo/pages';
 import Head from 'next/head';
@@ -40,6 +41,7 @@ export default function Home() {
         {seoTags}
       </Head>
       <Navbar className="lg:hidden" />
+      <ScrollButtons />
       <div className="wrap lg:grid lg:grid-cols-[minmax(300px,360px)_minmax(0,1fr)] lg:gap-x-[clamp(48px,6vw,112px)]">
         <Hero />
         <div className="min-w-0">
