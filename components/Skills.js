@@ -6,7 +6,7 @@ import {
   GithubOriginalIcon, VercelOriginalIcon, UbuntuOriginalIcon, SqlalchemyOriginalIcon,
   Neo4jOriginalIcon, SupabaseOriginalIcon, AmazonwebservicesOriginalWordmarkIcon, GooglecloudOriginalIcon,
 } from '@devicon/react';
-import { Layers, Award } from 'lucide-react';
+import { Award } from 'lucide-react';
 import SectionHead from './SectionHead';
 import { LAYER_ICON, Ic } from './icons';
 
@@ -40,32 +40,26 @@ const total = groups.reduce((n, [, items]) => n + items.length, 0);
 // From the 2003 entry that used to sit in Experience.
 const certs = '정보처리기사 (한국산업인력공단, 2003)';
 
-// A stop on the line: hollow for each layer (fills on hover), filled for the terminus.
-const Stop = ({ end }) => (
-  <span aria-hidden="true" className={`absolute top-[22px] left-[7px] size-[19px] rounded-full border-[3px] border-primary transition-colors motion-reduce:transition-none ${end ? 'bg-primary' : 'bg-cream group-hover:bg-primary'}`} />
-);
-
 export default function Skills() {
   return (
-    <section id="skills" className="pt-20 md:pt-28">
-      <SectionHead icon={Layers} title="Tech Stack" lede="화면부터 GPU, 클라우드와 배포까지 서비스의 모든 계층을 직접 다룹니다." />
-      <p className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-1 text-muted">
-        <span><b className="text-[28px] font-bold tracking-[-0.5px] text-primary-strong tabular-nums">{groups.length}</b> 계층</span>
-        <span><b className="text-[28px] font-bold tracking-[-0.5px] text-primary-strong tabular-nums">{total}</b> 기술</span>
+    <section id="skills" className="sec">
+      <SectionHead title="Tech Stack" lede="화면부터 GPU, 클라우드와 배포까지 서비스의 모든 계층을 직접 다룹니다." />
+      <p className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-1 text-small text-muted">
+        <span><b className="text-stat text-primary-strong tabular-nums">{groups.length}</b> 계층</span>
+        <span><b className="text-stat text-primary-strong tabular-nums">{total}</b> 기술</span>
       </p>
-      <ol className="relative mt-6">
-        <span aria-hidden="true" className="absolute top-8 bottom-8 left-[15px] w-[3px] rounded-full bg-primary" />
+      <ol className="route mt-6">
         {groups.map(([h, items], i) => (
-          <li key={h} className="group relative grid gap-3 border-b border-line py-4 pl-11 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-4 sm:pl-12">
-            <Stop />
+          <li key={h} className="group relative grid gap-3 border-b border-line py-4 pl-9 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-4 sm:pl-9">
+            <span aria-hidden="true" className="stop absolute top-[22px] left-0 group-hover:bg-primary-tint" />
             <h3 className="flex items-center gap-2 self-start pt-1.5">
-              <span className="text-xs font-semibold text-muted tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-              <span className="flex items-center gap-1.5 font-semibold"><Ic as={LAYER_ICON[h]} className="text-primary" />{h}</span>
-              <span className="text-xs text-muted">{items.length}</span>
+              <span className="text-meta font-semibold text-muted tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+              <span className="flex items-center gap-1.5 text-body font-semibold"><Ic as={LAYER_ICON[h]} className="text-primary" />{h}</span>
+              <span className="text-meta text-muted">{items.length}</span>
             </h3>
             <ul className="flex flex-wrap gap-2">
               {items.map(([name, Icon]) => (
-                <li key={name} className={`inline-flex min-h-9 items-center gap-1.5 rounded-full border border-line bg-off py-1 pr-3.5 text-sm text-ink/85 transition duration-150 hover:-translate-y-0.5 hover:border-primary/40 hover:text-ink hover:shadow-soft motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${Icon ? 'pl-1.5' : 'pl-3.5'}`}>
+                <li key={name} className={`tag-line min-h-9 gap-1.5 bg-off py-1 pr-3.5 text-small hover:bg-primary-tint hover:text-ink ${Icon ? 'pl-1.5' : 'pl-3.5'}`}>
                   {Icon && <span aria-hidden="true" className="inline-grid size-[24px] place-items-center [&_svg]:size-[19px]"><Icon size={19} /></span>}
                   {name}
                 </li>
@@ -73,8 +67,8 @@ export default function Skills() {
             </ul>
           </li>
         ))}
-        <li className="relative grid gap-1 py-4 pl-11 text-[15px] sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-4 sm:pl-12">
-          <Stop end />
+        <li className="relative grid gap-1 py-4 pl-9 text-small sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-4 sm:pl-9">
+          <span aria-hidden="true" className="stop stop-end absolute top-[22px] left-0" />
           <b className="flex items-center gap-2 pt-0.5 font-semibold"><Ic as={Award} className="text-primary" />Certification</b>
           <span className="pt-0.5 text-muted">{certs}</span>
         </li>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { allProjects, stations, stationId, lines } from './projectData';
-import { LayoutGrid, FolderClock, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import SectionHead from './SectionHead';
 import Figures from './Figures';
 import { LAYER_ICON, Ic } from './icons';
@@ -52,8 +52,8 @@ export function Stack({ tech }) {
     <dl className="mt-6 border-t-2 border-primary">
       {layerize(tech).map(([name, items]) => (
         <div key={name} className="grid grid-cols-[128px_minmax(0,1fr)] gap-4 border-b border-line py-2.5 sm:grid-cols-[136px_minmax(0,1fr)]">
-          <dt className="flex items-center gap-1.5 text-sm font-semibold"><Ic as={LAYER_ICON[name]} />{name}</dt>
-          <dd className="text-[15px] text-ink/85">{items.join(', ')}</dd>
+          <dt className="flex items-center gap-1.5 text-small font-semibold"><Ic as={LAYER_ICON[name]} />{name}</dt>
+          <dd className="text-small text-ink-2">{items.join(', ')}</dd>
         </div>
       ))}
     </dl>
@@ -89,9 +89,9 @@ export const services = stations.map((s) => {
 // The platform write-up has its own section; everything else not behind a station is a past project.
 const archive = allProjects
   .filter((p) => !linked.has(p.title) && !p.title.startsWith('MARKETLINK-AX'))
-  .map((p, i) => ({ id: `work-${i}`, label: joinMeta(p.org, p.year) || p.category, meta: p.role, name: p.title, summary: p.desc, p }));
+  .map((p, i) => ({ id: `work-${i}`, label: joinMeta(p.org, p.year), cat: p.category, meta: p.role, name: p.title, summary: p.desc, p }));
 
-const haystack = (it) => [it.label, it.name, it.summary, it.p.tech, it.p.desc].join(' ').toLowerCase();
+const haystack = (it) => [it.label, it.cat, it.name, it.summary, it.p.tech, it.p.desc].join(' ').toLowerCase();
 
 export function Media({ p, plate, sizes, play, small }) {
   if (p.video && play) {
@@ -113,7 +113,7 @@ export function Media({ p, plate, sizes, play, small }) {
 }
 
 export const Shot = ({ children }) => (
-  <div className="relative mt-6 aspect-video overflow-hidden rounded-xl border border-line bg-ink/4">{children}</div>
+  <div className="relative mt-6 aspect-video overflow-hidden rounded-xl bg-ink/4 shadow-card">{children}</div>
 );
 
 export function Links({ it }) {
@@ -130,12 +130,11 @@ export function Links({ it }) {
 }
 
 function Head({ it, id }) {
+  const sub = joinMeta(it.label, it.meta);
   return (
     <>
-      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-        {it.label && <span>{it.label}</span>}      </p>
-      <h3 id={id} className="mt-1 text-2xl leading-tight font-semibold tracking-[-0.8px] lg:text-[32px]">{it.name}</h3>
-      {it.meta && <p className="mt-1.5 text-[15px] text-ink/75">{it.meta}</p>}
+      <h3 id={id} className="text-feature">{it.name}</h3>
+      {sub && <p className="mt-2 text-meta text-muted">{sub}</p>}
     </>
   );
 }
@@ -151,23 +150,23 @@ function Detail({ it, onClose }) {
       aria-labelledby="detail-h"
       onClose={onClose}
       onClick={(e) => { if (e.target === ref.current) ref.current.close(); }}
-      className="m-auto max-h-[calc(100dvh-48px)] w-[min(880px,calc(100vw-32px))] rounded-2xl border border-line bg-cream p-0 text-ink shadow-soft backdrop:bg-ink/40 motion-safe:animate-rise"
+      className="m-auto max-h-[calc(100dvh-48px)] w-[min(880px,calc(100vw-32px))] rounded-card bg-cream p-0 text-ink shadow-lift backdrop:bg-ink/40 motion-safe:animate-rise"
     >
       <div className="p-5 sm:p-8">
         <div className="flex items-start justify-between gap-4">
           <div><Head it={it} id="detail-h" /></div>
           <button type="button" className="btn-ghost" onClick={() => ref.current.close()}>닫기</button>
         </div>
-        <Figures items={it.results} className="mt-6 grid-cols-2 sm:grid-cols-3" size="text-[26px]" />
+        <Figures items={it.results} className="mt-6 grid-cols-2 sm:grid-cols-3" size="text-stat" />
         <ul className="mt-6">
           {factsOf(p).map((f, i) => (
-            <li key={i} className="border-t border-line py-3 text-[15px] leading-relaxed first:border-t-0">
-              {f.label && <b className="block text-sm font-semibold text-muted">{f.label}</b>}
-              <span className="whitespace-pre-line text-ink/85">{f.text}</span>
+            <li key={i} className="border-t border-line py-3 text-small first:border-t-0">
+              {f.label && <b className="block text-meta font-semibold text-muted">{f.label}</b>}
+              <span className="whitespace-pre-line text-ink-2">{f.text}</span>
             </li>
           ))}
         </ul>
-        <Shot><Media p={p} plate={it.label} sizes="(max-width: 900px) 100vw, 840px" play /></Shot>
+        <Shot><Media p={p} plate={it.label || it.cat} sizes="(max-width: 900px) 100vw, 840px" play /></Shot>
         <Stack tech={p.tech} />
         <p className="mt-6 flex flex-wrap gap-2"><Links it={it} /></p>
       </div>
@@ -178,8 +177,8 @@ function Detail({ it, onClose }) {
 // Status, field and node in one line; shared by the panel and the service page.
 export function Status({ it }) {
   return (
-    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-tint px-2.5 py-0.5 text-[13px] font-semibold text-primary-strong">
+    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-meta text-muted">
+      <span className="tag gap-1.5 font-semibold">
         <span aria-hidden="true" className="size-1.5 rounded-full bg-primary-dot" />운영 중
       </span>
       <span>{it.domain}</span>
@@ -194,7 +193,7 @@ const Chip = ({ on, children, ...rest }) => (
   <button
     type="button"
     aria-pressed={on}
-    className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-[15px] ${on ? 'border-primary bg-primary text-off' : 'border-ink/20 hover:border-primary hover:text-primary'}`}
+    className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-small ${on ? 'bg-primary text-off' : 'shadow-[inset_0_0_0_1px_var(--color-line)] hover:bg-primary-tint'}`}
     {...rest}
   >
     {children}
@@ -208,27 +207,28 @@ function ServiceRow({ it }) {
     <li id={it.id} className="scroll-mt-12">
       <Link
         href={`/services/${it.slug}`}
-        className="group row-hover grid grid-cols-[96px_minmax(0,1fr)] gap-x-4 gap-y-3 py-5 text-ink no-underline sm:grid-cols-[176px_minmax(0,1fr)_auto] sm:gap-x-6"
+        className="group row-hover grid grid-cols-[96px_minmax(0,1fr)] gap-x-4 gap-y-2 py-5 text-ink no-underline sm:grid-cols-[208px_minmax(0,1fr)_auto] sm:gap-x-6"
       >
-        <span className="relative mt-1 aspect-[16/10] overflow-hidden rounded-md border border-line bg-ink/4">
-          <Media p={it.p} plate={it.label} sizes="176px" small />
+        <span className="relative mt-1 aspect-[16/10] overflow-hidden rounded-lg bg-ink/4 shadow-card">
+          <Media p={it.p} plate={it.label} sizes="208px" small />
         </span>
         <span className="min-w-0">
-          <span className="flex flex-wrap items-center gap-x-2 text-[13px] text-muted">
-            {it.domain}<span aria-hidden="true">/</span>{it.node}          </span>
-          <span className="mt-1 flex items-start gap-1.5 text-lg leading-snug font-semibold tracking-[-0.3px] group-hover:text-primary">
+          <span className="block text-h3 group-hover:text-primary">
             {it.name}
-            <ArrowUpRight aria-hidden="true" strokeWidth={2} className="mt-1 size-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
+            <ArrowUpRight aria-hidden="true" strokeWidth={2} className="ml-1.5 inline-block size-4 align-[-0.1em] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
           </span>
-          <span className="mt-1 block text-[15px] text-ink/75">{it.summary}</span>
+          <span className="mt-1 flex flex-wrap items-center gap-x-2 text-meta text-muted">
+            {it.domain}<span aria-hidden="true">/</span>{it.node}
+          </span>
+          <span className="mt-2 block text-small text-ink-2">{it.summary}</span>
           <span className="mt-3 hidden flex-wrap gap-1.5 sm:flex">
-            {techList(it.p.tech).slice(0, 5).map((t) => <span key={t} className="rounded-full bg-primary-tint px-2.5 py-0.5 text-[12.5px] text-primary-strong">{t}</span>)}
+            {techList(it.p.tech).slice(0, 4).map((t) => <span key={t} className="tag">{t}</span>)}
           </span>
         </span>
         {value && (
-          <span className="col-start-2 sm:col-start-auto sm:min-w-28 sm:text-right">
-            <span className="block text-2xl leading-none font-display tracking-[-0.03em] text-primary tabular-nums whitespace-nowrap">{value}</span>
-            <span className="mt-1 block text-xs text-muted sm:whitespace-nowrap">{label.replace(/ \(.*\)$/, '')}</span>
+          <span className="col-start-2 flex items-baseline gap-2 sm:col-start-auto sm:block sm:min-w-28 sm:pt-0.5 sm:text-right">
+            <span className="block text-stat font-display text-primary tabular-nums whitespace-nowrap">{value}</span>
+            <span className="block text-meta text-muted sm:mt-1.5 sm:whitespace-nowrap">{label.replace(/ \(.*\)$/, '')}</span>
           </span>
         )}
       </Link>
@@ -243,23 +243,22 @@ export function Services() {
   const shown = services.filter((it) => (!domain || it.domain === domain) && (!q || haystack(it).includes(q)));
 
   return (
-    <section id="services" aria-labelledby="services-h" className="pt-20 md:pt-28">
+    <section id="services" aria-labelledby="services-h" className="sec">
       <SectionHead
         id="services-h"
-        icon={LayoutGrid}
         title="Live Services"
-        lede={`사내 DGX Spark 클러스터에서 직접 개발하고 운영하는 서비스 ${services.length}개입니다. 행을 누르면 서비스별 구현 과정이 열립니다.`}
+        lede={`사내 DGX Spark 클러스터에서 직접 개발하고 운영하는 서비스 ${services.length}개입니다. 행을 누르면 서비스별 구현 과정을 볼 수 있습니다.`}
       />
       <div className="mt-8 flex flex-col gap-3">
-        <div role="group" aria-label="분야로 거르기" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
-          <Chip on={!domain} onClick={() => setDomain(null)}>전체 <span className="text-[13px] opacity-70">{services.length}</span></Chip>
+        <div role="group" aria-label="분야로 거르기" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 lg:mx-0 lg:px-0 lg:pb-0">
+          <Chip on={!domain} onClick={() => setDomain(null)}>전체 <span className="text-meta opacity-70">{services.length}</span></Chip>
           {DOMAINS.map((d) => (
             <Chip key={d} on={domain === d} onClick={() => setDomain(domain === d ? null : d)}>
-              {d} <span className="text-[13px] opacity-70">{services.filter((s) => s.domain === d).length}</span>
+              {d} <span className="text-meta opacity-70">{services.filter((s) => s.domain === d).length}</span>
             </Chip>
           ))}
         </div>
-        <label className="w-full sm:max-w-md">
+        <label className="w-full">
           <span className="sr-only">서비스 검색</span>
           <input
             type="search"
@@ -267,11 +266,11 @@ export function Services() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="서비스 검색 (예: OCR, LLM, 설문)"
             autoComplete="off"
-            className="h-12 w-full rounded-md border border-line bg-off px-4 text-base placeholder:text-muted focus-visible:border-primary"
+            className="h-12 w-full surface px-4 text-base placeholder:text-muted"
           />
         </label>
       </div>
-      <p className="mt-6 text-sm text-muted" aria-live="polite">
+      <p className="mt-6 text-meta text-muted" aria-live="polite">
         {q || domain ? `조건에 맞는 서비스 ${shown.length}개` : `전체 ${shown.length}개`}
       </p>
       <ul className="rows mt-2 divide-y divide-line border-y border-line lg:divide-y-0 lg:border-b-0">
@@ -290,8 +289,8 @@ export function Services() {
 export function PastProjects() {
   const [open, setOpen] = useState(null);
   return (
-    <section id="work" className="pt-20 md:pt-28">
-      <SectionHead icon={FolderClock} title="Past Projects" lede="마켓링크 이전과 고객사 프로젝트에서 설계하고 개발한 시스템입니다." />
+    <section id="work" className="sec">
+      <SectionHead title="Past Projects" lede="마켓링크 이전과 고객사 프로젝트에서 설계하고 개발한 시스템입니다." />
       <ul className="rows mt-8 divide-y divide-line border-y border-line lg:divide-y-0 lg:border-0">
         {archive.map((it) => (
           <li key={it.id} id={it.id}>
@@ -300,12 +299,12 @@ export function PastProjects() {
               onClick={() => setOpen(it)}
               className="group row-hover grid w-full items-baseline gap-x-6 gap-y-1 py-4 text-left sm:grid-cols-[176px_minmax(0,1fr)]"
             >
-              <span className="text-sm text-muted tabular-nums">{it.label}</span>
+              <span className="text-small text-muted tabular-nums">{it.label}</span>
               <span className="min-w-0">
-                <span className="block text-[17px] leading-snug font-semibold tracking-[-0.2px] group-hover:text-primary">{it.name}</span>
-                <span className="mt-0.5 block text-[15px] text-ink/70">{it.summary}</span>
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-body font-semibold group-hover:text-primary">{it.name}{!it.label && it.cat && <span className="tag-line font-normal">{it.cat}</span>}</span>
+                <span className="mt-0.5 block text-small text-ink-2">{it.summary}</span>
                 <span className="mt-2.5 hidden flex-wrap gap-1.5 sm:flex">
-                  {techList(it.p.tech).slice(0, 4).map((t) => <span key={t} className="rounded-full bg-primary-tint px-2.5 py-0.5 text-[12.5px] text-primary-strong">{t}</span>)}
+                  {techList(it.p.tech).slice(0, 4).map((t) => <span key={t} className="tag">{t}</span>)}
                 </span>
               </span>
             </button>

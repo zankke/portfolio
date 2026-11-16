@@ -1,4 +1,3 @@
-import { BriefcaseBusiness } from 'lucide-react';
 import SectionHead from './SectionHead';
 import { stations } from './projectData';
 
@@ -15,19 +14,20 @@ const career = [
 
 export default function About() {
   return (
-    <section id="about" className="pt-20 md:pt-28">
-      <SectionHead icon={BriefcaseBusiness} title="Experience" lede="IT 예산 관리로 시작해 광고 플랫폼, 글로벌 미디어, 교육 플랫폼을 거쳐 생성형 AI 플랫폼을 만들고 있습니다." />
-      <ol className="rows mt-8 divide-y divide-line border-y border-line lg:divide-y-0 lg:border-0">
-        {career.map((c) => (
-          <li key={c.yr} className="row-hover grid gap-x-6 gap-y-1 py-5 sm:grid-cols-[176px_minmax(0,1fr)]">
-            <span className="pt-0.5 text-sm text-muted tabular-nums">{c.yr}</span>
+    <section id="about" className="sec">
+      <SectionHead title="Experience" lede="IT 예산 관리로 시작해 광고 플랫폼, 글로벌 미디어, 교육 플랫폼을 거쳐 현재 생성형 AI 플랫폼을 만듭니다." />
+      <ol className="rows route mt-8">
+        {career.map((c, i) => (
+          <li key={c.yr} className="row-hover relative grid gap-x-6 gap-y-1 py-5 pl-9 sm:grid-cols-[176px_minmax(0,1fr)]">
+            <span aria-hidden="true" className={`stop absolute top-6 left-0 lg:left-4 ${i === 0 ? 'stop-end' : ''}`} />
+            <span className="pt-0.5 text-small text-muted tabular-nums">{c.yr}</span>
             <div className="min-w-0">
-              <h3 className="flex flex-wrap items-baseline gap-x-3 text-lg leading-snug font-semibold tracking-[-0.3px]">
-                {c.title}{c.role && <span className="text-[15px] font-normal tracking-normal text-primary">{c.role}</span>}
+              <h3 className="flex flex-wrap items-baseline gap-x-3 text-h3">
+                {c.title}{c.role && <span className="text-small font-normal tracking-normal text-primary">{c.role}</span>}
               </h3>
-              <p className="mt-1 text-[15px] text-ink/75">{c.desc}</p>
+              <p className="mt-1 text-small text-ink-2">{c.desc}</p>
               <ul aria-label="키워드" className="mt-3 flex flex-wrap gap-1.5">
-                {c.tags.map((t) => <li key={t} className="rounded-full bg-primary-tint px-2.5 py-0.5 text-[12.5px] text-primary-strong">{t}</li>)}
+                {c.tags.map((t) => <li key={t} className="tag">{t}</li>)}
               </ul>
             </div>
           </li>

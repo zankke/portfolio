@@ -54,10 +54,11 @@ export default function Home() {
             <Reel />
             <Contact />
           </main>
-          <footer className="mt-16 border-t-2 border-primary pt-8 pb-10 md:mt-24">
-            <p lang="en" className="font-display text-[clamp(40px,7vw,88px)] leading-[0.95] tracking-[-0.04em] text-primary-strong">SANG HOON, LEE</p>
-            <p className="mt-3 text-ink/80">이상훈 · Full Stack AI Engineer</p>
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line pt-4 text-sm text-muted">
+          <footer className="mt-section pb-10">
+            <div aria-hidden="true" className="flex items-center gap-4"><span className="stop stop-end" /><span className="rule !bg-primary" /></div>
+            <p lang="en" className="pt-8 pb-1 font-display text-[clamp(40px,7vw,88px)] leading-none tracking-[-0.04em] text-primary-strong">SANG HOON, LEE</p>
+            <p className="mt-4 text-body text-ink-2">이상훈 · Full Stack AI Engineer</p>
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line pt-4 text-small text-muted">
               <span>© 2026 SANG HOON, LEE</span>
               <span className="flex flex-wrap gap-x-5">
                 <a href={`mailto:${EMAIL}`} className="inline-flex min-h-11 items-center text-muted hover:text-primary">{EMAIL}</a>

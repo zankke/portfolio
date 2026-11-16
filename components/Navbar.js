@@ -11,25 +11,25 @@ export const links = [
   ['#reel', 'Showreel'],
 ];
 
-const linkCls = 'inline-flex min-h-11 shrink-0 items-center text-ink/80 no-underline hover:underline hover:underline-offset-4';
+const linkCls = 'inline-flex min-h-11 shrink-0 items-center text-small text-ink-2 no-underline hover:underline hover:underline-offset-4';
 
 // `className` lets the home page hide it on wide screens, where the left rail takes over.
 export default function Navbar({ className = '' }) {
   return (
     <div className={`sticky top-0 z-40 border-b border-line bg-cream/90 backdrop-blur-md ${className}`}>
-      <div className="wrap flex h-16 items-center justify-between gap-8">
+      <div className="wrap flex h-14 items-center justify-between gap-8">
         <a href="/" className="inline-flex min-h-11 items-center text-lg font-semibold tracking-[-0.4px] text-ink no-underline">이상훈</a>
-        <nav aria-label="페이지 내 이동" className="ml-auto hidden gap-6 text-[15px] lg:flex">
+        <nav aria-label="페이지 내 이동" className="ml-auto hidden gap-6 lg:flex">
           {links.map(([href, label]) => <a key={href} href={`/${href}`} className={linkCls}>{label}</a>)}
         </nav>
         <span className="flex items-center gap-4">
-          {RESUME && <a href={RESUME} download className={`${linkCls} hidden text-[15px] lg:inline-flex`}>이력서</a>}
+          {RESUME && <a href={RESUME} download className={`${linkCls} hidden lg:inline-flex`}>이력서</a>}
           <a className="btn-dark" href="/#contact">Contact</a>
         </span>
       </div>
       {/* Narrow screens: the same links as a scrollable row, no menu button. */}
-      <nav aria-label="페이지 내 이동" className="wrap -mt-2 flex gap-5 overflow-x-auto text-[15px] [scrollbar-width:none] lg:hidden">
-        {links.map(([href, label]) => <a key={href} href={`/${href}`} className={linkCls}>{label}</a>)}
+      <nav aria-label="페이지 내 이동" className="wrap -mt-1 flex gap-1 overflow-x-auto [&>a:first-child]:-ml-2 [scrollbar-width:none] [mask-image:linear-gradient(to_right,#000_calc(100%-32px),transparent)] lg:hidden">
+        {links.map(([href, label]) => <a key={href} href={`/${href}`} className={`${linkCls} min-w-11 justify-center px-2`}>{label}</a>)}
       </nav>
     </div>
   );

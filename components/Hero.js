@@ -37,24 +37,24 @@ export default function Hero() {
   const active = useActive(railLinks.map(([h]) => h.slice(1)));
   return (
     <header className="flex flex-col pt-10 pb-4 lg:sticky lg:top-0 lg:h-dvh lg:overflow-y-auto lg:py-11 lg:[scrollbar-width:thin]">
-      <h1 className="text-[44px] leading-none font-display tracking-[-0.04em] lg:text-[52px]">이상훈</h1>
-      <p className="mt-3 text-xl font-semibold tracking-[-0.4px]">Full Stack AI Engineer</p>
-      <p className="mt-4 max-w-[34ch] text-[17px] leading-relaxed text-ink/75">
+      <h1 className="text-h1">이상훈</h1>
+      <p className="mt-3 text-h3">Full Stack AI Engineer</p>
+      <p className="mt-4 text-body text-ink-2">
         AI 서비스를 기획부터 GPU 운영까지 직접 설계하고 구축합니다. IT 경력 {Math.floor(YEARS / 10) * 10}년+.
       </p>
-      <p className="mt-5 inline-flex w-fit lg:[@media(max-height:820px)]:hidden items-center gap-2 rounded-full bg-primary-tint py-1 pr-3 pl-2.5 text-sm font-semibold text-primary-strong">
+      <p className="mt-5 hidden w-fit lg:inline-flex lg:[@media(max-height:820px)]:hidden items-center gap-2 rounded-full bg-primary-tint py-1 pr-3 pl-2.5 text-meta font-semibold text-primary-strong">
         <span aria-hidden="true" className="relative inline-flex size-2">
-          <span className="absolute inset-0 rounded-full bg-primary-dot opacity-60 motion-safe:animate-ping" />
+          <span className="absolute inset-0 rounded-full bg-primary-dot opacity-60 motion-safe:animate-[ping_1.4s_ease-out_3]" />
           <span className="relative size-2 rounded-full bg-primary-dot" />
         </span>
         AI 서비스 {stations.length}개 운영 중
       </p>
 
-      <dl className="mt-6 grid grid-cols-2 gap-x-5 gap-y-4 border-t-2 border-primary pt-4 sm:grid-cols-4 lg:grid-cols-2">
+      <dl className="mt-6 grid grid-cols-2 gap-x-5 gap-y-5 border-t-2 border-primary pt-4 sm:grid-cols-4 lg:grid-cols-2">
         {proof.map(([value, label]) => (
           <div key={label} className="flex flex-col-reverse justify-end">
-            <dt className="mt-1 text-[13px] leading-snug text-muted">{label}</dt>
-            <dd className="text-2xl leading-none font-display tracking-[-0.03em] tabular-nums whitespace-nowrap">{value}</dd>
+            <dt className="mt-1.5 text-meta text-muted">{label}</dt>
+            <dd className="text-stat font-display tabular-nums whitespace-nowrap">{value}</dd>
           </div>
         ))}
       </dl>
@@ -68,9 +68,9 @@ export default function Hero() {
                 <a
                   href={href}
                   aria-current={on ? 'location' : undefined}
-                  className="group flex min-h-11 items-center gap-4 text-[15px] text-muted no-underline hover:text-ink aria-[current]:font-semibold aria-[current]:text-primary"
+                  className="group flex min-h-11 items-center gap-4 text-small text-muted no-underline hover:text-ink aria-[current]:font-semibold aria-[current]:text-primary"
                 >
-                  <span aria-hidden="true" className="h-px w-8 bg-ink/30 transition-[width,background-color] duration-200 group-hover:w-14 group-hover:bg-ink group-aria-[current]:w-16 group-aria-[current]:h-0.5 group-aria-[current]:bg-primary motion-reduce:transition-none" />
+                  <span aria-hidden="true" className="h-0.5 w-16 origin-left scale-x-50 bg-ink/30 transition-transform duration-200 group-hover:scale-x-75 group-hover:bg-ink group-aria-[current]:scale-x-100 group-aria-[current]:bg-primary motion-reduce:transition-none" />
                   {label}
                 </a>
               </li>
@@ -79,8 +79,8 @@ export default function Hero() {
         </ul>
       </nav>
 
-      <p className="mt-auto hidden items-center gap-1 pt-6 lg:flex lg:[@media(max-height:880px)]:hidden">
-        <a href={`mailto:${EMAIL}`} className="inline-flex min-h-11 items-center text-[15px] text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary">{EMAIL}</a>
+      <p className="mt-auto hidden items-center gap-1 pt-6 lg:flex lg:[@media(max-height:1000px)]:hidden">
+        <a href={`mailto:${EMAIL}`} className="inline-flex min-h-11 items-center text-small text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary">{EMAIL}</a>
         <CopyEmail compact className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-muted hover:bg-primary-tint hover:text-primary-strong" />
         {RESUME && <a className="btn-ghost ml-2" href={RESUME} download>이력서</a>}
       </p>
@@ -92,9 +92,9 @@ export default function Hero() {
 export function Intro() {
   return (
     <div className="border-t border-line pt-8 lg:border-0 lg:pt-11">
-      <p className="text-[22px] leading-[1.55] tracking-[-0.3px] text-ink md:text-[28px] md:leading-[1.5]">
-        마켓링크에서 NVIDIA DGX Spark 2대로 사내 GPU 클러스터를 구축하고 그 위에서 AI 서비스 {stations.length}개를 개발해 운영하고 있습니다.
-        <span className="text-muted"> 데이터 정제, 비전 OCR, 분석 포털, 생성 자동화, 대화형 AI 서비스를 저마다의 처리 규모와 결과로 보여 드립니다.</span>
+      <p className="text-lead text-ink">
+        마켓링크에서 NVIDIA DGX Spark 2대로 사내 GPU 클러스터를 구축하고 그 위에서 AI 서비스 {stations.length}개를 개발해 운영합니다.
+        <span className="text-muted"> 데이터 정제, 비전 OCR, 분석 포털, 생성 자동화, 대화형 AI 서비스 각각의 처리 규모와 결과를 보여 드립니다.</span>
       </p>
       <p className="mt-8 flex flex-wrap gap-2">
         <a className="btn-dark" href="#services">서비스 둘러보기</a>

@@ -1,14 +1,13 @@
-import { Ic } from './icons';
-
-// Every section opens the same way: a heading and, at most, one sentence.
-export default function SectionHead({ icon, title, lede, id, dark }) {
+// Every section opens as a station on the line: a stop, the title, and a rule that runs to the edge. `icon` is accepted and ignored.
+export default function SectionHead({ title, lede, id, dark }) {
   return (
     <>
-      <h2 id={id} className="flex items-center gap-3 text-[30px] font-bold leading-tight tracking-[-0.9px] md:text-4xl">
-        {icon && <Ic as={icon} />}
-        {title}
-      </h2>
-      {lede && <p className={`mt-3 text-[17px] leading-relaxed ${dark ? 'text-off/75' : 'text-muted'}`}>{lede}</p>}
+      <div className="sec-head flex items-center gap-4">
+        <span aria-hidden="true" className={`stop ${dark ? 'border-off bg-primary-strong' : ''}`} />
+        <h2 id={id} className="text-h2">{title}</h2>
+        <span aria-hidden="true" className={`rule ${dark ? 'bg-off/30' : ''}`} />
+      </div>
+      {lede && <p className={`mt-4 text-body ${dark ? 'text-off/80' : 'text-muted'}`}>{lede}</p>}
     </>
   );
 }

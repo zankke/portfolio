@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Mail, Copy, Check } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import SectionHead from './SectionHead';
 import { EMAIL, RESUME, LINKEDIN } from './profile';
 
@@ -22,7 +22,7 @@ export function CopyEmail({ className, compact }) {
     <button type="button" className={`${className} relative gap-2`} onClick={copy} aria-label={compact ? '이메일 주소 복사' : undefined}>
       <Icon key={String(copied)} aria-hidden="true" strokeWidth={2} className={`size-4 motion-safe:animate-[pop_.25s_ease-out] ${copied ? 'text-primary' : ''}`} />
       {/* compact: the confirmation floats beside the icon instead of replacing a label */}
-      <span aria-live="polite" className={compact ? `pointer-events-none absolute left-full ml-1 rounded-md bg-primary px-2 py-1 text-[13px] whitespace-nowrap text-off ${copied ? 'motion-safe:animate-rise' : 'sr-only'}` : ''}>
+      <span aria-live="polite" className={compact ? `pointer-events-none absolute left-full ml-1 rounded-md bg-primary px-2 py-1 text-meta whitespace-nowrap text-off ${copied ? 'motion-safe:animate-rise' : 'sr-only'}` : ''}>
         {copied ? '복사했습니다' : compact ? '' : '이메일 복사'}
       </span>
     </button>
@@ -31,10 +31,10 @@ export function CopyEmail({ className, compact }) {
 
 export default function Contact() {
   return (
-    <section id="contact" className="pt-20 md:pt-28">
-      <div className="rounded-2xl bg-primary-strong p-8 text-off shadow-inset sm:p-12 [&_:focus-visible]:shadow-[0_0_0_2px_var(--color-primary-strong),0_0_0_4px_var(--color-off)]">
-        <SectionHead icon={Mail} title="Contact" lede="채용 제안과 협업 문의 모두 환영합니다. 이메일로 연락 주세요." dark />
-        <a href={`mailto:${EMAIL}`} className="mt-8 inline-block text-[26px] leading-tight font-display tracking-[-0.025em] break-all text-off underline decoration-off/40 decoration-1 underline-offset-8 hover:decoration-off sm:text-[44px]">
+    <section id="contact" className="sec">
+      <div className="surface-dark on-dark p-8 sm:p-12">
+        <SectionHead title="Contact" lede="채용 제안과 협업 문의 모두 환영합니다. 이메일로 연락 주십시오." dark />
+        <a href={`mailto:${EMAIL}`} className="mt-6 inline-block py-2 text-[clamp(1.25rem,5.8vw,2.25rem)] leading-tight font-display tracking-[-0.03em] break-all text-off underline decoration-off/40 decoration-1 underline-offset-8 hover:decoration-off sm:text-[clamp(2.25rem,5vw,3.5rem)]">
           {EMAIL}
         </a>
         <p className="mt-8 flex flex-wrap gap-2">

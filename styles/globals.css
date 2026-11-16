@@ -18,7 +18,50 @@
 
   --shadow-inset: rgba(255,255,255,0.2) 0 0.5px 0 0 inset, rgba(0,0,0,0.2) 0 0 0 0.5px inset, rgba(0,0,0,0.05) 0 1px 2px 0;
   --shadow-soft: rgba(0,0,0,0.1) 0 4px 12px;
-  --shadow-ring: 0 0 0 2px var(--color-cream), 0 0 0 4px var(--color-primary);
+
+  --color-ink-2: rgb(28 28 28 / 0.78);
+  --color-track: #b9cfc1;
+
+  --text-h1: clamp(2.75rem, 2.5rem + 0.8vw, 3.25rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.04em;
+  --text-h1--font-weight: 700;
+  --text-h2: clamp(1.75rem, 1.4rem + 1.1vw, 2.5rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.035em;
+  --text-h2--font-weight: 700;
+  --text-feature: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem);
+  --text-feature--line-height: 1.2;
+  --text-feature--letter-spacing: -0.03em;
+  --text-feature--font-weight: 700;
+  --text-h3: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 600;
+  --text-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --text-lead--line-height: 1.55;
+  --text-lead--letter-spacing: -0.02em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.65;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.5;
+  --text-stat: 1.75rem;
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.03em;
+  --text-stat--font-weight: 700;
+  --text-stat-lg: 2.25rem;
+  --text-stat-lg--line-height: 1;
+  --text-stat-lg--letter-spacing: -0.03em;
+  --text-stat-lg--font-weight: 700;
+
+  --spacing-section: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+  --radius-card: 1rem;
+  --shadow-card: 0 0 0 1px var(--color-line), 0 1px 2px rgb(28 28 28 / 0.04);
+  --shadow-lift: 0 0 0 1px var(--color-line), 0 10px 28px -10px rgb(28 28 28 / 0.18);
+
+  @keyframes draw { from { transform: scaleX(0); } to { transform: none; } }
 
   --animate-rise: rise 0.2s ease-out;
   @keyframes rise {
@@ -41,7 +84,8 @@
   @media (min-width: 64rem) { html { scroll-padding-top: 48px; } }
   body { @apply bg-cream font-sans text-ink antialiased; word-break: keep-all; }
   ::selection { @apply bg-primary text-off; }
-  :focus-visible { outline: none; box-shadow: var(--shadow-ring), var(--shadow-soft); border-radius: 6px; }
+  :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+  .surface-dark :focus-visible, .on-dark :focus-visible { outline-color: var(--color-off); }
   h1, h2, h3 { text-wrap: balance; }
   p { text-wrap: pretty; }
   button { cursor: pointer; }
@@ -68,9 +112,61 @@
   @apply btn border border-ink/30 text-ink hover:border-primary hover:bg-primary-tint hover:text-primary-strong;
 }
 
-/* A row in a row list: on wide screens it lifts into a card on hover or keyboard focus. */
+@utility sec { padding-top: var(--spacing-section); }
+
+@utility surface { background: var(--color-off); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+@utility surface-dark {
+  background: var(--color-primary-strong); color: var(--color-off);
+  border-radius: var(--radius-card); box-shadow: var(--shadow-inset);
+}
+
+@utility tag {
+  display: inline-flex; align-items: center; border-radius: 9999px;
+  background: var(--color-primary-tint); color: var(--color-primary-strong);
+  padding: 2px 10px; font-size: var(--text-meta); line-height: var(--text-meta--line-height);
+}
+@utility tag-line {
+  display: inline-flex; align-items: center; border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px var(--color-line); color: var(--color-ink-2);
+  padding: 2px 10px; font-size: var(--text-meta); line-height: var(--text-meta--line-height);
+}
+
+/* The line: a station dot, and a 2px rule that fills the rest of the row. */
+@utility stop {
+  display: inline-block; flex: none; width: 16px; height: 16px; border-radius: 9999px;
+  border: 3px solid var(--color-primary); background: var(--color-cream);
+}
+@utility stop-end { background: var(--color-primary); }
+@utility rule { flex: 1; height: 2px; border-radius: 2px; background: var(--color-track); transform-origin: left; }
+@utility route {
+  position: relative;
+  &::before { content: ''; position: absolute; left: 7px; top: 2rem; bottom: 2rem; width: 2px; border-radius: 2px; background: var(--color-primary); }
+}
+
+/* Hover/focus lift: the shadow lives on a pseudo-element and only its opacity animates. */
+@utility lift {
+  position: relative; isolation: isolate;
+  &::after { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; box-shadow: var(--shadow-lift); opacity: 0; pointer-events: none; transition: opacity .18s ease-out; }
+  &:has(:focus-visible)::after, &:focus-visible::after { opacity: 1; }
+  @media (hover: hover) { &:hover::after { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { &::after { transition: none; } }
+}
+/* A row in a row list: wide screens widen it by 1rem each side and fade a card in behind it. */
 @utility row-hover {
-  @apply rounded-xl lg:-mx-4 lg:px-4 lg:transition-[background-color,box-shadow] lg:hover:bg-off lg:hover:shadow-[inset_0_0_0_1px_var(--color-line),var(--shadow-soft)] lg:focus-within:bg-off motion-reduce:transition-none;
+  position: relative; isolation: isolate; border-radius: var(--radius-card);
+  &::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--color-off); box-shadow: var(--shadow-lift); opacity: 0; pointer-events: none; transition: opacity .18s ease-out; }
+  &:has(:focus-visible)::before, &:focus-visible::before { opacity: 1; }
+  @media (hover: hover) { &:hover::before { opacity: 1; } }
+  @media (min-width: 64rem) { margin-inline: -1rem; padding-inline: 1rem; }
+  @media (prefers-reduced-motion: reduce) { &::before { transition: none; } }
+}
+
+/* The one authored moment: each section head draws its line as it enters the viewport. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sec-head .rule { animation: draw linear both; animation-timeline: view(); animation-range: entry 10% entry 70%; }
+    .sec-head .stop { animation: pop linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+  }
 }
 
 /* Row lists (experience, services, projects): on a pointer device, hovering or focusing one row dims its siblings. */

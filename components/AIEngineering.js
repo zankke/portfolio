@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BrainCircuit, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import SectionHead from './SectionHead';
 
 // AI capabilities, each backed by code that runs on the cluster (surveyed 2026-10-15). No claim without a service behind it.
@@ -39,14 +39,14 @@ const caps = [
   {
     k: 'Agents',
     title: '쓸수록 LLM을 덜 쓴다.',
-    body: '싸고 확실한 조회부터 LLM까지 순서대로 시도하고 애매하면 사람에게 넘깁니다. 검수한 결과는 다시 규칙에 넣습니다.',
+    body: '비용이 낮고 확실한 조회부터 LLM까지 순서대로 시도하고 불확실하면 사람에게 넘깁니다. 검수한 결과는 다시 규칙에 넣습니다.',
     proof: '테스트 348개 통과',
     tags: ['Agent Pipeline', 'Human-in-the-loop', 'FastAPI'],
     href: '/services/master', label: 'CategoryMaster Agents',
   },
   {
     k: 'RLHF',
-    title: '사람의 검수로 모델을 키운다.',
+    title: '사람의 검수로 모델을 개선한다.',
     body: '사람이 확정한 값을 정답으로 삼아 모델을 다시 학습시킵니다. 다음 속성판단은 강화된 모델에 맡깁니다.',
     proof: '사람 확정 69,904셀 · 평균 신뢰도 0.866',
     tags: ['RLHF', 'Human QA', 'EAV'],
@@ -54,8 +54,8 @@ const caps = [
   },
   {
     k: 'LLM Ops',
-    title: '모델이 죽어도 서비스는 산다.',
-    body: 'OpenAI가 실패하면 Gemini로, 그다음 로컬 EXAONE으로 넘어갑니다. GPU가 꽉 차면 줄 세우지 않고 바로 503을 돌려줍니다.',
+    title: '모델이 중단돼도 서비스는 유지된다.',
+    body: 'OpenAI가 실패하면 Gemini로, 그다음 로컬 EXAONE으로 넘어갑니다. GPU가 포화되면 대기시키지 않고 즉시 503을 반환합니다.',
     proof: '폴백 체인 · 동시 요청 상한 · 헬스체크',
     tags: ['Fallback', 'Rate limit', 'Health check'],
     href: '/services/sosop', label: 'SOSOP',
@@ -64,26 +64,23 @@ const caps = [
 
 export default function AIEngineering() {
   return (
-    <section id="ai" aria-labelledby="ai-h" className="pt-16 lg:pt-20">
-      <SectionHead id="ai-h" icon={BrainCircuit} title="AI Engineering" lede="RAG와 로컬 LLM 운영. 모두 지금 돌아가는 서비스에서 나온 이야기입니다." />
+    <section id="ai" aria-labelledby="ai-h" className="sec">
+      <SectionHead id="ai-h" title="AI Engineering" lede="RAG와 로컬 LLM 운영 사례입니다. 모두 현재 운영 중인 서비스에서 나왔습니다." />
       <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {caps.map((c, i) => (
-          <li key={c.k} className={`flex flex-col rounded-2xl border p-6 ${i === 0 ? 'border-primary-strong bg-primary-strong text-off sm:col-span-2' : 'border-line bg-off'}`}>
-            <p className={`text-[13px] font-semibold tracking-wide ${i === 0 ? 'text-off/70' : 'text-primary'}`}>{c.k}</p>
-            <h3 className={`mt-2 font-bold tracking-[-0.5px] ${i === 0 ? 'text-[28px] leading-tight md:text-[34px]' : 'text-[22px] leading-snug'}`}>{c.title}</h3>
-            <p className={`mt-3 leading-relaxed ${i === 0 ? 'text-off/85 md:text-[17px]' : 'text-ink/80'}`}>{c.body}</p>
-            <p className={`mt-4 border-t pt-3 text-sm font-semibold ${i === 0 ? 'border-off/20 text-off' : 'border-line text-primary-strong'}`}>{c.proof}</p>
-            <div className="mt-4 flex flex-1 flex-wrap items-end justify-between gap-3">
-              <ul aria-label="사용 기술" className="flex flex-wrap gap-1.5">
-                {c.tags.map((t) => (
-                  <li key={t} className={`rounded-full px-2.5 py-0.5 text-[12.5px] ${i === 0 ? 'bg-off/12 text-off' : 'bg-primary-tint text-primary-strong'}`}>{t}</li>
-                ))}
-              </ul>
-              <Link href={c.href} className={`group inline-flex min-h-11 items-center gap-1 text-sm font-semibold no-underline ${i === 0 ? 'text-off' : 'text-primary'}`}>
-                {c.label}
-                <ArrowUpRight aria-hidden="true" strokeWidth={2} className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
-              </Link>
-            </div>
+          <li key={c.k} className={`flex flex-col ${i === 0 ? 'surface-dark p-6 sm:col-span-2 sm:p-9' : 'surface lift p-6 sm:p-7'}`}>
+            <h3 className={i === 0 ? 'text-feature' : 'text-h3'}>{c.title}</h3>
+            <p className={`mt-3 flex-1 ${i === 0 ? 'text-body text-off/85 md:text-lead' : 'text-body text-ink-2'}`}>{c.body}</p>
+            <p className={`mt-5 text-small font-semibold ${i === 0 ? 'text-off' : 'text-primary-strong'}`}>{c.proof}</p>
+            <ul aria-label="사용 기술" className="mt-3 flex flex-wrap gap-1.5">
+              {[...new Set([c.k, ...c.tags])].map((t) => (
+                <li key={t} className={i === 0 ? 'inline-flex items-center rounded-full bg-off/12 px-2.5 py-0.5 text-meta text-off' : 'tag'}>{t}</li>
+              ))}
+            </ul>
+            <Link href={c.href} className={`group mt-4 inline-flex min-h-11 items-center gap-1 self-start text-small font-semibold no-underline ${i === 0 ? 'text-off' : 'text-primary'}`}>
+              {c.label}
+              <ArrowUpRight aria-hidden="true" strokeWidth={2} className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
+            </Link>
           </li>
         ))}
       </ul>
