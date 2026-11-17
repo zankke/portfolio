@@ -125,7 +125,7 @@ const allProjects = [
     },
     {
       title: "Kakaopay Securities Dashboard",
-      tech: "Apache-Tomcat, 데이터 로그 분석, 트래픽 모니터링",
+      tech: "Middleware (WAS), 데이터 로그 분석, 트래픽 모니터링",
       desc: "시스템 운영 로그와 트래픽을 분석하고 시각화하는 대시보드를 만들었습니다.",
       image: "/images/prjKakaopaysec_Monitoring.png",
       longDesc: `
