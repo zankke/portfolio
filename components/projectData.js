@@ -102,7 +102,7 @@ const allProjects = [
     }, */
     {
       title: "Edge&Next 의료정보 통합 플랫폼",
-      tech: "CentOS, Apache2, Nginx, PHP 7.4, EMR 연동, React",
+      tech: "CentOS, Apache2, Nginx, PHP, EMR 연동, React",
       desc: "백엔드와 인증 구조를 설계했습니다. EMR과 실시간으로 연동하고 고가용성을 확보했습니다.",
       image: "/images/prjAutomation_01_social.png",
       longDesc: `
