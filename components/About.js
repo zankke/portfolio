@@ -5,7 +5,7 @@ import { stations } from './projectData';
 // `tags` come from the description and from that employer's projects in projectData (org field).
 const career = [
   { yr: '2026–', title: 'MarketLink', role: 'Full Stack AI Engineer', desc: `NVIDIA DGX Spark로 GPU 클러스터를 구축하고 ai.marketlink.co.kr의 AI 서비스 ${stations.length}개를 개발하고 운영합니다.`, tags: ['NVIDIA DGX Spark', 'Ollama', 'Docker', 'FastAPI', 'Next.js', 'React'] },
-  { yr: '2021–2025', title: '베리타스커넥트', role: 'AI 플랫폼개발본부장', desc: 'AI 플랫폼개발본부를 이끌며 생성형 AI 플랫폼과 LLM 인프라를 구축했습니다.', tags: ['생성형 AI 플랫폼', 'LLM 인프라', 'PHP', 'React', 'Apache-Tomcat'] },
+  { yr: '2021–2025', title: '베리타스커넥트', role: 'AI 플랫폼개발본부장', desc: 'AI 플랫폼개발본부를 이끌며 생성형 AI 플랫폼과 LLM 인프라를 구축했습니다. Edge&Next 의료정보 통합 플랫폼에서는 백엔드와 인증 구조를 설계하고 EMR 실시간 연동과 고가용성을 확보했습니다. Kakaopay Securities 대시보드로는 시스템 운영 로그와 트래픽을 분석하고 시각화했습니다.', tags: ['생성형 AI 플랫폼', 'LLM 인프라', '백엔드·인증 설계', 'EMR 연동', '고가용성', '운영 로그 분석', 'PHP', 'React', 'Middleware (WAS)'] },
   { yr: '2018–2021', title: '아이너스', role: 'PM', desc: '고객소통 플랫폼과 LMS 프로젝트의 PM을 맡아 개발까지 이끌었습니다.', tags: ['LMS', 'PHP', 'MS-SQL', 'IIS', 'HTML5'] },
   { yr: '2015–2018', title: 'CJ E&M', desc: 'KCON, MAMA, M Countdown, tvN IP 기반 글로벌 디지털 스폰서십을 기획하고 APAC 세일즈와 미디어 솔루션을 맡았습니다.', tags: ['글로벌 디지털 스폰서십', 'APAC 세일즈', '미디어 솔루션'] },
   { yr: '2009–2015', title: '메조미디어', desc: '광고 플랫폼과 데이터 관리 플랫폼(DMP)을 개발하고 데이터를 분석했습니다.', tags: ['광고 플랫폼', 'DMP', '데이터 분석'] },
